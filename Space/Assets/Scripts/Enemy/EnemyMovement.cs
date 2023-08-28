@@ -66,19 +66,24 @@ public class EnemyMovement : MonoBehaviour
             triggerTargetPosition = false;
         }
 
-        
         Vector2 direction = (targetPosition - transform.position).normalized;
-
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         // Rotacion 
         Quaternion targetRotation = Quaternion.Euler(0, 0, angle + 90.0f);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 200 * Time.deltaTime);
 
-
         Vector2 movement = direction * Speed * Time.deltaTime;
 
         rb.MovePosition(rb.position + movement);
         if (Vector3.Distance(transform.position, targetPosition) <= 0.2f) triggerTargetPosition = true;
+    }
+    public void ResetValues(Vector3 newPosition, MoventPatron pattern)
+    {
+        startPosition = newPosition;
+        transform.position = newPosition;
+        startTime = Time.time;
+        triggerTargetPosition = true;
+        patron = pattern;
     }
 }
