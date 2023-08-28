@@ -8,17 +8,21 @@ public class Canyon : MonoBehaviour
     [SerializeField] private GameObject projectile;
     [SerializeField] private Transform projectirePoint;
     [SerializeField] private float TimeToFire = 2f;
+    private float NowVelocity; 
     private bool canFire = true;
     private Rigidbody2D rb;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerController= GetComponent<PlayerController>();
+        playerController.Fire+=Shoot;
     }
     private void Shoot()
     {
         GameObject Power = Instantiate(projectile, projectirePoint.position, transform.rotation);
-        Power.GetComponent<Rigidbody2D>().velocity += new Vector2(0,rb.velocity.y);
+        if (rb.velocity.y >= 0) NowVelocity = rb.velocity.y;
+        Power.GetComponent<Rigidbody2D>().velocity += new Vector2(0, NowVelocity);
+
         StartCoroutine(Delay());
     }
     private IEnumerator Delay()
