@@ -95,6 +95,7 @@ MonoBehaviour:
   Damage: 1
   Point: 6
   DeadVfx: {fileID: 0}
+  movent: {fileID: 0}
 --- !u!1001 &7455406915028984246
 PrefabInstance:
   m_ObjectHideFlags: 0

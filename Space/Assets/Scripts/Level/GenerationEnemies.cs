@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class GenerationEnemies : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class GenerationEnemies : MonoBehaviour
     [SerializeField] private Transform position;
 
     [SerializeField] private Vector2 spawnTimeRange = new Vector2(5, 10);
+    [SerializeField] private Vector2 MaxPosition = new Vector2(-50, 50);
     private float currentSpawnTime, spawnTimer;
 
     private List<GameObject> enemies = new List<GameObject>();
@@ -19,7 +21,7 @@ public class GenerationEnemies : MonoBehaviour
     {
         if (spawnTimer >= currentSpawnTime)
         {
-            SpawnEnemy(enemies, position.position);
+            SpawnEnemy(enemies, Configuration(position.position));
             currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
             spawnTimer = 0;
         }
@@ -35,6 +37,11 @@ public class GenerationEnemies : MonoBehaviour
         }
         currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
 
+    }
+    private Vector3 Configuration(Vector3 position)
+    {
+        Vector3 TempPosition = new Vector3(Random.Range(MaxPosition.x, MaxPosition.y),position.y,position.z); 
+        return TempPosition;
     }
     /// <summary>
     /// Reinicia a los enemigos en un punto 
