@@ -5,17 +5,21 @@ TagManager:
   serializedVersion: 2
   tags:
   - DesactiveZone
+  - PlayerBullet
+  - Enemy
+  - Walls
+  - ResetZone
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - BulletEnemy
+  - BulletPlayer
+  - Walls
   - 
   - 
   - 

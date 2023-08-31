@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
     private void StarFire(InputAction.CallbackContext ctx){ Fire(); isFiring = true;}
-    private void StopFire(InputAction.CallbackContext ctx) { print("no ataca"); isFiring = false; }
+    private void StopFire(InputAction.CallbackContext ctx) { isFiring = false; }
     private void FixedUpdate()
     {
         Move(inputManager.Player.Move.ReadValue<Vector2>());

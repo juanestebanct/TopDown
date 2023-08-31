@@ -20,7 +20,7 @@ public class Score : MonoBehaviour
     }
     public void GetPoins(int poins)
     {
-        Debug.Log("algo");
+        Debug.Log("Puntaje");
         currentScore +=  poins;
         if (currentScore > highScore)
         {

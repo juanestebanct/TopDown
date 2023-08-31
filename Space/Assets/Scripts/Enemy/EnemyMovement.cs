@@ -44,7 +44,6 @@ public class EnemyMovement : MonoBehaviour
             case MoventPatron.ChaseToPlayer:
                 ChaseToPlayer();
                 break;
-
         }
     }
 
@@ -76,14 +75,15 @@ public class EnemyMovement : MonoBehaviour
         Vector2 movement = direction * Speed * Time.deltaTime;
 
         rb.MovePosition(rb.position + movement);
-        if (Vector3.Distance(transform.position, targetPosition) <= 0.2f) triggerTargetPosition = true;
+        if (Vector3.Distance(transform.position, targetPosition) <=1f) triggerTargetPosition = true;
     }
     public void ResetValues(Vector3 newPosition, MoventPatron pattern)
     {
+        print("Exploto");
         startPosition = newPosition;
-        transform.position = newPosition;
         startTime = Time.time;
         triggerTargetPosition = true;
         patron = pattern;
+        transform.rotation= Quaternion.Euler(0, 0, 0);
     }
 }

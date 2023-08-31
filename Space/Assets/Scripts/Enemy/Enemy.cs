@@ -5,21 +5,30 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(EnemyMovement))]
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour ,IDamage
 {
     [SerializeField] protected int Live;
     [SerializeField] protected int Damage;
+    [SerializeField] protected int Point;
     [SerializeField] protected GameObject DeadVfx;
 
-    public void Desactive()
+    public virtual void ResetMovent(Vector3 position)
     {
-        var deathFX = Instantiate(DeadVfx);
-        deathFX.transform.position = transform.position;
-        Destroy(deathFX, 1f);
+        //var deathFX = Instantiate(DeadVfx);
+        //deathFX.transform.position = transform.position;
+        //Destroy(deathFX, 1f);
+        gameObject.SetActive(false);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    public virtual void Desactive()
     {
-        if (collision.CompareTag("DesactiveZone")) Desactive();
+
     }
+
+    public virtual void ResiveDamage(float Damage)
+    {
+       
+    }
+
+
 
 }

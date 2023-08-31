@@ -21,6 +21,24 @@ public class Bullet : Projectile
     }
     private void Desactive()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        switch (type)
+        {
+            case BulletType.Enemy:
+                
+                break;
+
+            case BulletType.Player:
+                if (collision.gameObject.CompareTag("Enemy"))
+                {
+                    collision.gameObject.GetComponent<IDamage>().ResiveDamage(damage);
+                }
+                gameObject.SetActive(false);
+                break;
+        }
     }
 }
