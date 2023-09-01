@@ -78,7 +78,7 @@ MonoBehaviour:
   circleRadius: 10
   rotatioSpeed: 3
   downSpeed: 10
-  Speed: 50
+  Speed: 100
 --- !u!114 &4731501046977067111
 MonoBehaviour:
   m_ObjectHideFlags: 0

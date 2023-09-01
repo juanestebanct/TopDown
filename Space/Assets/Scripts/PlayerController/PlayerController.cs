@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
     public InputManager inputManager;
     public Action Fire;
+    public Action Reset;
     #endregion
 
     #region private
@@ -41,5 +42,9 @@ public class PlayerController : MonoBehaviour
     private void Move(Vector2 movement)
     {
         rb.velocity = movement * speed * 10 * Time.fixedDeltaTime;
+    }
+    private void OnDisable()
+    {
+        inputManager.Player.Disable();
     }
 }

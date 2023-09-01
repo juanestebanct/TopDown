@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour
+[RequireComponent(typeof(PlayerController))]
+public class PlayerStats : MonoBehaviour, IDamage
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float Live;
+    public void ResiveDamage(float Damage)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Live-= Damage;
+        if (Live < 0) PlayerController.instance.Reset();
     }
 }

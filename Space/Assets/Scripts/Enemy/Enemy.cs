@@ -29,6 +29,14 @@ public abstract class Enemy : MonoBehaviour ,IDamage
        
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<IDamage>().ResiveDamage(Damage);
+            gameObject.SetActive(false);
+        }
+    }
 
 
 }
