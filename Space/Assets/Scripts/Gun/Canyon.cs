@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Canyon : MonoBehaviour
 {
-    private PlayerController playerController;
     [SerializeField] private GameObject projectile;
     [SerializeField] private Transform projectirePoint;
     [SerializeField] private float TimeToFire = 2f;
+
+    private PlayerController playerController;
     private float NowVelocity; 
     private bool canFire = true;
     private Rigidbody2D rb;

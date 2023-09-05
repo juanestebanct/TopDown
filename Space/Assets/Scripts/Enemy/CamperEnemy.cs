@@ -1,20 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyMovement))]
-public class CommunEnemy : Enemy
+public class CamperEnemy : Enemy
 {
     [SerializeField] protected EnemyMovement movent;
-
     private void Awake()
     {
         movent = GetComponent<EnemyMovement>();
     }
+    // Start is called before the first frame update
     public override void ResetMovent(Vector3 position)
     {
-        MoventPatron patron = (MoventPatron)Random.Range(0, 2);
-        movent.ResetValues(position,patron);
+        MoventPatron patron = (MoventPatron)3;
+        movent.ResetValues(position, patron);
     }
     public override void Desactive()
     {
@@ -27,10 +27,5 @@ public class CommunEnemy : Enemy
     {
         Score.Instance.GetPoins(Point);
         Desactive();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("ResetZone")) Desactive();
     }
 }

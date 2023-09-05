@@ -45,10 +45,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DisolverAmount: 0.113
-    - _Lerp: 0.01
-    - _NoiseScale: 25
-    - _PowerNoise: 14.27
+    - _DisolverAmount: 0
+    - _Lerp: 0.014
+    - _NoiseScale: 37.1
+    - _PowerNoise: 11.95
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:

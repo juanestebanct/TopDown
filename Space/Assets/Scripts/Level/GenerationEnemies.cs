@@ -57,7 +57,7 @@ public class GenerationEnemies : MonoBehaviour
         }
         enemy.transform.position = Position;
         enemy.SetActive(true);
-        enemy.GetComponent<CommunEnemy>().ResetMovent(Position);
+        enemy.GetComponent<Enemy>().ResetMovent(Position);
 
     }
 }

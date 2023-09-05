@@ -33,11 +33,13 @@ public class Bullet : Projectile
                 break;
 
             case BulletType.Player:
+
                 if (collision.gameObject.CompareTag("Enemy"))
                 {
                     collision.gameObject.GetComponent<IDamage>().ResiveDamage(damage);
                 }
                 gameObject.SetActive(false);
+
                 break;
         }
     }

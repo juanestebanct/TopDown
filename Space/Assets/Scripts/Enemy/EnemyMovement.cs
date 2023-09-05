@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
-public enum MoventPatron {Circule,ChaseToPlayer }
+public enum MoventPatron {Circule,ChaseToPlayer,Down,HorizonChange }
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyMovement : MonoBehaviour
@@ -25,6 +26,10 @@ public class EnemyMovement : MonoBehaviour
     private bool triggerTargetPosition;
     private Vector3 targetPosition;
 
+    [Header("MoveDown")]
+    [SerializeField] private float SpeedDown;
+    [SerializeField] private float timeToDown, currentDropTime;
+
     // Update is called once per frame
     private void Awake()
     {
@@ -32,6 +37,7 @@ public class EnemyMovement : MonoBehaviour
         startPosition = transform.position;
         startTime = Time.time;
         triggerTargetPosition = true;
+        currentDropTime = 0;
     }
     private void Update()
     {
@@ -44,6 +50,13 @@ public class EnemyMovement : MonoBehaviour
             case MoventPatron.ChaseToPlayer:
                 ChaseToPlayer();
                 break;
+            case MoventPatron.Down:
+                MovenDown();
+                break;
+            case MoventPatron.HorizonChange:
+                ChaseHorizon();
+                break;
+            
         }
     }
 
@@ -77,13 +90,55 @@ public class EnemyMovement : MonoBehaviour
         rb.MovePosition(rb.position + movement);
         if (Vector3.Distance(transform.position, targetPosition) <=1f) triggerTargetPosition = true;
     }
+    private void ChaseHorizon()
+    {
+        targetPosition = PlayerController.instance.transform.position;
+        Vector2 direction = new Vector2((targetPosition.x - transform.position.x),0).normalized;
+
+        float distanciaEnEjeX = Mathf.Abs(transform.position.x - targetPosition.x);
+        if (distanciaEnEjeX >= 1f)
+        {
+            Vector2 movement = direction * Speed * Time.deltaTime;
+            rb.MovePosition(rb.position + movement);
+        }
+
+    }
+    //lo baja verticalmente hasta un punto
+    private void MovenDown()
+    {
+        Vector2 movement = Vector2.down * SpeedDown * Time.deltaTime;
+        rb.MovePosition(rb.position + movement);
+
+        if (currentDropTime >= timeToDown)
+        {
+            currentDropTime = 0;
+            patron = MoventPatron.HorizonChange;
+        }
+        currentDropTime += Time.deltaTime;
+    }
+    private void ChangePatron()
+    {
+        switch (patron)
+        {
+            case MoventPatron.Circule:
+                MovementCircule();
+                break;
+            case MoventPatron.ChaseToPlayer:
+                ChaseToPlayer();
+                break;
+            case MoventPatron.HorizonChange:
+                ChaseHorizon();
+                break;
+        }
+    }
     public void ResetValues(Vector3 newPosition, MoventPatron pattern)
     {
-        print("Exploto");
         startPosition = newPosition;
         startTime = Time.time;
         triggerTargetPosition = true;
         patron = pattern;
         transform.rotation= Quaternion.Euler(0, 0, 0);
+        currentDropTime = 0;
+        ChangePatron();
     }
 }

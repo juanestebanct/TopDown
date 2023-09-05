@@ -15,7 +15,7 @@ public abstract class Enemy : MonoBehaviour ,IDamage
     public virtual void ResetMovent(Vector3 position)
     {
         //var deathFX = Instantiate(DeadVfx);
-        //deathFX.transform.position = transform.position;
+        //deathFX.transform.positionRay = transform.positionRay;
         //Destroy(deathFX, 1f);
         gameObject.SetActive(false);
     }
