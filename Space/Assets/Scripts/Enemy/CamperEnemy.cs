@@ -13,7 +13,8 @@ public class CamperEnemy : Enemy
     // Start is called before the first frame update
     public override void ResetMovent(Vector3 position)
     {
-        MoventPatron patron = (MoventPatron)3;
+        Debug.Log("Se esta cargando el movimiento en camper enemigo");
+        MoventPatron patron = MoventPatron.Down;
         movent.ResetValues(position, patron);
     }
     public override void Desactive()

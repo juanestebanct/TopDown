@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class RayGun : MonoBehaviour
 {
+    [Header("Laser")]
     [SerializeField] private GameObject laser;
     [SerializeField] private Transform positionRay;
     [SerializeField] private float rayCastDistance;
@@ -40,22 +41,23 @@ public class RayGun : MonoBehaviour
     /// <summary>
     /// Desactiva el el rayo
     /// </summary>
-    private void DesactiveRay()
+    public void DesactiveRay()
     {
         canDamage = false;
     }
 
     /// <summary>
-    /// activa el rayo
+    /// activa el rayo y llama la funcion a laser ray
     /// </summary>
     private void ActiveRay()
     {
         laser.SetActive(true);
         canDamage = true;
+        laser.GetComponent<LaserRay>().active();
     }
    
     /// <summary>
-    /// La
+    /// Calcula donde va a caer el rayo 
     /// </summary>
     /// <returns></returns>
     private void EndLaser()
@@ -64,10 +66,10 @@ public class RayGun : MonoBehaviour
 
         if (hit.collider != null)
         {
-            Debug.Log("Objeto golpeado: " + hit.collider.gameObject.name);
             Debug.DrawLine(positionRay.position, hit.point, Color.green);
-            lastRayPosition = new Vector3(0, hit.collider.transform.position.y,0);
-            if (canDamage) laser.GetComponent<LaserRay>().Damage(hit.collider.gameObject);
+            float PoinToRay = hit.collider.transform.position.y - positionRay.position.y;
+            lastRayPosition = new Vector3(0, PoinToRay, 0);
+            laser.GetComponent<LaserRay>().Damage(hit.collider.gameObject);
         }
         else
         {
@@ -76,4 +78,5 @@ public class RayGun : MonoBehaviour
             lastRayPosition = transform.position;
         }
     }
+
 }

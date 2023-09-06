@@ -45,7 +45,6 @@ public class CoinsManager : MonoBehaviour
     }
     private void SpawnCoins()
     {
-        Debug.Log("Spawn Coins");
         GameObject _coin = coins.Find(b => !b.activeSelf);
         if (_coin == null)
         {

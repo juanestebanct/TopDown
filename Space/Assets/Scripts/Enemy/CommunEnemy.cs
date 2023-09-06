@@ -13,7 +13,9 @@ public class CommunEnemy : Enemy
     }
     public override void ResetMovent(Vector3 position)
     {
+        Debug.Log("Se esta cargando el movimiento en commun");
         MoventPatron patron = (MoventPatron)Random.Range(0, 2);
+        print(patron);
         movent.ResetValues(position,patron);
     }
     public override void Desactive()

@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class GenerationEnemies : MonoBehaviour
 {
-    [SerializeField] private GameObject CommunEnemy;
+    [SerializeField] private GameObject[] enemys;
     [SerializeField] private Transform position;
 
     [SerializeField] private Vector2 spawnTimeRange = new Vector2(5, 10);
@@ -29,10 +29,11 @@ public class GenerationEnemies : MonoBehaviour
     }
     private void PoolEnemies()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 3; i++)
         {
-            GameObject enemy = Instantiate(CommunEnemy);
-            CommunEnemy.SetActive(false);
+            int range = Random.Range(0, enemys.Length);
+            GameObject enemy = Instantiate(enemys[range]);
+            enemy.SetActive(false);
             enemy.transform.position = position.position;
         }
         currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
@@ -52,7 +53,8 @@ public class GenerationEnemies : MonoBehaviour
         GameObject enemy = pool.Find(b => !b.activeSelf);
         if (enemy == null)
         {
-            enemy = Instantiate(CommunEnemy);
+            int range = Random.Range(0, enemys.Length);
+            enemy = Instantiate(enemys[range]);
             pool.Add(enemy);
         }
         enemy.transform.position = Position;
