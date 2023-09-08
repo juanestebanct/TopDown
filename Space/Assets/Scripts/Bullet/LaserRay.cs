@@ -48,8 +48,18 @@ public class LaserRay : Projectile
         if(curreDesactiveTime >= desactivateTime)
         {
             curreDesactiveTime = 0;
+            DesactiveLaser();
         }
         curreDesactiveTime += Time.deltaTime;
+    }
+
+    private void DesactiveLaser()
+    {
+        canDamage = false;
+        lineRenderer.SetPosition(1, Vector3.zero);
+        Raygun.DesactiveRay();
+        LineParticule.Stop();
+        LineParticule.Clear();
     }
     private IEnumerator LineDraw()
     {
@@ -57,10 +67,6 @@ public class LaserRay : Projectile
         canDamage = true;
 
         yield return new WaitForSeconds(EndTime);
-        canDamage = false;
-        lineRenderer.SetPosition(1,Vector3.zero);
-        Raygun.DesactiveRay();
-        LineParticule.Stop();
-        LineParticule.Clear();
+        DesactiveLaser();
     }
 }

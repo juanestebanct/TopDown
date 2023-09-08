@@ -40,7 +40,7 @@ public class Bullet : Projectile
                 }
                 gameObject.SetActive(false);
 
-                break;
+               break;
         }
     }
 }

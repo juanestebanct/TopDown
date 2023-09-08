@@ -27,6 +27,9 @@ public class GenerationEnemies : MonoBehaviour
         }
         spawnTimer += Time.deltaTime;
     }
+    /// <summary>
+    /// Instncia los primeros enemigos del pool
+    /// </summary>
     private void PoolEnemies()
     {
         for (int i = 0; i < 3; i++)
@@ -45,11 +48,10 @@ public class GenerationEnemies : MonoBehaviour
         return TempPosition;
     }
     /// <summary>
-    /// Reinicia a los enemigos en un punto 
+    /// Reinicia a los enemigos y hace el metodo pool con ellos
     /// </summary>
     private void SpawnEnemy(List<GameObject> pool,Vector3 Position)
     {
-        Debug.Log("Spawn Enemy");
         GameObject enemy = pool.Find(b => !b.activeSelf);
         if (enemy == null)
         {

@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6321861676104329787
 Transform:
   m_ObjectHideFlags: 0
@@ -33,7 +33,7 @@ Transform:
   m_Children:
   - {fileID: 6988553543614875229}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8669517567774724260
 Rigidbody2D:
@@ -74,11 +74,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cd716d06dba6db4da4dad63afc57de0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patron: 0
+  patron: 1
   circleRadius: 10
   rotatioSpeed: 3
   downSpeed: 10
-  Speed: 100
+  Speed: 20
+  SpeedDown: 5
+  timeToDown: 5
+  currentDropTime: 5
 --- !u!114 &4731501046977067111
 MonoBehaviour:
   m_ObjectHideFlags: 0

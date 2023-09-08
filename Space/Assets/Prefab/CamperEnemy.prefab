@@ -112,8 +112,8 @@ MonoBehaviour:
   circleRadius: 10
   rotatioSpeed: 3
   downSpeed: 10
-  Speed: 100
-  SpeedDown: 60
+  Speed: 15
+  SpeedDown: 15
   timeToDown: 4
   currentDropTime: 6
 --- !u!114 &2610826097518184070
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Live: 3
   Damage: 1
-  Point: 6
+  Point: 20
   DeadVfx: {fileID: 0}
   movent: {fileID: 0}
 --- !u!1 &8021405344624310546
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
-  desactivateTime: 5
+  desactivateTime: 3.5
   curreDesactiveTime: 1
   type: 0
   Raygun: {fileID: 2610826097518184070}

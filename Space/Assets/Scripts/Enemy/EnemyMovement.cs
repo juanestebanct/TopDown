@@ -39,7 +39,7 @@ public class EnemyMovement : MonoBehaviour
         triggerTargetPosition = true;
         currentDropTime = 0;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         switch (patron)
         {
@@ -85,7 +85,7 @@ public class EnemyMovement : MonoBehaviour
         Quaternion targetRotation = Quaternion.Euler(0, 0, angle + 90.0f);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 200 * Time.deltaTime);
 
-        Vector2 movement = direction * Speed * Time.deltaTime;
+        Vector2 movement = direction * Speed * Time.fixedDeltaTime;
 
         rb.MovePosition(rb.position + movement);
         if (Vector3.Distance(transform.position, targetPosition) <=1f) triggerTargetPosition = true;
@@ -98,15 +98,21 @@ public class EnemyMovement : MonoBehaviour
         float distanciaEnEjeX = Mathf.Abs(transform.position.x - targetPosition.x);
         if (distanciaEnEjeX >= 1f)
         {
-            Vector2 movement = direction * Speed * Time.deltaTime;
+            Vector2 movement = direction * Speed * Time.fixedDeltaTime;
             rb.MovePosition(rb.position + movement);
         }
+        if (currentDropTime >= timeToDown)
+        {
+            currentDropTime = 0;
+            patron = MoventPatron.Down;
+        }
+        currentDropTime += Time.deltaTime;
 
     }
     //lo baja verticalmente hasta un punto
     private void MovenDown()
     {
-        Vector2 movement = Vector2.down * SpeedDown * Time.deltaTime;
+        Vector2 movement = Vector2.down * SpeedDown * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + movement);
 
         if (currentDropTime >= timeToDown)

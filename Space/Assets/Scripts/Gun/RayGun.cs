@@ -13,6 +13,7 @@ public class RayGun : MonoBehaviour
     [SerializeField] private bool canDamage;
     [SerializeField] private float timeFire, curreTimeFire;
 
+
     private void Awake()
     {
         laser.transform.position= positionRay.transform.position;
