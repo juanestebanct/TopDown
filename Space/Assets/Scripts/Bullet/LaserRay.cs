@@ -7,10 +7,11 @@ using UnityEngine.UIElements;
 
 public class LaserRay : Projectile
 {
+    [Header("Raygun ")]
     [SerializeField] private RayGun Raygun;
     [SerializeField] private ParticleSystem LineParticule;
     [SerializeField] private LineRenderer lineRenderer;
-    [SerializeField] private float waitToStar,EndTime;
+    [SerializeField] private float waitToStar;
     private bool canDamage;
     public Coroutine lineDraw;
 
@@ -31,12 +32,7 @@ public class LaserRay : Projectile
         switch (type)
         {
             case BulletType.Enemy:
-
-                if (Objetive.CompareTag("Player"))
-                {
-                    Objetive.GetComponent<IDamage>().ResiveDamage(damage);
-                }
-
+                if (Objetive.CompareTag("Player")) Objetive.GetComponent<IDamage>().ResiveDamage(damage);
                 break;
             case BulletType.Player:
                 break;
@@ -49,8 +45,7 @@ public class LaserRay : Projectile
         {
             curreDesactiveTime = 0;
             DesactiveLaser();
-        }
-        curreDesactiveTime += Time.deltaTime;
+        }if(canDamage)curreDesactiveTime += Time.deltaTime;
     }
 
     private void DesactiveLaser()
@@ -66,7 +61,7 @@ public class LaserRay : Projectile
         yield return new WaitForSeconds(waitToStar);
         canDamage = true;
 
-        yield return new WaitForSeconds(EndTime);
+        yield return new WaitForSeconds(desactivateTime);
         DesactiveLaser();
     }
 }

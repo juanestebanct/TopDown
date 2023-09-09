@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
 
-public class CamperEnemy : Enemy
+public class GasterBlaster : Enemy
 {
     [SerializeField] protected EnemyMovement movent;
     private void Awake()
@@ -27,9 +26,5 @@ public class CamperEnemy : Enemy
     {
         Score.Instance.GetPoins(Point);
         Desactive();
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("ResetZone")) Desactive();
     }
 }

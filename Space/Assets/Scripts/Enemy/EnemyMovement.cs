@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-public enum MoventPatron {Circule,ChaseToPlayer,Down,HorizonChange }
+public enum MoventPatron {Circule,ChaseToPlayer,Down,HorizonChange,LookPlayer }
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyMovement : MonoBehaviour
@@ -22,7 +22,8 @@ public class EnemyMovement : MonoBehaviour
     private float startTime;
 
     [Header("ChaseToPlayer")]
-    [SerializeField] private float Speed;
+    [SerializeField] private float speedChase;
+    [SerializeField] private float rotationLook;
     private bool triggerTargetPosition;
     private Vector3 targetPosition;
 
@@ -41,23 +42,7 @@ public class EnemyMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        switch (patron)
-        {
-            case MoventPatron.Circule:
-                MovementCircule();
-                break;
-
-            case MoventPatron.ChaseToPlayer:
-                ChaseToPlayer();
-                break;
-            case MoventPatron.Down:
-                MovenDown();
-                break;
-            case MoventPatron.HorizonChange:
-                ChaseHorizon();
-                break;
-            
-        }
+        ChangePatron();
     }
 
     private void MovementCircule()
@@ -83,9 +68,9 @@ public class EnemyMovement : MonoBehaviour
 
         // Rotacion 
         Quaternion targetRotation = Quaternion.Euler(0, 0, angle + 90.0f);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 200 * Time.deltaTime);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationLook * Time.deltaTime);
 
-        Vector2 movement = direction * Speed * Time.fixedDeltaTime;
+        Vector2 movement = direction * speedChase * Time.fixedDeltaTime;
 
         rb.MovePosition(rb.position + movement);
         if (Vector3.Distance(transform.position, targetPosition) <=1f) triggerTargetPosition = true;
@@ -98,7 +83,7 @@ public class EnemyMovement : MonoBehaviour
         float distanciaEnEjeX = Mathf.Abs(transform.position.x - targetPosition.x);
         if (distanciaEnEjeX >= 1f)
         {
-            Vector2 movement = direction * Speed * Time.fixedDeltaTime;
+            Vector2 movement = direction * speedChase * Time.fixedDeltaTime;
             rb.MovePosition(rb.position + movement);
         }
         if (currentDropTime >= timeToDown)
@@ -132,9 +117,16 @@ public class EnemyMovement : MonoBehaviour
             case MoventPatron.ChaseToPlayer:
                 ChaseToPlayer();
                 break;
+            case MoventPatron.Down:
+                MovenDown();
+                break;
             case MoventPatron.HorizonChange:
                 ChaseHorizon();
                 break;
+            case MoventPatron.LookPlayer:
+                LookAtThePlayer();
+                break;
+
         }
     }
     public void ResetValues(Vector3 newPosition, MoventPatron pattern)
@@ -146,5 +138,20 @@ public class EnemyMovement : MonoBehaviour
         transform.rotation= Quaternion.Euler(0, 0, 0);
         currentDropTime = 0;
         ChangePatron();
+    }
+    public void LookAtThePlayer()
+    {
+        targetPosition = PlayerController.instance.transform.position;
+
+        Vector2 direction = (targetPosition - transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // Rotacion 
+        Quaternion targetRotation = Quaternion.Euler(0, 0, angle + 90.0f);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationLook * Time.deltaTime);
+    }
+    public void GoBack()
+    {
+
     }
 }

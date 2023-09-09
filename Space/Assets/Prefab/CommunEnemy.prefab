@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6321861676104329787
 Transform:
   m_ObjectHideFlags: 0
@@ -78,7 +78,8 @@ MonoBehaviour:
   circleRadius: 10
   rotatioSpeed: 3
   downSpeed: 10
-  Speed: 20
+  speedChase: 20
+  rotationLook: 200
   SpeedDown: 5
   timeToDown: 5
   currentDropTime: 5

@@ -33,11 +33,7 @@ public class RayGun : MonoBehaviour
             EndLaser();
             laser.GetComponent<LaserRay>().RayPosition(lastRayPosition);
         }
-        else
-        {
-            curreTimeFire += Time.deltaTime;
-        }
-
+        else curreTimeFire += Time.deltaTime;
     }
     /// <summary>
     /// Desactiva el el rayo
@@ -58,18 +54,18 @@ public class RayGun : MonoBehaviour
     }
    
     /// <summary>
-    /// Calcula donde va a caer el rayo 
+    /// Calcula donde va a caer el rayo y llama el daño
     /// </summary>
     /// <returns></returns>
     private void EndLaser()
     {
-        RaycastHit2D hit = Physics2D.Raycast(positionRay.position, Vector2.down, rayCastDistance);
+        RaycastHit2D hit = Physics2D.Raycast(positionRay.position, positionRay.forward, rayCastDistance);
 
         if (hit.collider != null)
         {
             Debug.DrawLine(positionRay.position, hit.point, Color.green);
-            float PoinToRay = hit.collider.transform.position.y - positionRay.position.y;
-            lastRayPosition = new Vector3(0, PoinToRay, 0);
+            float magnitudeBetweenVectors = Vector3.Distance(hit.collider.transform.position, positionRay.position);
+            lastRayPosition = new Vector3(0,-magnitudeBetweenVectors, 0);
             laser.GetComponent<LaserRay>().Damage(hit.collider.gameObject);
         }
         else

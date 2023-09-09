@@ -112,7 +112,8 @@ MonoBehaviour:
   circleRadius: 10
   rotatioSpeed: 3
   downSpeed: 10
-  Speed: 15
+  speedChase: 15
+  rotationLook: 0
   SpeedDown: 15
   timeToDown: 4
   currentDropTime: 6
@@ -302,7 +303,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6549989398355453429, guid: becedc1bf8c142d47867010f5449881f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -15
+      value: 14.3
       objectReference: {fileID: 0}
     - target: {fileID: 6549989398355453429, guid: becedc1bf8c142d47867010f5449881f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -371,15 +372,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47eb1e45fd60b4a47a886b2c5c8ea7b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 5
+  damage: 1
   desactivateTime: 3.5
-  curreDesactiveTime: 1
+  curreDesactiveTime: 0
   type: 0
   Raygun: {fileID: 2610826097518184070}
   LineParticule: {fileID: 6540855089014515823}
   lineRenderer: {fileID: 5082578758399286725}
   waitToStar: 0.5
-  EndTime: 3
 --- !u!198 &6540855089014515823 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1576861956458673079, guid: becedc1bf8c142d47867010f5449881f, type: 3}
