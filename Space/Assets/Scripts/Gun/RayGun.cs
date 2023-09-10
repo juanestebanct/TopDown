@@ -13,14 +13,11 @@ public class RayGun : MonoBehaviour
     [SerializeField] private bool canDamage, disableforcedlacer;
     public float timeFire;
     private float curreTimeFire;
-    private Enemy enemy;
-
     private void Awake()
     {
         laser.transform.position= positionRay.transform.position;
         laser.transform.rotation = transform.rotation;
         laser.SetActive(false);
-        enemy = GetComponent<Enemy>();
     }
     private void Update()
     {
@@ -30,7 +27,6 @@ public class RayGun : MonoBehaviour
             ActiveRay();
             curreTimeFire = 0;
         }
-        if (disableforcedlacer) return;
         if (canDamage)
         {
             EndLaser();
@@ -64,6 +60,12 @@ public class RayGun : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(positionRay.position, positionRay.forward, rayCastDistance);
 
+        if (disableforcedlacer)
+        {
+            lastRayPosition = new Vector3(0, -300, 0);
+            laser.GetComponent<LaserRay>().RayPosition(lastRayPosition);
+            return;
+        }
         if (hit.collider != null)
         {
             Debug.DrawLine(positionRay.position, hit.point, Color.green);
@@ -81,8 +83,15 @@ public class RayGun : MonoBehaviour
     public void DisableForcedLacer(bool Damage)
     {
         disableforcedlacer = Damage;
-        lastRayPosition = new Vector3(0, -300, 0);
-        laser.GetComponent<LaserRay>().RayPosition(lastRayPosition);
+        if (disableforcedlacer)
+        {
+            lastRayPosition = new Vector3(0, -300, 0);
+            laser.GetComponent<LaserRay>().RayPosition(lastRayPosition);
+        }
+    }
+    private void OnDisable()
+    {
+        DesactiveRay();
     }
 
 }

@@ -34,11 +34,11 @@ public class LaserRay : Projectile
     }
     public void active()
     {
-        LineParticule.Play();
+        elapsedTime = 0;
         lineDraw = StartCoroutine(LineDraw());
+
         lineRenderer.startWidth = 5;
         lineRenderer.endWidth = 5;
-        // Establece el ancho objetivo como el valor final de la curva de animación
         targetWidth = blendedCurve.Evaluate(1f);
 
     }
@@ -55,15 +55,7 @@ public class LaserRay : Projectile
                 break;
         }
     }
-    
-    private void Update()
-    {
-        if(curreDesactiveTime >= desactivateTime)
-        {
-            curreDesactiveTime = 0;
-            DesactiveLaser();
-        }if(canDamage)curreDesactiveTime += Time.deltaTime;
-    }
+
 
     private void DesactiveLaser()
     {
@@ -75,13 +67,15 @@ public class LaserRay : Projectile
     }
     private IEnumerator LineDraw()
     {
+        LineParticule.Play();
         yield return new WaitForSeconds(waitToStar);
+
         canDamage = true;
         StartCoroutine(ChangeWidthGradually());
         yield return new WaitForSeconds(desactivateTime);
+
         DesactiveLaser();
     }
-
 
     private IEnumerator ChangeWidthGradually()
     {
@@ -106,7 +100,11 @@ public class LaserRay : Projectile
         // Asegúrate de que el ancho final sea exacto
         lineRenderer.startWidth = targetWidth;
         lineRenderer.endWidth = targetWidth;
-        elapsedTime = 0;
+    }
+    private void OnDisable()
+    {
+        StopCoroutine(lineDraw);
+        DesactiveLaser();
     }
 
 }

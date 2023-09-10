@@ -13,8 +13,6 @@ public abstract class Enemy : MonoBehaviour, IDamage
     [SerializeField] protected int Damage;
     [SerializeField] protected int Point;
     [SerializeField] protected GameObject DeadVfx;
-    
-
     public virtual void ResetMovent(Vector3 position)
     {
         //var deathFX = Instantiate(DeadVfx);

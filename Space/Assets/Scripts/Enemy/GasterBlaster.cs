@@ -30,7 +30,7 @@ public class GasterBlaster : Enemy
     {
         currentime = 0;
         rayGun.DisableForcedLacer(false);
-        MoventPatron patron = MoventPatron.Down;
+        MoventPatron patron = MoventPatron.LookPlayer;
         movent.ResetValues(position, patron);
     }
     public override void Desactive()

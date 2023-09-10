@@ -5,13 +5,13 @@ using UnityEngine.UIElements;
 
 public class GenerationEnemies : MonoBehaviour
 {
+    [Header("Stats to spawn")]
     [SerializeField] private GameObject[] enemys;
     [SerializeField] private Transform position;
-
     [SerializeField] private Vector2 spawnTimeRange = new Vector2(5, 10);
     [SerializeField] private Vector2 MaxPosition = new Vector2(-50, 50);
-    private float currentSpawnTime, spawnTimer;
 
+    private float currentSpawnTime, spawnTimer;
     private List<GameObject> enemies = new List<GameObject>();
     private void Awake()
     {
