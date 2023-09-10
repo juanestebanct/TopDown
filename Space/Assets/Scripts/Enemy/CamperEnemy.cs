@@ -28,8 +28,4 @@ public class CamperEnemy : Enemy
         Score.Instance.GetPoins(Point);
         Desactive();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("ResetZone")) Desactive();
-    }
 }

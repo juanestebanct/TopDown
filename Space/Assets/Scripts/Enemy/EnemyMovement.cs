@@ -5,13 +5,14 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-public enum MoventPatron {Circule,ChaseToPlayer,Down,HorizonChange,LookPlayer }
+public enum MoventPatron {Circule,ChaseToPlayer,Down,HorizonChange,LookPlayer,GoBack }
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
     [SerializeField] private MoventPatron patron;
+    [SerializeField] private Enemy enemy;
 
     [Header("Circle Movement")]
     [SerializeField] private float circleRadius;
@@ -31,9 +32,13 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float SpeedDown;
     [SerializeField] private float timeToDown, currentDropTime;
 
+    [Header("MoveBack")]
+    [SerializeField] private float speedBack;
+
     // Update is called once per frame
     private void Awake()
     {
+        enemy= GetComponent<Enemy>();
         rb = GetComponent<Rigidbody2D>();
         startPosition = transform.position;
         startTime = Time.time;
@@ -90,6 +95,7 @@ public class EnemyMovement : MonoBehaviour
         {
             currentDropTime = 0;
             patron = MoventPatron.Down;
+            ChangePatron();
         }
         currentDropTime += Time.deltaTime;
 
@@ -104,6 +110,7 @@ public class EnemyMovement : MonoBehaviour
         {
             currentDropTime = 0;
             patron = MoventPatron.HorizonChange;
+            ChangePatron();
         }
         currentDropTime += Time.deltaTime;
     }
@@ -112,19 +119,22 @@ public class EnemyMovement : MonoBehaviour
         switch (patron)
         {
             case MoventPatron.Circule:
-                MovementCircule();
+                enemy.Move = MovementCircule;
                 break;
             case MoventPatron.ChaseToPlayer:
-                ChaseToPlayer();
+                enemy.Move = ChaseToPlayer;
                 break;
             case MoventPatron.Down:
-                MovenDown();
+                enemy.Move = MovenDown;
                 break;
             case MoventPatron.HorizonChange:
-                ChaseHorizon();
+                enemy.Move = ChaseHorizon;
                 break;
             case MoventPatron.LookPlayer:
-                LookAtThePlayer();
+                enemy.Move = LookAtThePlayer;
+                break;
+            case MoventPatron.GoBack:
+                enemy.Move = GoBack;
                 break;
 
         }
@@ -139,6 +149,12 @@ public class EnemyMovement : MonoBehaviour
         currentDropTime = 0;
         ChangePatron();
     }
+
+    public void ChangeRute(MoventPatron pattern)
+    {
+        patron = pattern;
+        ChangePatron();
+    }
     public void LookAtThePlayer()
     {
         targetPosition = PlayerController.instance.transform.position;
@@ -149,9 +165,11 @@ public class EnemyMovement : MonoBehaviour
         // Rotacion 
         Quaternion targetRotation = Quaternion.Euler(0, 0, angle + 90.0f);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationLook * Time.deltaTime);
+        ChangePatron();
     }
     public void GoBack()
     {
-
+        Vector2 movement = transform.up * speedBack * Time.fixedDeltaTime;
+        rb.MovePosition(rb.position + movement);
     }
 }

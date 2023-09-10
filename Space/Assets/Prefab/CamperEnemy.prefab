@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patron: 2
+  enemy: {fileID: 0}
   circleRadius: 10
   rotatioSpeed: 3
   downSpeed: 10
@@ -117,6 +118,7 @@ MonoBehaviour:
   SpeedDown: 15
   timeToDown: 4
   currentDropTime: 6
+  speedBack: 0
 --- !u!114 &2610826097518184070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,8 +136,8 @@ MonoBehaviour:
   rayCastDistance: 100
   lastRayPosition: {x: 0, y: 0, z: 0}
   canDamage: 0
-  timeFire: 4
-  curreTimeFire: 0
+  disableforcedlacer: 0
+  timeFire: 3
 --- !u!114 &3925621497205110388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,6 +295,42 @@ PrefabInstance:
       propertyPath: m_Positions.Array.data[1].y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 697803850229876253, guid: becedc1bf8c142d47867010f5449881f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 697803850229876253, guid: becedc1bf8c142d47867010f5449881f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
+      value: 0.9939079
+      objectReference: {fileID: 0}
+    - target: {fileID: 697803850229876253, guid: becedc1bf8c142d47867010f5449881f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.98672324
+      objectReference: {fileID: 0}
+    - target: {fileID: 697803850229876253, guid: becedc1bf8c142d47867010f5449881f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 697803850229876253, guid: becedc1bf8c142d47867010f5449881f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 697803850229876253, guid: becedc1bf8c142d47867010f5449881f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 697803850229876253, guid: becedc1bf8c142d47867010f5449881f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].inWeight
+      value: 0.07148671
+      objectReference: {fileID: 0}
+    - target: {fileID: 697803850229876253, guid: becedc1bf8c142d47867010f5449881f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 697803850229876253, guid: becedc1bf8c142d47867010f5449881f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6549989398355453429, guid: becedc1bf8c142d47867010f5449881f, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -373,13 +411,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  desactivateTime: 3.5
+  desactivateTime: 2.5
   curreDesactiveTime: 0
   type: 0
   Raygun: {fileID: 2610826097518184070}
   LineParticule: {fileID: 6540855089014515823}
   lineRenderer: {fileID: 5082578758399286725}
   waitToStar: 0.5
+  blendedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0041656494
+      value: 0.9967041
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1.0082691
+      value: 0.013112232
+      inSlope: 0.21333532
+      outSlope: 0.21333532
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.31802598
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!198 &6540855089014515823 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1576861956458673079, guid: becedc1bf8c142d47867010f5449881f, type: 3}

@@ -12,9 +12,21 @@ public class LaserRay : Projectile
     [SerializeField] private ParticleSystem LineParticule;
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private float waitToStar;
+
     private bool canDamage;
     public Coroutine lineDraw;
 
+    [Header("Raygun Change")]
+    public AnimationCurve blendedCurve;
+
+    private float initialWidth;
+    private float targetWidth;
+    private float elapsedTime = 0f;
+
+    private void Awake()
+    {
+        initialWidth = lineRenderer.startWidth;
+    }
     public void RayPosition(Vector3 position)
     {
         if (!canDamage) return;
@@ -24,6 +36,11 @@ public class LaserRay : Projectile
     {
         LineParticule.Play();
         lineDraw = StartCoroutine(LineDraw());
+        lineRenderer.startWidth = 5;
+        lineRenderer.endWidth = 5;
+        // Establece el ancho objetivo como el valor final de la curva de animación
+        targetWidth = blendedCurve.Evaluate(1f);
+
     }
 
     public void Damage(GameObject Objetive)
@@ -60,8 +77,36 @@ public class LaserRay : Projectile
     {
         yield return new WaitForSeconds(waitToStar);
         canDamage = true;
-
+        StartCoroutine(ChangeWidthGradually());
         yield return new WaitForSeconds(desactivateTime);
         DesactiveLaser();
     }
+
+
+    private IEnumerator ChangeWidthGradually()
+    {
+        while (elapsedTime < desactivateTime)
+        {
+            // Calcula el valor de interpolación entre 0 y 1
+            float t = elapsedTime / desactivateTime;
+
+            // Evalúa la curva de animación para obtener el ancho deseado en este punto
+            float lerpedWidth = Mathf.Lerp(targetWidth,initialWidth, blendedCurve.Evaluate(t));
+
+            // Actualiza los anchos del LineRenderer
+            lineRenderer.startWidth = lerpedWidth;
+            lineRenderer.endWidth = lerpedWidth;
+
+            // Incrementa el tiempo transcurrido
+            elapsedTime += Time.deltaTime;
+
+            yield return null; // Espera un frame antes de la próxima iteración
+        }
+
+        // Asegúrate de que el ancho final sea exacto
+        lineRenderer.startWidth = targetWidth;
+        lineRenderer.endWidth = targetWidth;
+        elapsedTime = 0;
+    }
+
 }

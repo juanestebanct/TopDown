@@ -569,6 +569,12 @@ MonoBehaviour:
   LineParticule: {fileID: 1378618394}
   lineRenderer: {fileID: 1000982898}
   waitToStar: 0
+  blendedCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &635665797
 GameObject:
   m_ObjectHideFlags: 0
@@ -7294,8 +7300,8 @@ MonoBehaviour:
   rayCastDistance: 100
   lastRayPosition: {x: 0, y: 0, z: 0}
   canDamage: 0
+  disableforcedlacer: 0
   timeFire: 1
-  curreTimeFire: 0
 --- !u!114 &2616819653168776591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7309,6 +7315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   patron: 4
+  enemy: {fileID: 0}
   circleRadius: 10
   rotatioSpeed: 3
   downSpeed: 10
@@ -7317,6 +7324,7 @@ MonoBehaviour:
   SpeedDown: 0
   timeToDown: 4
   currentDropTime: 6
+  speedBack: 100
 --- !u!198 &2705073210924355880
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -12341,39 +12349,21 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.7787612
-        inSlope: 2.0900316
-        outSlope: 2.0900316
+        value: 0.9605801
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 1
+        outWeight: 0.16071655
       - serializedVersion: 3
-        time: 0.033299446
-        value: 1
-        inSlope: 0.047587644
-        outSlope: 0.047587644
+        time: 0.99386597
+        value: 0.9802749
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.16184233
-      - serializedVersion: 3
-        time: 0.93354344
-        value: 1
-        inSlope: 0.014604073
-        outSlope: 0.014604073
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.16079628
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 0.6026504
-        inSlope: -1.4855163
-        outSlope: -1.4855163
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.07148671
+        inWeight: 0.20195913
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
@@ -12431,14 +12421,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47eb1e45fd60b4a47a886b2c5c8ea7b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
-  desactivateTime: 2
+  damage: 0
+  desactivateTime: 1
   curreDesactiveTime: 0
   type: 0
   Raygun: {fileID: 2610826096925101240}
   LineParticule: {fileID: 6540855088031359569}
   lineRenderer: {fileID: 5082578758984767483}
   waitToStar: 0.5
+  blendedCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -0.0000015255064
+      value: 1.001411
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1.0083313
+      value: 0.0056533813
+      inSlope: 0.08358492
+      outSlope: 0.08358492
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2930279
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5332043550144916590
 GameObject:
   m_ObjectHideFlags: 0
@@ -17332,13 +17346,129 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2610826097518184070, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: timeFire
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].time
+      value: 0.9939079
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[2].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.98672324
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[2].value
+      value: 0.6026504
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[2].inSlope
+      value: -1.4855163
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].inWeight
+      value: 0.07148671
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[2].inWeight
+      value: 0.07148671
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[2].outSlope
+      value: -1.4855163
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5082578758399286725, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[2].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162825115619594540, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: desactivateTime
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162825115619594540, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: blendedCurve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162825115619594540, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: blendedCurve.m_Curve.Array.data[0].time
+      value: 0.0041656494
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162825115619594540, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: blendedCurve.m_Curve.Array.data[1].time
+      value: 1.0082691
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162825115619594540, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: blendedCurve.m_Curve.Array.data[0].value
+      value: 0.9967041
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162825115619594540, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: blendedCurve.m_Curve.Array.data[1].value
+      value: 0.013112232
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162825115619594540, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: blendedCurve.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162825115619594540, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: blendedCurve.m_Curve.Array.data[1].inSlope
+      value: 0.21333532
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162825115619594540, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: blendedCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162825115619594540, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: blendedCurve.m_Curve.Array.data[1].inWeight
+      value: 0.31802598
+      objectReference: {fileID: 0}
+    - target: {fileID: 5162825115619594540, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+      propertyPath: blendedCurve.m_Curve.Array.data[1].outSlope
+      value: 0.21333532
+      objectReference: {fileID: 0}
     - target: {fileID: 7938225424862863562, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
       propertyPath: m_Name
       value: CamperEnemy
       objectReference: {fileID: 0}
     - target: {fileID: 7938225424862863562, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17390,6 +17520,9 @@ MonoBehaviour:
   Point: 20
   DeadVfx: {fileID: 0}
   movent: {fileID: 0}
+  timeToFire: 1.6
+  currentime: 0
+  rayGun: {fileID: 0}
 --- !u!4 &7940425274207426774
 Transform:
   m_ObjectHideFlags: 0

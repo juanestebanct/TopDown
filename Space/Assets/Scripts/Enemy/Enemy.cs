@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -5,12 +6,14 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(EnemyMovement))]
-public abstract class Enemy : MonoBehaviour ,IDamage
+public abstract class Enemy : MonoBehaviour, IDamage
 {
+    public Action Move;
     [SerializeField] protected int Live;
     [SerializeField] protected int Damage;
     [SerializeField] protected int Point;
     [SerializeField] protected GameObject DeadVfx;
+    
 
     public virtual void ResetMovent(Vector3 position)
     {
@@ -23,10 +26,17 @@ public abstract class Enemy : MonoBehaviour ,IDamage
     {
 
     }
+    public virtual void FixedUpdate()
+    {
+        if (Move != null)
+        {
+            Move();
+        }
+    }
 
     public virtual void ResiveDamage(float Damage)
     {
-       
+      
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -36,6 +46,7 @@ public abstract class Enemy : MonoBehaviour ,IDamage
             collision.gameObject.GetComponent<IDamage>().ResiveDamage(Damage);
             gameObject.SetActive(false);
         }
+        if (collision.gameObject.CompareTag("ResetZone")) Desactive();
     }
 
 

@@ -10,15 +10,17 @@ public class RayGun : MonoBehaviour
     [SerializeField] private Transform positionRay;
     [SerializeField] private float rayCastDistance;
     [SerializeField] private Vector3 lastRayPosition;
-    [SerializeField] private bool canDamage;
-    [SerializeField] private float timeFire, curreTimeFire;
-
+    [SerializeField] private bool canDamage, disableforcedlacer;
+    public float timeFire;
+    private float curreTimeFire;
+    private Enemy enemy;
 
     private void Awake()
     {
         laser.transform.position= positionRay.transform.position;
         laser.transform.rotation = transform.rotation;
         laser.SetActive(false);
+        enemy = GetComponent<Enemy>();
     }
     private void Update()
     {
@@ -28,6 +30,7 @@ public class RayGun : MonoBehaviour
             ActiveRay();
             curreTimeFire = 0;
         }
+        if (disableforcedlacer) return;
         if (canDamage)
         {
             EndLaser();
@@ -72,8 +75,14 @@ public class RayGun : MonoBehaviour
         {
             // Si el rayo no golpea nada, dibuja una línea roja en la dirección hacia adelante.
             Debug.DrawRay(positionRay.position, Vector2.down * rayCastDistance, Color.red);
-            lastRayPosition = transform.position;
+            
         }
+    }
+    public void DisableForcedLacer(bool Damage)
+    {
+        disableforcedlacer = Damage;
+        lastRayPosition = new Vector3(0, -300, 0);
+        laser.GetComponent<LaserRay>().RayPosition(lastRayPosition);
     }
 
 }
