@@ -103,7 +103,7 @@ public class LaserRay : Projectile
     }
     private void OnDisable()
     {
-        StopCoroutine(lineDraw);
+        if (lineDraw != null) StopCoroutine(lineDraw);
         DesactiveLaser();
     }
 

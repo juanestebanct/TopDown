@@ -32,7 +32,12 @@ public class PlayerController : MonoBehaviour
         inputManager.Player.Fire.canceled += StopFire;
         rb = GetComponent<Rigidbody2D>();
     }
-    private void StarFire(InputAction.CallbackContext ctx){ Fire(); isFiring = true;}
+
+    private void Update()
+    {
+        if (isFiring) Fire();
+    }
+    private void StarFire(InputAction.CallbackContext ctx) { isFiring = true; }
     private void StopFire(InputAction.CallbackContext ctx) { isFiring = false; }
     private void FixedUpdate()
     {

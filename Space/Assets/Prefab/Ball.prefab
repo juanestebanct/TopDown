@@ -302,7 +302,7 @@ Transform:
   - {fileID: 5056063973880263650}
   - {fileID: 1272099385138147616}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &9164255705839795898
 Rigidbody2D:
@@ -380,6 +380,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   desactivateTime: 4
+  curreDesactiveTime: 0
   type: 1
   velocity: 60
   force: 3
+  trail: {fileID: 7389150227691036}
