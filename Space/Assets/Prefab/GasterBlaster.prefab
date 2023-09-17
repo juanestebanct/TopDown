@@ -5202,7 +5202,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9100251615965803279
 Transform:
   m_ObjectHideFlags: 0
@@ -5305,7 +5305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laser: {fileID: 7770223160140587674}
   positionRay: {fileID: 4896215071961732989}
-  rayCastDistance: 100
+  rayCastDistance: 800
   lastRayPosition: {x: 0, y: 0, z: 0}
   canDamage: 0
   disableforcedlacer: 0

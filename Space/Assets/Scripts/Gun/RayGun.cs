@@ -11,6 +11,7 @@ public class RayGun : MonoBehaviour
     [SerializeField] private float rayCastDistance;
     [SerializeField] private Vector3 lastRayPosition;
     [SerializeField] private bool canDamage, disableforcedlacer;
+    [SerializeField] private LayerMask Mask;
     public float timeFire;
     private float curreTimeFire;
     private void Awake()
@@ -60,17 +61,18 @@ public class RayGun : MonoBehaviour
     {
         RaycastHit2D hit = Physics2D.Raycast(positionRay.position, positionRay.forward, rayCastDistance);
 
-        if (disableforcedlacer)
-        {
-            lastRayPosition = new Vector3(0, -300, 0);
-            laser.GetComponent<LaserRay>().RayPosition(lastRayPosition);
-            return;
-        }
         if (hit.collider != null)
         {
             Debug.DrawLine(positionRay.position, hit.point, Color.green);
+
             float magnitudeBetweenVectors = Vector3.Distance(hit.collider.transform.position, positionRay.position);
             lastRayPosition = new Vector3(0,-magnitudeBetweenVectors, 0);
+
+            if (disableforcedlacer)
+            {
+                laser.GetComponent<LaserRay>().RayPosition(lastRayPosition);
+                return;
+            }
             laser.GetComponent<LaserRay>().Damage(hit.collider.gameObject);
         }
         else
@@ -83,11 +85,6 @@ public class RayGun : MonoBehaviour
     public void DisableForcedLacer(bool Damage)
     {
         disableforcedlacer = Damage;
-        if (disableforcedlacer)
-        {
-            lastRayPosition = new Vector3(0, -300, 0);
-            laser.GetComponent<LaserRay>().RayPosition(lastRayPosition);
-        }
     }
     private void OnDisable()
     {

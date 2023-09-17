@@ -4895,7 +4895,7 @@ Transform:
   - {fileID: 8250199079774379898}
   - {fileID: 8976264266798563491}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &5745254983848063576
 Rigidbody2D:
@@ -4961,7 +4961,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laser: {fileID: 5332043549387171408}
   positionRay: {fileID: 8976264266798563491}
-  rayCastDistance: 100
+  rayCastDistance: 800
   lastRayPosition: {x: 0, y: 0, z: 0}
   canDamage: 0
   disableforcedlacer: 0
