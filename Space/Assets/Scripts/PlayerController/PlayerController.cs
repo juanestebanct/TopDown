@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public InputManager inputManager;
     public Action Fire;
     public Action Reset;
+    public Shield Shield;
     #endregion
 
     #region private
@@ -51,5 +52,10 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         inputManager.Player.Disable();
+    }
+    public void activeShield()
+    {
+        Shield.ActiveShield();
+
     }
 }
