@@ -6,18 +6,19 @@ using UnityEngine.UIElements;
 public class RayGun : MonoBehaviour
 {
     [Header("Laser")]
+    public float timeFire;
     [SerializeField] private GameObject laser;
     [SerializeField] private Transform positionRay;
     [SerializeField] private float rayCastDistance;
     [SerializeField] private Vector3 lastRayPosition;
     [SerializeField] private bool canDamage, disableforcedlacer;
     [SerializeField] private LayerMask Mask;
-    public float timeFire;
+    [SerializeField] private float timeRay;
     private float curreTimeFire;
     private void Awake()
     {
-        laser.transform.position= positionRay.transform.position;
-        laser.transform.rotation = transform.rotation;
+        laser.transform.position = positionRay.transform.position;
+        
         laser.SetActive(false);
     }
     private void Update()
@@ -64,8 +65,9 @@ public class RayGun : MonoBehaviour
         if (hit.collider != null)
         {
             Debug.DrawLine(positionRay.position, hit.point, Color.green);
-
+           
             float magnitudeBetweenVectors = Vector3.Distance(hit.collider.transform.position, positionRay.position);
+
             lastRayPosition = new Vector3(0,-magnitudeBetweenVectors, 0);
 
             if (disableforcedlacer)
@@ -73,6 +75,7 @@ public class RayGun : MonoBehaviour
                 laser.GetComponent<LaserRay>().RayPosition(lastRayPosition);
                 return;
             }
+
             laser.GetComponent<LaserRay>().Damage(hit.collider.gameObject);
         }
         else
@@ -89,6 +92,15 @@ public class RayGun : MonoBehaviour
     private void OnDisable()
     {
         DesactiveRay();
+        curreTimeFire = 0;
     }
-
+    public void DesactivarObjeto()
+    {
+        // Desactiva el objeto actual.
+        Invoke("ActiveRaymanual", timeRay);
+    }
+    public void ActiveRaymanual()
+    {
+        gameObject.SetActive(false);
+    }
 }

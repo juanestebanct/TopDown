@@ -52,10 +52,15 @@ public class LaserRay : Projectile
                 if (Objetive.CompareTag("Player")) Objetive.GetComponent<IDamage>().ResiveDamage(damage);
                 break;
             case BulletType.Player:
+                if (Objetive.CompareTag("Enemy"))
+                {
+                    print("Oe resive daño perro");
+                    Objetive.GetComponent<IDamage>().ResiveDamage(damage);
+                }
                 break;
+                
         }
     }
-
 
     private void DesactiveLaser()
     {

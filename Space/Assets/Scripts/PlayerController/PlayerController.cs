@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public Action Fire;
     public Action Reset;
     public Shield Shield;
+    public RayGun RayGun;
     #endregion
 
     #region private
@@ -53,9 +54,14 @@ public class PlayerController : MonoBehaviour
     {
         inputManager.Player.Disable();
     }
-    public void activeShield()
+    public void ActiveShield()
     {
         Shield.ActiveShield();
 
+    }
+    public void ActiveRay()
+    {
+        RayGun.gameObject.SetActive(true);
+        RayGun.DesactivarObjeto();
     }
 }

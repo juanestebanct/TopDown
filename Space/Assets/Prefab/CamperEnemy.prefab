@@ -4852,7 +4852,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6930294980137051597}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 12.2, z: 0}
+  m_LocalPosition: {x: 0, y: -4.45, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4872,6 +4872,7 @@ GameObject:
   - component: {fileID: 2616819654320754609}
   - component: {fileID: 2610826097518184070}
   - component: {fileID: 3925621497205110388}
+  - component: {fileID: 8386351460551214044}
   m_Layer: 6
   m_Name: CamperEnemy
   m_TagString: Enemy
@@ -4965,6 +4966,9 @@ MonoBehaviour:
   lastRayPosition: {x: 0, y: 0, z: 0}
   canDamage: 0
   disableforcedlacer: 0
+  Mask:
+    serializedVersion: 2
+    m_Bits: 0
   timeFire: 3
 --- !u!114 &3925621497205110388
 MonoBehaviour:
@@ -4983,6 +4987,41 @@ MonoBehaviour:
   Point: 20
   DeadVfx: {fileID: 0}
   movent: {fileID: 0}
+--- !u!58 &8386351460551214044
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7938225424862863562}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 4
 --- !u!1 &8021405344624310546
 GameObject:
   m_ObjectHideFlags: 0
@@ -4994,7 +5033,6 @@ GameObject:
   - component: {fileID: 8250199079774379898}
   - component: {fileID: 7675210718379972104}
   - component: {fileID: 1858787602409926033}
-  - component: {fileID: 5081763924607085495}
   m_Layer: 6
   m_Name: Spaceship
   m_TagString: Untagged
@@ -5010,7 +5048,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8021405344624310546}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: 0, y: 16.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5069,41 +5107,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!58 &5081763924607085495
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8021405344624310546}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.18214269, y: 0}
-  serializedVersion: 2
-  m_Radius: 3.99
 --- !u!1001 &5703785375178152920
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5174,7 +5177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6549989398355453429, guid: becedc1bf8c142d47867010f5449881f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6549989398355453429, guid: becedc1bf8c142d47867010f5449881f, type: 3}
       propertyPath: m_LocalPosition.z
