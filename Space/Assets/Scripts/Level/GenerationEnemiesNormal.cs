@@ -1,0 +1,135 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+public class GenerationEnemiesNormal : MonoBehaviour
+{
+    [Header("Stats to spawn")]
+    [SerializeField] private GameObject[] enemys;
+    [SerializeField] private Transform positionToSpawn;
+    [SerializeField] private Vector2 spawnTimeRange = new Vector2(5, 10);
+    [SerializeField] private Vector2 MaxPosition = new Vector2(-50, 50);
+    [SerializeField] private int level,PointsToLevel;
+
+    private int indexEnemy = 0, maxTipyEnemy,MaxEnemyBySpawn;
+    private float currentSpawnTime, spawnTimer;
+    private List<GameObject> communEnemy = new List<GameObject>();
+    private List<GameObject> camperEnemy = new List<GameObject>();
+
+    private void Awake()
+    {
+        MaxEnemyBySpawn = 1;
+        level = 1;
+
+        PoolEnemies(communEnemy);
+        print(communEnemy);
+        indexEnemy = 1;
+        PoolEnemies(camperEnemy);
+        print(camperEnemy);
+    }
+    /// <summary>
+    /// genera el pool de cada tipo
+    /// </summary>
+    private void PoolEnemies(List<GameObject> list)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            GameObject enemy = Instantiate(enemys[indexEnemy]);
+            enemy.SetActive(false);
+            enemy.transform.position = positionToSpawn.position;
+            enemy.transform.parent = transform.parent;
+            list.Add(enemy);
+        }
+        currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
+
+    }
+    private void Update()
+    {
+        if (spawnTimer >= currentSpawnTime)
+        {
+            int spawnCurrent = 0;
+            while (MaxEnemyBySpawn >= spawnCurrent)
+            {
+                ChangeDifficulty();
+                SpawnEnemy(choose(), Configuration(positionToSpawn.position));
+                currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
+                spawnTimer = 0;
+                spawnCurrent++;
+            }
+        }
+        spawnTimer += Time.deltaTime;
+    }
+    /// <summary>
+    /// se escoje la lista que va a lansar 
+    /// </summary>
+    /// <returns></returns>
+    private List<GameObject> choose()
+    {
+        int opcion = Random.Range(0,maxTipyEnemy);
+        if (opcion == 0)
+        {
+            indexEnemy = 0;
+            return communEnemy;
+        }
+        else
+        {
+            indexEnemy = 1;
+            return camperEnemy;
+        }
+    }
+    /// <summary>
+    /// configura la nueva posicion de spawn
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    private Vector3 Configuration(Vector3 position)
+    {
+        Vector3 TempPosition = new Vector3(Random.Range(MaxPosition.x, MaxPosition.y), position.y, position.z);
+        return TempPosition;
+    }
+    private void SpawnEnemy(List<GameObject> pool, Vector3 Position)
+    {
+        GameObject enemy = pool.Find(b => !b.activeSelf);
+        if (enemy == null)
+        {
+            int range = Random.Range(0, enemys.Length);
+            enemy = Instantiate(enemys[indexEnemy]);
+            pool.Add(enemy);
+        }
+        enemy.transform.position = Position;
+        enemy.SetActive(true);
+        enemy.GetComponent<Enemy>().ResetMovent(Position);
+
+    }
+    private void ChangeDifficulty()
+    {
+        if (Score.Instance.currentScore >= PointsToLevel)
+        {
+            PointsToLevel = (PointsToLevel * 2) + PointsToLevel / 2;
+            switch (level)
+            {
+                case 1:
+                    ReduseTime();
+                    break;
+                case 2:
+                    maxTipyEnemy++;
+                    break;
+                default:
+                    ReduseTime();
+                    MoreEnemy();
+                    break;
+            }
+        }
+    }
+    private void ReduseTime()
+    {
+        print("Se redujo el tiempo");
+        spawnTimeRange = new Vector2 (spawnTimeRange.x - 0.5f, spawnTimeRange.y - 0.5f);
+    }
+    private void MoreEnemy()
+    {
+        print("aumento el spawn enemigo");
+        MaxEnemyBySpawn++;
+    }
+}

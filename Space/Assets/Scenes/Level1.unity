@@ -181,8 +181,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 59346407}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -85.9, y: -0.4, z: -4.711497}
-  m_LocalScale: {x: 19.8, y: 119.7, z: 1}
+  m_LocalPosition: {x: -88.3, y: -0.4, z: -4.711497}
+  m_LocalScale: {x: 19.8, y: 132.34, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 635665798}
@@ -312,7 +312,7 @@ Transform:
   m_GameObject: {fileID: 129027233}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 85.8, y: 0, z: -4.711497}
-  m_LocalScale: {x: 19.8, y: 119.7, z: 1}
+  m_LocalScale: {x: 19.8, y: 128.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 635665798}
@@ -6486,7 +6486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be59fca1b1c52e4f8ba9aac1c365972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeFire: 0.1
+  timeFire: 0.2
   laser: {fileID: 5332043549611203166}
   positionRay: {fileID: 1761428405}
   rayCastDistance: 800
@@ -6496,7 +6496,7 @@ MonoBehaviour:
   Mask:
     serializedVersion: 2
     m_Bits: 0
-  timeRay: 15.8
+  timeRay: 15.1
 --- !u!1 &1115354437
 GameObject:
   m_ObjectHideFlags: 0
@@ -7763,7 +7763,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0.6
     radius:
-      value: 42.39
+      value: 45.3
       mode: 0
       spread: 0
       speed:
@@ -7882,7 +7882,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 159.29
+      scalar: 224.3
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -7935,7 +7935,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 74.8
+      scalar: 245.7
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -11972,8 +11972,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597805093}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.7, y: -53, z: -4.711497}
-  m_LocalScale: {x: 179.3, y: 20, z: 1}
+  m_LocalPosition: {x: -0.7, y: -57, z: -4.711497}
+  m_LocalScale: {x: 192, y: 20, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 635665798}
@@ -12550,6 +12550,7 @@ GameObject:
   - component: {fileID: 1745602013}
   - component: {fileID: 1745602014}
   - component: {fileID: 1745602015}
+  - component: {fileID: 1745602016}
   m_Layer: 0
   m_Name: GenerationEnemy
   m_TagString: Untagged
@@ -12580,7 +12581,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1745602012}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efe08162dfb227a419bb4d543c57198a, type: 3}
   m_Name: 
@@ -12608,6 +12609,26 @@ MonoBehaviour:
   - {x: -70, y: 70}
   - {x: -30, y: 30}
   spawnTimeRange: {x: 5, y: 12}
+--- !u!114 &1745602016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745602012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dec01244ee98d16489fa3d131711aa93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemys:
+  - {fileID: 2080578293839521502, guid: ae45a2518a9c4874cb293ab6005d7452, type: 3}
+  - {fileID: 7938225424862863562, guid: c0473b4314850554aabd567f5c3adf5f, type: 3}
+  positionToSpawn: {fileID: 1699331031}
+  spawnTimeRange: {x: 5, y: 10}
+  MaxPosition: {x: -50, y: 50}
+  level: 0
+  PointsToLevel: 20
 --- !u!1 &1761428404
 GameObject:
   m_ObjectHideFlags: 0
@@ -13210,6 +13231,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1988026828}
   highScoreText: {fileID: 1358159394}
+  currentScore: 0
+  highScore: 0
 --- !u!199 &324105066601048047
 ParticleSystemRenderer:
   serializedVersion: 6
