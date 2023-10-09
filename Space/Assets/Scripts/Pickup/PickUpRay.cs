@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickUpRay : MonoBehaviour
+public class PickUpRay : PickUp
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {

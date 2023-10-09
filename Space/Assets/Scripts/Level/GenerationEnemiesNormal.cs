@@ -23,10 +23,8 @@ public class GenerationEnemiesNormal : MonoBehaviour
         level = 1;
 
         PoolEnemies(communEnemy);
-        print(communEnemy);
         indexEnemy = 1;
         PoolEnemies(camperEnemy);
-        print(camperEnemy);
     }
     /// <summary>
     /// genera el pool de cada tipo

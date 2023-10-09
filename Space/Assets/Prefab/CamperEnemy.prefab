@@ -4960,6 +4960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8be59fca1b1c52e4f8ba9aac1c365972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeFire: 3
   laser: {fileID: 5332043549387171408}
   positionRay: {fileID: 8976264266798563491}
   rayCastDistance: 800
@@ -4969,7 +4970,7 @@ MonoBehaviour:
   Mask:
     serializedVersion: 2
     m_Bits: 0
-  timeFire: 3
+  timeRay: 0
 --- !u!114 &3925621497205110388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4984,7 +4985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Live: 3
   Damage: 1
-  Point: 20
+  Point: 12
   DeadVfx: {fileID: 0}
   movent: {fileID: 0}
 --- !u!58 &8386351460551214044
