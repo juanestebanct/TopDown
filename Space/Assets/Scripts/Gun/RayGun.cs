@@ -14,6 +14,7 @@ public class RayGun : MonoBehaviour
     [SerializeField] private bool canDamage, disableforcedlacer;
     [SerializeField] private LayerMask Mask;
     [SerializeField] private float timeRay;
+
     private float curreTimeFire;
     private void Awake()
     {

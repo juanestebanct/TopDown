@@ -8,6 +8,9 @@ public class GasterBlaster : Enemy
     [SerializeField] protected EnemyMovement movent;
     [SerializeField] private float timeToFire, currentime;
     [SerializeField] private RayGun rayGun;
+
+    [SerializeField] private AudioSource spawnSource;
+    [SerializeField] private AudioClip spawnClip;
     private void Awake()
     {
         movent = GetComponent<EnemyMovement>();
@@ -45,6 +48,11 @@ public class GasterBlaster : Enemy
         Score.Instance.GetPoins(Point);
         Desactive();
     }
+    public void OnEnable()
+    {
+        spawnSource.PlayOneShot(spawnClip);
+    }
+
 
 
 }

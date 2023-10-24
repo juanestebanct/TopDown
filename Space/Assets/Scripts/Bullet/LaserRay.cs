@@ -8,16 +8,23 @@ using UnityEngine.UIElements;
 public class LaserRay : Projectile
 {
     [Header("Raygun ")]
+    public Coroutine lineDraw;
+
     [SerializeField] private RayGun Raygun;
     [SerializeField] private ParticleSystem LineParticule;
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private float waitToStar;
 
     private bool canDamage;
-    public Coroutine lineDraw;
+
+    [Header("Source")]
+    [SerializeField] private AudioSource rayGunSource;
+    [SerializeField] private AudioClip charging,inprogress,fire;
 
     [Header("Raygun Change")]
     public AnimationCurve blendedCurve;
+
+
 
     private float initialWidth;
     private float targetWidth;
@@ -35,6 +42,7 @@ public class LaserRay : Projectile
     public void active()
     {
         elapsedTime = 0;
+        rayGunSource.PlayOneShot(charging);
         lineDraw = StartCoroutine(LineDraw());
 
         lineRenderer.startWidth = 5;
@@ -74,6 +82,7 @@ public class LaserRay : Projectile
     {
         LineParticule.Play();
         yield return new WaitForSeconds(waitToStar);
+        rayGunSource.PlayOneShot(fire);
 
         canDamage = true;
         StartCoroutine(ChangeWidthGradually());
@@ -84,6 +93,8 @@ public class LaserRay : Projectile
 
     private IEnumerator ChangeWidthGradually()
     {
+        if (inprogress!= null) rayGunSource.PlayOneShot(inprogress);
+
         while (elapsedTime < desactivateTime)
         {
             // Calcula el valor de interpolación entre 0 y 1

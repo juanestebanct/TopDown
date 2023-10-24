@@ -24,6 +24,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
 
         PoolEnemies(communEnemy);
         indexEnemy = 1;
+        maxTipyEnemy++;
         PoolEnemies(camperEnemy);
     }
     /// <summary>
@@ -46,7 +47,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
     {
         if (spawnTimer >= currentSpawnTime)
         {
-            int spawnCurrent = 0;
+            int spawnCurrent = 1;
             while (MaxEnemyBySpawn >= spawnCurrent)
             {
                 ChangeDifficulty();
@@ -65,14 +66,17 @@ public class GenerationEnemiesNormal : MonoBehaviour
     private List<GameObject> choose()
     {
         int opcion = Random.Range(0,maxTipyEnemy);
+        print(opcion);
         if (opcion == 0)
         {
             indexEnemy = 0;
+            print("Comun");
             return communEnemy;
         }
         else
         {
             indexEnemy = 1;
+            print("Camper");
             return camperEnemy;
         }
     }
@@ -104,13 +108,14 @@ public class GenerationEnemiesNormal : MonoBehaviour
     {
         if (Score.Instance.currentScore >= PointsToLevel)
         {
-            PointsToLevel = (PointsToLevel * 2) + PointsToLevel / 2;
+            PointsToLevel = (PointsToLevel * 2) + PointsToLevel / 2; 
+            level++;
             switch (level)
             {
-                case 1:
+                case 2:
                     ReduseTime();
                     break;
-                case 2:
+                case 3:
                     maxTipyEnemy++;
                     break;
                 default:
@@ -122,12 +127,10 @@ public class GenerationEnemiesNormal : MonoBehaviour
     }
     private void ReduseTime()
     {
-        print("Se redujo el tiempo");
         spawnTimeRange = new Vector2 (spawnTimeRange.x - 0.5f, spawnTimeRange.y - 0.5f);
     }
     private void MoreEnemy()
     {
-        print("aumento el spawn enemigo");
         MaxEnemyBySpawn++;
     }
 }

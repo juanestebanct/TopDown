@@ -60,6 +60,7 @@ public class EnemyMovement : MonoBehaviour
         Vector2 circlePosition = startPosition + new Vector3(x, y);
         rb.MovePosition(circlePosition + Vector2.down * elapsedTime * downSpeed);
     }
+
     private void ChaseToPlayer()
     {
         if (triggerTargetPosition)
@@ -80,6 +81,7 @@ public class EnemyMovement : MonoBehaviour
         rb.MovePosition(rb.position + movement);
         if (Vector3.Distance(transform.position, targetPosition) <=1f) triggerTargetPosition = true;
     }
+
     private void ChaseHorizon()
     {
         targetPosition = PlayerController.instance.transform.position;
@@ -100,6 +102,7 @@ public class EnemyMovement : MonoBehaviour
         currentDropTime += Time.deltaTime;
 
     }
+
     //lo baja verticalmente hasta un punto
     private void MovenDown()
     {
@@ -114,6 +117,20 @@ public class EnemyMovement : MonoBehaviour
         }
         currentDropTime += Time.deltaTime;
     }
+
+    private void LookAtThePlayer()
+    {
+        targetPosition = PlayerController.instance.transform.position;
+
+        Vector2 direction = (targetPosition - transform.position).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // Rotacion 
+        Quaternion targetRotation = Quaternion.Euler(0, 0, angle + 90.0f);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationLook * Time.deltaTime);
+        ChangePatron();
+    }
+
     private void ChangePatron()
     {
         switch (patron)
@@ -153,18 +170,6 @@ public class EnemyMovement : MonoBehaviour
     public void ChangeRute(MoventPatron pattern)
     {
         patron = pattern;
-        ChangePatron();
-    }
-    public void LookAtThePlayer()
-    {
-        targetPosition = PlayerController.instance.transform.position;
-
-        Vector2 direction = (targetPosition - transform.position).normalized;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        // Rotacion 
-        Quaternion targetRotation = Quaternion.Euler(0, 0, angle + 90.0f);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationLook * Time.deltaTime);
         ChangePatron();
     }
     public void GoBack()

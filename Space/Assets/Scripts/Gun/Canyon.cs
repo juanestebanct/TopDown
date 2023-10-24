@@ -48,6 +48,7 @@ public class Canyon : MonoBehaviour
 
         canFire = false;
         StartCoroutine(Delay());
+        AudioManager.instance.PlayClip(AudioManager.instance.Shoot);
     }
     private void pooling()
     {
