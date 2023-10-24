@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Presets;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,8 +11,7 @@ public class PlayerController : MonoBehaviour
     #region public 
     public static PlayerController instance;
     public InputManager inputManager;
-    public Action Fire;
-    public Action Reset;
+    public Action OnPause,OnReset,Fire,Reset;
     public Shield Shield;
     public RayGun RayGun;
     #endregion
@@ -28,10 +28,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        inputManager = new InputManager();
-        inputManager.Player.Enable();
-        inputManager.Player.Fire.performed += StarFire;
-        inputManager.Player.Fire.canceled += StopFire;
+        EnableInputs();
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -41,10 +38,11 @@ public class PlayerController : MonoBehaviour
     }
     private void StarFire(InputAction.CallbackContext ctx) { isFiring = true; }
     private void StopFire(InputAction.CallbackContext ctx) { isFiring = false; }
+    private void TriggerPause(InputAction.CallbackContext ctx) { if (OnPause != null) OnPause(); }
+    private void TriggerReset(InputAction.CallbackContext ctx) { if (OnReset != null) OnReset(); }
     private void FixedUpdate()
     {
         Move(inputManager.Player.Move.ReadValue<Vector2>());
-
     }
     private void Move(Vector2 movement)
     {
@@ -54,10 +52,18 @@ public class PlayerController : MonoBehaviour
     {
         inputManager.Player.Disable();
     }
+    private void EnableInputs()
+    {
+        inputManager = new InputManager();
+        inputManager.Player.Enable();
+        inputManager.Player.Fire.performed += StarFire;
+        inputManager.Player.Pause.performed += TriggerPause;
+        inputManager.Player.Reset.performed += TriggerReset;
+        inputManager.Player.Fire.canceled += StopFire;
+    }
     public void ActiveShield()
     {
         Shield.ActiveShield();
-
     }
     public void ActiveRay()
     {
