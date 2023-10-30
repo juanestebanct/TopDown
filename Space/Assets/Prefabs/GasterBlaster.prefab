@@ -5362,7 +5362,7 @@ AudioSource:
   m_GameObject: {fileID: 7154359169781977644}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8219440070733056946, guid: 1f66612c5abb28e4e892b258e963b6dc, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.617
@@ -10392,6 +10392,7 @@ MonoBehaviour:
   waitToStar: 0.5
   rayGunSource: {fileID: 8329388031563448682}
   charging: {fileID: 8300000, guid: 55d9b85803b2aad418657859808e4679, type: 3}
+  inprogress: {fileID: 0}
   fire: {fileID: 8300000, guid: 75684f282c870fb4dbd769864ba9a7d9, type: 3}
   blendedCurve:
     serializedVersion: 2

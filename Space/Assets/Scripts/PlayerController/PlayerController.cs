@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     [SerializeField] private float speed;
+    [SerializeField] private float brakeSpeed;
 
     private void Awake()
     {
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (isFiring) Fire();
+
     }
     private void StarFire(InputAction.CallbackContext ctx) { isFiring = true; }
     private void StopFire(InputAction.CallbackContext ctx) { isFiring = false; }
@@ -46,7 +48,15 @@ public class PlayerController : MonoBehaviour
     }
     private void Move(Vector2 movement)
     {
-        rb.velocity = movement * speed * 10 * Time.fixedDeltaTime;
+       
+        if (movement.magnitude>0)
+        {
+            rb.velocity = movement * speed * 10 * Time.fixedDeltaTime;
+        }
+        else
+        {
+            rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, brakeSpeed * Time.fixedDeltaTime);
+        }  
     }
     private void OnDisable()
     {
