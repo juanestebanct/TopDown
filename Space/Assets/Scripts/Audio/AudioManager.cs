@@ -12,6 +12,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip Shoot;
     public AudioClip PickUp;
     public AudioClip UiButton;
+    public AudioClip Explocion;
 
     public AudioClip SpawnEnemy;
     public AudioClip SpawnRay;

@@ -36,16 +36,11 @@ public class GasterBlaster : Enemy
         MoventPatron patron = MoventPatron.LookPlayer;
         movent.ResetValues(position, patron);
     }
-    public override void Desactive()
-    {
-        gameObject.SetActive(false);
-        //var deathFX = Instantiate(DeadVfx);
-        //deathFX.transform.positionRay = transform.positionRay;
-        //Destroy(deathFX, 1f);
-    }
+
     public override void ResiveDamage(float Damage)
     {
         Score.Instance.GetPoins(Point);
+        AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
         Desactive();
     }
     public void OnEnable()

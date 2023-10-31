@@ -16,16 +16,11 @@ public class CommunEnemy : Enemy
         MoventPatron patron = (MoventPatron)Random.Range(0, 2);
         movent.ResetValues(position,patron);
     }
-    public override void Desactive()
-    {
-        gameObject.SetActive(false);
-        //var deathFX = Instantiate(DeadVfx);
-        //deathFX.transform.positionRay = transform.positionRay;
-        //Destroy(deathFX, 1f);
-    }
+
     public override void ResiveDamage(float Damage)
     {
         Score.Instance.GetPoins(Point);
+        AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
         Desactive();
     }
 

@@ -16,12 +16,14 @@ public class GenerationEnemiesNormal : MonoBehaviour
     private float currentSpawnTime, spawnTimer;
     private List<GameObject> communEnemy = new List<GameObject>();
     private List<GameObject> camperEnemy = new List<GameObject>();
+    private GenerationGaster generationGaster;
 
     private void Awake()
     {
         MaxEnemyBySpawn = 1;
         level = 1;
 
+        generationGaster = GetComponent<GenerationGaster>();
         PoolEnemies(communEnemy);
         indexEnemy = 1;
         maxTipyEnemy++;
@@ -110,6 +112,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
         {
             PointsToLevel = (PointsToLevel * 2) + PointsToLevel / 2; 
             level++;
+
             switch (level)
             {
                 case 2:
@@ -128,6 +131,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
     private void ReduseTime()
     {
         spawnTimeRange = new Vector2 (spawnTimeRange.x - 0.5f, spawnTimeRange.y - 0.5f);
+        generationGaster.ReduceTimeBlaster();
     }
     private void MoreEnemy()
     {

@@ -58,4 +58,9 @@ public class GenerationGaster : MonoBehaviour
         enemy.GetComponent<Enemy>().ResetMovent(Position);
 
     }
+    public void ReduceTimeBlaster()
+    {
+        if(spawnTimeRange.x > 1) spawnTimeRange.x -= 0.5f;
+        if (spawnTimeRange.y > 3) spawnTimeRange.y -= 0.5f;
+    }
 }
