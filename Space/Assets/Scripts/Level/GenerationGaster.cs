@@ -31,8 +31,9 @@ public class GenerationGaster : MonoBehaviour
     {
         for (int i = 0; i < 1; i++)
         {
-            GameObject blaster = Instantiate(blasterGaster);
-            blaster.SetActive(false);
+            GameObject Tempblaster = Instantiate(blasterGaster);
+            Tempblaster.SetActive(false);
+            blaster.Add(Tempblaster);
         }
         currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
 
