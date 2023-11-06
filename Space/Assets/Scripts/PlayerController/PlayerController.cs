@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerStats))]
 public class PlayerController : MonoBehaviour
 {
     #region public 
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb;
     private bool isFiring;
+    private PlayerStats playerStats;
 
     #endregion
 
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
         instance = this;
         EnableInputs();
         rb = GetComponent<Rigidbody2D>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     private void Update()
@@ -73,6 +76,7 @@ public class PlayerController : MonoBehaviour
     public void ActiveShield()
     {
         Shield.ActiveShield();
+        playerStats.DesactiveDamage();
     }
     public void ActiveRay()
     {

@@ -30,10 +30,21 @@ public class PlayerStats : MonoBehaviour, IDamage
         barLive.fillAmount = (live / maxLive);
         if (live < 1) PlayerController.instance.Reset();
     }
+    public void DesactiveDamage()
+    {
+        damageable = false;
+        StartCoroutine(ReactiveShield());
+    }
     IEnumerator RelockTime()
     {
         damageable = false;
         yield return new WaitForSeconds(timeActiveDamage);
+        damageable = true;
+    }
+    IEnumerator ReactiveShield()
+    {
+        yield return new WaitForSeconds(10);
+
         damageable = true;
     }
    

@@ -18,6 +18,7 @@ public class Shield : MonoBehaviour
     {
         gameObject.SetActive(true);
         if (desactive != null) StopCoroutine(desactive);
+
         effect.SetFloat("lifeTime", timeToActive);
         effect.Play();
         StartCoroutine(Active());

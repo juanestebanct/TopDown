@@ -36,8 +36,9 @@ public class Bullet : Projectile
 
             case BulletType.Player:
 
-                if (collision.gameObject.CompareTag("Enemy"))
+                if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Meteorite"))
                 {
+                    print(collision);
                     collision.gameObject.GetComponent<IDamage>().ResiveDamage(damage);
                 }
                 gameObject.SetActive(false);

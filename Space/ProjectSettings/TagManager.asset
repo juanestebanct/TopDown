@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Walls
   - ResetZone
+  - Meteorite
   layers:
   - Default
   - TransparentFX

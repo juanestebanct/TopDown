@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: cae2baa99815021498bf59cddbea66f5
+guid: 303969265d3710e428e0a957b0da034a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FlyerAsteroid1
+    second: {fileID: -9103484930961366303, guid: 9c0febde352f09643bd55e28c1ea9d00, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

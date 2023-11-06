@@ -14,9 +14,12 @@ public class GenerationEnemiesNormal : MonoBehaviour
 
     private int indexEnemy = 0, maxTipyEnemy,MaxEnemyBySpawn;
     private float currentSpawnTime, spawnTimer;
+
     private List<GameObject> communEnemy = new List<GameObject>();
     private List<GameObject> camperEnemy = new List<GameObject>();
+
     private GenerationGaster generationGaster;
+    private GenerationAsteroid generationAsteroid;
 
     private void Awake()
     {
@@ -24,9 +27,13 @@ public class GenerationEnemiesNormal : MonoBehaviour
         level = 1;
 
         generationGaster = GetComponent<GenerationGaster>();
+        generationAsteroid = GetComponent<GenerationAsteroid>();
+
         PoolEnemies(communEnemy);
+
         indexEnemy = 1;
         maxTipyEnemy++;
+
         PoolEnemies(camperEnemy);
     }
     /// <summary>
@@ -118,9 +125,11 @@ public class GenerationEnemiesNormal : MonoBehaviour
                 case 2:
                     ReduseTime();
                     break;
+
                 case 3:
                     maxTipyEnemy++;
                     break;
+
                 default:
                     ReduseTime();
                     MoreEnemy();
@@ -132,6 +141,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
     {
         spawnTimeRange = new Vector2 (spawnTimeRange.x - 0.5f, spawnTimeRange.y - 0.5f);
         generationGaster.ReduceTimeBlaster();
+        generationAsteroid.ReduceTimeMeteorite();
     }
     private void MoreEnemy()
     {

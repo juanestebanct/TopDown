@@ -6,9 +6,10 @@ using UnityEngine.Rendering;
 public class GenerationAsteroid : MonoBehaviour
 {
     [Header("Stats to SpawnAsteroid")]
-    [SerializeField] private GameObject meteoritePrefb;
+    [SerializeField] private GameObject meteoritePrefb,miniMetoritePrefb;
     [SerializeField] private Vector2 spawnTimeRange;
     [SerializeField] private Transform[] SpawnPoint ;
+    [SerializeField] private int minAsteroidSplinters, maxAsteroidSplinters;
 
     private List<GameObject> bigMeteorite = new List<GameObject>();
     private List<GameObject> minMeteorite = new List<GameObject>();
@@ -40,6 +41,11 @@ public class GenerationAsteroid : MonoBehaviour
             meteorite.GetComponent<Meteorite>().GenerationAsteroid = this;
             meteorite.SetActive(false);
             bigMeteorite.Add(meteorite);
+
+            GameObject miniMeteorite = Instantiate(miniMetoritePrefb);
+            miniMeteorite.GetComponent<Meteorite>().GenerationAsteroid = this;
+            miniMeteorite.SetActive(false);
+            minMeteorite.Add(miniMeteorite);
         }
         currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
     }
@@ -86,14 +92,46 @@ public class GenerationAsteroid : MonoBehaviour
         tempMeteorite.SetActive(true);
 
         Vector2 direction = player.transform.position - tempMeteorite.transform.position;
-        tempMeteorite.GetComponent<Meteorite>().AddForce(direction);
+        float torque = Random.Range(500.0f, 1500.0f);
+        tempMeteorite.GetComponent<Meteorite>().AddForce(direction, torque);
+
+    }
+
+    private void SpawnMiniMeteorite(Vector3 direction, float torque, Vector3 position)
+    {
+        GameObject tempMeteorite = minMeteorite.Find(b => !b.activeSelf);
+        if (tempMeteorite == null)
+        {
+            tempMeteorite = Instantiate(miniMetoritePrefb);
+            minMeteorite.Add(tempMeteorite);
+        }
+        tempMeteorite.transform.position = position;
+        tempMeteorite.SetActive(true);
+        tempMeteorite.GetComponent<Meteorite>().AddForce(direction, torque);
 
     }
     /// <summary>
     /// Se llama para dividir el meteorito en varias partes 
     /// </summary>
-    public void SpinBigAsteroid()
+    public void SpinBigAsteroid(Vector3 position)
     {
+        int splintersToSpawn = Random.Range(minAsteroidSplinters, maxAsteroidSplinters);
 
+        //se calcula cunatos van a explotar 
+        for (int counter = 0; counter < splintersToSpawn; ++counter)
+        {
+            Vector2 direction = Quaternion.Euler(0, 0, counter * 360.0f / splintersToSpawn) * Vector2.up;
+            float torque = Random.Range(500.0f, 1500.0f);
+
+            SpawnMiniMeteorite(direction, torque, position);
+
+
+        }
+    }
+
+    public void ReduceTimeMeteorite()
+    {
+        if (spawnTimeRange.x > 1) spawnTimeRange.x -= 0.5f;
+        if (spawnTimeRange.y > 3) spawnTimeRange.y -= 0.5f;
     }
 }

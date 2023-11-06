@@ -60,7 +60,7 @@ public class LaserRay : Projectile
                 if (Objetive.CompareTag("Player")) Objetive.GetComponent<IDamage>().ResiveDamage(damage);
                 break;
             case BulletType.Player:
-                if (Objetive.CompareTag("Enemy"))
+                if (Objetive.CompareTag("Enemy") || Objetive.gameObject.CompareTag("Meteorite"))
                 {
                     print("Oe resive daño perro");
                     Objetive.GetComponent<IDamage>().ResiveDamage(damage);

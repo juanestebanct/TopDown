@@ -2452,7 +2452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2597105331990011882, guid: 9c447ef33fa81fe40b1219b1d62ea7ba, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4178889448202765359, guid: 9c447ef33fa81fe40b1219b1d62ea7ba, type: 3}
       propertyPath: m_RootOrder
@@ -15972,12 +15972,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meteoritePrefb: {fileID: 8045469407741393379, guid: 9793496d1a1fbe943a90807b0f8e4b38, type: 3}
-  spawnTimeRange: {x: 1, y: 2}
+  miniMetoritePrefb: {fileID: 908424992922748207, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
+  spawnTimeRange: {x: 10, y: 20}
   SpawnPoint:
   - {fileID: 1255858943}
   - {fileID: 404367117}
   - {fileID: 961527527}
   - {fileID: 1748060666}
+  minAsteroidSplinters: 2
+  maxAsteroidSplinters: 6
 --- !u!1 &1748060665
 GameObject:
   m_ObjectHideFlags: 0
@@ -22844,7 +22847,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7604115063526036183, guid: 9793496d1a1fbe943a90807b0f8e4b38, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -84.7
+      value: -19.1
       objectReference: {fileID: 0}
     - target: {fileID: 7604115063526036183, guid: 9793496d1a1fbe943a90807b0f8e4b38, type: 3}
       propertyPath: m_LocalPosition.y
@@ -23296,6 +23299,71 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1001 &5575670010751682757
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 908424992922748207, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
+      propertyPath: m_Name
+      value: MiniMeteorite
+      objectReference: {fileID: 0}
+    - target: {fileID: 908424992922748207, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149418679840078121, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149418679840078121, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -19.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149418679840078121, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149418679840078121, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149418679840078121, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149418679840078121, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149418679840078121, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149418679840078121, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149418679840078121, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149418679840078121, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149418679840078121, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
 --- !u!50 &5745254984062193238
 Rigidbody2D:
   serializedVersion: 4
