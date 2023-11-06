@@ -9,8 +9,8 @@ public class PickUp : MonoBehaviour
 
     private void Update()
     {
-        if (TimeCurrent >= TimeLive)
-            GameObject.Destroy(gameObject);
+        if (TimeCurrent >= TimeLive) Destroy(gameObject);
+
         TimeCurrent += Time.deltaTime;
     }
 }

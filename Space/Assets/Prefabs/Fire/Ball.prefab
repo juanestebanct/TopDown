@@ -277,7 +277,7 @@ MonoBehaviour:
   desactivateTime: 4
   curreDesactiveTime: 0
   type: 1
-  velocity: 60
+  velocity: 70
   force: 3
   trail: {fileID: 7389150227691036}
 --- !u!1001 &6466704450499743836

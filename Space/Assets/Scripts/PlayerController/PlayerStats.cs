@@ -35,6 +35,13 @@ public class PlayerStats : MonoBehaviour, IDamage
         damageable = false;
         StartCoroutine(ReactiveShield());
     }
+    public void MoreLive(int heal)
+    {
+        float TempLive = heal + live;
+        if (TempLive >= maxLive) live = maxLive;
+        else live = TempLive;
+        barLive.fillAmount = (live / maxLive);
+    }
     IEnumerator RelockTime()
     {
         damageable = false;

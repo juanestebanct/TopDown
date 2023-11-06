@@ -12,7 +12,7 @@ public class LaserRay : Projectile
 
     [SerializeField] private RayGun Raygun;
     [SerializeField] private ParticleSystem LineParticule;
-    [SerializeField] private LineRenderer lineRenderer;
+    [SerializeField] private LineRenderer lineRenderer, lineAnticipation;
     [SerializeField] private float waitToStar;
 
     private bool canDamage;
@@ -77,13 +77,15 @@ public class LaserRay : Projectile
         Raygun.DesactiveRay();
         LineParticule.Stop();
         LineParticule.Clear();
+
     }
     private IEnumerator LineDraw()
     {
         LineParticule.Play();
+        if (lineAnticipation) StartCoroutine(ChangeWidthGraduallyEffect());
         yield return new WaitForSeconds(waitToStar);
-        rayGunSource.PlayOneShot(fire);
 
+        rayGunSource.PlayOneShot(fire);
         canDamage = true;
         StartCoroutine(ChangeWidthGradually());
         yield return new WaitForSeconds(desactivateTime);
@@ -94,6 +96,7 @@ public class LaserRay : Projectile
     private IEnumerator ChangeWidthGradually()
     {
         if (inprogress!= null) rayGunSource.PlayOneShot(inprogress);
+        elapsedTime = 0;
 
         while (elapsedTime < desactivateTime)
         {
@@ -116,6 +119,34 @@ public class LaserRay : Projectile
         // Asegúrate de que el ancho final sea exacto
         lineRenderer.startWidth = targetWidth;
         lineRenderer.endWidth = targetWidth;
+    }
+
+    private IEnumerator ChangeWidthGraduallyEffect()
+    {
+        lineAnticipation.startWidth = 12;
+        lineAnticipation.endWidth = 12;
+        lineAnticipation.gameObject.SetActive(true);
+
+        while (elapsedTime < 0.5f)
+        {
+            // Calcula el valor de interpolación entre 0 y 1
+            float t = elapsedTime / 0.5f;
+
+            // Evalúa la curva de animación para obtener el ancho deseado en este punto
+            float lerpedWidth = Mathf.Lerp(targetWidth, initialWidth, blendedCurve.Evaluate(t));
+
+            // Actualiza los anchos del LineRenderer
+            lineAnticipation.startWidth = lerpedWidth;
+            lineAnticipation.endWidth = lerpedWidth;
+
+            // Incrementa el tiempo transcurrido
+            elapsedTime += Time.deltaTime;
+
+            yield return null; // Espera un frame antes de la próxima iteración
+        }
+        lineAnticipation.gameObject.SetActive(false);
+        // Asegúrate de que el ancho final sea exacto
+
     }
     private void OnDisable()
     {
