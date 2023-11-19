@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 {
     #region public 
     public static PlayerController instance;
+    public FloatingJoystick floatingJoystick;
     public InputManager inputManager;
     public Action OnPause,OnReset,Fire,Reset;
     public Shield Shield;
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Move(inputManager.Player.Move.ReadValue<Vector2>());
+        Move(new Vector2(floatingJoystick.Horizontal, floatingJoystick.Vertical));
     }
     private void Move(Vector2 movement)
     {
