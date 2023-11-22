@@ -88,7 +88,7 @@ public class LaserRay : Projectile
         rayGunSource.PlayOneShot(fire);
         canDamage = true;
         StartCoroutine(ChangeWidthGradually());
-        yield return new WaitForSeconds(desactivateTime);
+        yield return new WaitForSeconds(DesactivateTime);
 
         DesactiveLaser();
     }
@@ -98,10 +98,10 @@ public class LaserRay : Projectile
         if (inprogress!= null) rayGunSource.PlayOneShot(inprogress);
         elapsedTime = 0;
 
-        while (elapsedTime < desactivateTime)
+        while (elapsedTime < DesactivateTime)
         {
             // Calcula el valor de interpolación entre 0 y 1
-            float t = elapsedTime / desactivateTime;
+            float t = elapsedTime / DesactivateTime;
 
             // Evalúa la curva de animación para obtener el ancho deseado en este punto
             float lerpedWidth = Mathf.Lerp(targetWidth,initialWidth, blendedCurve.Evaluate(t));

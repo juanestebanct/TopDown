@@ -124,11 +124,8 @@ public class GenerationAsteroid : MonoBehaviour
             float torque = Random.Range(500.0f, 1500.0f);
 
             SpawnMiniMeteorite(direction, torque, position);
-
-
         }
     }
-
     public void ReduceTimeMeteorite()
     {
         if (spawnTimeRange.x > 1) spawnTimeRange.x -= 0.5f;

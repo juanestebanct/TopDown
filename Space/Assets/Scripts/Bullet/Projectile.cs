@@ -6,6 +6,6 @@ public class Projectile : MonoBehaviour
 {
     public enum BulletType { Enemy,Player }
     [SerializeField] protected int damage;
-    [SerializeField] protected float desactivateTime,curreDesactiveTime;
+    [SerializeField] protected float DesactivateTime,curreDesactiveTime;
     [SerializeField] protected BulletType type;
  }

@@ -1,27 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
 
-public class Canyon : MonoBehaviour
+public class Canyon : ProyectileWeapon
 {
-    [SerializeField] private GameObject projectile;
-    [SerializeField] private Transform projectirePoint;
-    [SerializeField] private float TimeToFire = 2f;
-
     [Header("pooling")]
-    [SerializeField] private int maxBulletBullet;
     private List<GameObject> bullets = new List<GameObject>();
 
-    private PlayerController playerController;
     private float NowVelocity; 
     private bool canFire = true;
     private Rigidbody2D rb;
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        playerController= GetComponent<PlayerController>();
-        playerController.Fire+=Shoot;
+        rb = PController.GetComponent<Rigidbody2D>();
+        PController.Fire+=Shoot;
         pooling();
     }
     private void Shoot()
@@ -35,12 +27,12 @@ public class Canyon : MonoBehaviour
         GameObject bullet = bullets.Find(b => !b.activeSelf);
         if (bullet == null)
         {
-            bullet = Instantiate(projectile, projectirePoint.position,transform.rotation);
+            bullet = Instantiate(Projectile, ProjectirePoint.position,transform.rotation);
             bullets.Add(bullet);
         }
         bullet.transform.rotation = transform.rotation;
 
-        bullet.transform.position = projectirePoint.position;
+        bullet.transform.position = ProjectirePoint.position;
         bullet.SetActive(true);
 
         if (rb.velocity.y >= 0) NowVelocity = rb.velocity.y;
@@ -52,9 +44,9 @@ public class Canyon : MonoBehaviour
     }
     private void pooling()
     {
-        for (int i = 0; i < maxBulletBullet; ++i)
+        for (int i = 0; i < MaxBulletBullet; ++i)
         {
-            GameObject bullet = Instantiate(projectile, projectirePoint.position, transform.rotation);
+            GameObject bullet = Instantiate(Projectile, ProjectirePoint.position, transform.rotation);
             bullet.SetActive(false);
             bullets.Add(bullet); 
         }
