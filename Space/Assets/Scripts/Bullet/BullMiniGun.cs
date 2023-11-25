@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(CapsuleCollider2D))]
-public class BulletShootGun : Projectile
+public class BullMiniGun : Projectile
 {
-    [Header("Starts Bull")]
+    [Header("Starts BullMiniGun")]
     [SerializeField] private float velocity;
-    [SerializeField] private float force;
     [SerializeField] private GameObject trail;
+    [SerializeField] private int minDamage;
 
     private Rigidbody2D rb;
     public void Awake()
@@ -19,12 +18,8 @@ public class BulletShootGun : Projectile
     }
     private void FixedUpdate()
     {
+        transform.Translate(Vector3.forward * velocity * Time.fixedDeltaTime);
     }
-    private void Desactive()
-    {
-        gameObject.SetActive(false);
-    }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         switch (type)
@@ -38,14 +33,18 @@ public class BulletShootGun : Projectile
                 if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Meteorite"))
                 {
                     print(collision);
-                    collision.gameObject.GetComponent<IDamage>().ResiveDamage(damage);
+                    collision.gameObject.GetComponent<IDamage>().ResiveDamage(RangeDamage());
                 }
                 gameObject.SetActive(false);
 
                 break;
         }
     }
-
+    private int RangeDamage()
+    {
+        int tempDamage = (int)Random.Range(minDamage, damage);
+        return tempDamage;
+    }
     private void OnEnable()
     {
         rb.velocity = new Vector2(0, 0);
@@ -60,14 +59,5 @@ public class BulletShootGun : Projectile
         trail.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.08f);
         trail.gameObject.SetActive(true);
-    }
-    public void AddForce(Vector2 tempMeteorite, Quaternion rotation)
-    {
-        tempMeteorite.Normalize();
-        rb.AddForce(tempMeteorite * force, ForceMode2D.Impulse);
-        transform.rotation = rotation;      
-        Invoke("Desactive",DesactivateTime);
-       
-
     }
 }

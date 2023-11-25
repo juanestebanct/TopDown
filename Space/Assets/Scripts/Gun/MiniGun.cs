@@ -1,15 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
-public class ShotGun : ProyectileWeapon
+public class MiniGun : ProyectileWeapon
 {
-    [Header("Shootgun Stast")]
-    [SerializeField][Range(0.0f, 360)] private float maxRange;
+    [Header("MiniGun Stast")]
+    [SerializeField][Range(0.0f, 3f)] private float distortion;
     [SerializeField] private float maxGunShoot;
-    [SerializeField] private float force;
-    [SerializeField] private int DesplazM;
 
     [Header("pooling")]
     private List<GameObject> bullets = new List<GameObject>();
@@ -17,6 +14,9 @@ public class ShotGun : ProyectileWeapon
     private float NowVelocity;
     private bool canFire = true;
     private Rigidbody2D rb;
+
+    private Vector3 tempDistortion;
+
     private void Awake()
     {
         rb = PController.GetComponent<Rigidbody2D>();
@@ -28,7 +28,7 @@ public class ShotGun : ProyectileWeapon
         if (!canFire) return;
         Shootpool();
     }
-
+    // Start is called before the first frame update
     private void Shootpool()
     {
         for (int counter = 0; counter < maxGunShoot; ++counter)
@@ -39,28 +39,18 @@ public class ShotGun : ProyectileWeapon
                 bullet = Instantiate(Projectile, ProjectirePoint.position, transform.rotation);
                 bullets.Add(bullet);
             }
-
             bullet.transform.rotation = transform.rotation;
-            bullet.transform.position = ProjectirePoint.position;
+
+            bullet.transform.position = ProjectirePoint.position + DistorcionShoot();
             bullet.SetActive(true);
 
-            float angle = (counter / (maxGunShoot - 1) - 0.5f) * 2 * maxRange;
-
-            Vector2 direction = Quaternion.Euler(0, 0, (angle)) * Vector2.up;
-           // print(45*counter-45);
-            float torque = Random.Range(500.0f, 1500.0f);
-
             if (rb.velocity.y >= 0) NowVelocity = rb.velocity.y;
-
-            Quaternion Rotation = Quaternion.LookRotation(direction);
-            bullet.GetComponent<BulletShootGun>().AddForce(direction, Rotation);
             bullet.GetComponent<Rigidbody2D>().velocity += new Vector2(0, NowVelocity);
 
+            canFire = false;
+            StartCoroutine(Delay());
+            AudioManager.instance.PlayClip(AudioManager.instance.Shoot);
         }
-
-        canFire = false;
-        StartCoroutine(Delay());
-        AudioManager.instance.PlayClip(AudioManager.instance.Shoot);
     }
     private void pooling()
     {
@@ -70,6 +60,14 @@ public class ShotGun : ProyectileWeapon
             bullet.SetActive(false);
             bullets.Add(bullet);
         }
+    }
+    private Vector3 DistorcionShoot()
+    {
+        float distortionX = Random.Range(-distortion, distortion);
+        float distortionY = Random.Range(-distortion, distortion);
+        float distortionZ = Random.Range(-distortion, distortion);
+        tempDistortion = new Vector3(distortionX, distortionY, distortionZ);
+        return tempDistortion;
     }
     private IEnumerator Delay()
     {

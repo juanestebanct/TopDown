@@ -11,4 +11,8 @@ public class ProyectileWeapon : MonoBehaviour
     [SerializeField] protected float TimeToFire = 2f;
     [SerializeField] protected int MaxBulletBullet;
 
+    protected virtual void Shoot()
+    {
+
+    }
 }

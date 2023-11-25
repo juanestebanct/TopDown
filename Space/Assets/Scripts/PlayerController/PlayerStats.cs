@@ -1,9 +1,10 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
 [RequireComponent(typeof(PlayerController))]
 public class PlayerStats : MonoBehaviour, IDamage
 {
@@ -16,10 +17,12 @@ public class PlayerStats : MonoBehaviour, IDamage
 
     [Header("Ui live")]
     [SerializeField] private Image barLive;
+    [SerializeField] private TextMeshProUGUI liveText;
     private void Awake()
     {
         live = maxLive;
         damageable = true;
+        liveText.text = $"{live}/{maxLive}";
     }
     public void ResiveDamage(float Damage)
     {
@@ -28,6 +31,7 @@ public class PlayerStats : MonoBehaviour, IDamage
         StartCoroutine(RelockTime());
 
         barLive.fillAmount = (live / maxLive);
+        liveText.text = $"{live}/{maxLive}";
         if (live < 1) PlayerController.instance.Reset();
     }
     public void DesactiveDamage()
@@ -41,6 +45,7 @@ public class PlayerStats : MonoBehaviour, IDamage
         if (TempLive >= maxLive) live = maxLive;
         else live = TempLive;
         barLive.fillAmount = (live / maxLive);
+        liveText.text = $"{live}/{maxLive}";
     }
     IEnumerator RelockTime()
     {

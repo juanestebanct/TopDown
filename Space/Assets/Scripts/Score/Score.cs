@@ -15,8 +15,8 @@ public class Score : MonoBehaviour
     {
         Instance = this;
         if (PlayerPrefs.HasKey("HighScore")) highScore = PlayerPrefs.GetInt("HighScore");
-        highScoreText.text = $"High Score: \n{highScore}";
-        scoreText.text = $"Score: \n{0}";
+        highScoreText.text = $"High Score: {highScore}";
+        scoreText.text = $"Score: {0}";
     }
     public void GetPoins(int poins)
     {
@@ -27,6 +27,6 @@ public class Score : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", highScore);
             highScoreText.text = $"High Score: \n{highScore}";
         }
-        scoreText.text = $"Score: \n{currentScore}";
+        scoreText.text = $"Score: {currentScore}";
     }
 }

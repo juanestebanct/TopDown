@@ -13,10 +13,10 @@ public class Canyon : ProyectileWeapon
     private void Awake()
     {
         rb = PController.GetComponent<Rigidbody2D>();
-        PController.Fire+=Shoot;
+        PController.Fire += Shoot;
         pooling();
     }
-    private void Shoot()
+    protected override void Shoot()
     {
         if (!canFire) return;
         Shootpool();

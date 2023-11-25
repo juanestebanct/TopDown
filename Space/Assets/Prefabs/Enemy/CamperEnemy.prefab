@@ -5032,7 +5032,7 @@ Transform:
   - {fileID: 8250199079774379898}
   - {fileID: 8976264266798563491}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &5745254983848063576
 Rigidbody2D:
@@ -5394,7 +5394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  desactivateTime: 2.5
+  DesactivateTime: 2.5
   curreDesactiveTime: 0
   type: 0
   Raygun: {fileID: 2610826097518184070}
