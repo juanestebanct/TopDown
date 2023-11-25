@@ -2471,7 +2471,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2597105331990011882, guid: 9c447ef33fa81fe40b1219b1d62ea7ba, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4178889448202765359, guid: 9c447ef33fa81fe40b1219b1d62ea7ba, type: 3}
       propertyPath: m_RootOrder
@@ -2487,11 +2487,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4178889448202765359, guid: 9c447ef33fa81fe40b1219b1d62ea7ba, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -56.841164
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 4178889448202765359, guid: 9c447ef33fa81fe40b1219b1d62ea7ba, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4178889448202765359, guid: 9c447ef33fa81fe40b1219b1d62ea7ba, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2503,7 +2503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4178889448202765359, guid: 9c447ef33fa81fe40b1219b1d62ea7ba, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4178889448202765359, guid: 9c447ef33fa81fe40b1219b1d62ea7ba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2515,7 +2515,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4178889448202765359, guid: 9c447ef33fa81fe40b1219b1d62ea7ba, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15495,7 +15495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1577849696
 Transform:
   m_ObjectHideFlags: 0
@@ -28730,7 +28730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  desactivateTime: 8
+  DesactivateTime: 8
   curreDesactiveTime: 0
   type: 1
   Raygun: {fileID: 1089635690}
