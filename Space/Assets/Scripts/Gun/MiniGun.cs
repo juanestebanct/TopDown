@@ -11,7 +11,9 @@ public class MiniGun : ProyectileWeapon
     [Header("pooling")]
     private List<GameObject> bullets = new List<GameObject>();
 
-    private float NowVelocity;
+    private float NowVelocityY;
+    private float NowVelocityX;
+
     private bool canFire = true;
     private Rigidbody2D rb;
 
@@ -44,8 +46,10 @@ public class MiniGun : ProyectileWeapon
             bullet.transform.position = ProjectirePoint.position + DistorcionShoot();
             bullet.SetActive(true);
 
-            if (rb.velocity.y >= 0) NowVelocity = rb.velocity.y;
-            bullet.GetComponent<Rigidbody2D>().velocity += new Vector2(0, NowVelocity);
+            NowVelocityX = Mathf.Abs(rb.velocity.x);
+            NowVelocityY = Mathf.Abs(rb.velocity.y);
+
+            bullet.GetComponent<Rigidbody2D>().velocity += new Vector2(NowVelocityX, NowVelocityY);
 
             canFire = false;
             StartCoroutine(Delay());

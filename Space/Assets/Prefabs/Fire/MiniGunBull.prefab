@@ -197,7 +197,7 @@ Transform:
   - {fileID: 7812478866555172822}
   - {fileID: 5836468889187040805}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &3109648165325565503
 Rigidbody2D:
@@ -277,7 +277,7 @@ MonoBehaviour:
   DesactivateTime: 4
   curreDesactiveTime: 0
   type: 1
-  velocity: 50
+  velocity: 70
   trail: {fileID: 789629585541568795}
   minDamage: 1
 --- !u!1 &4576817437765482586

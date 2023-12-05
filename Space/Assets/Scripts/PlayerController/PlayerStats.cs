@@ -1,10 +1,10 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
 [RequireComponent(typeof(PlayerController))]
 public class PlayerStats : MonoBehaviour, IDamage
 {

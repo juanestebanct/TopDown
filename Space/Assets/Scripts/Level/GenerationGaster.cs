@@ -1,8 +1,7 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
-using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class GenerationGaster : MonoBehaviour
 {
@@ -13,12 +12,15 @@ public class GenerationGaster : MonoBehaviour
 
     private List<GameObject> blaster = new List<GameObject>();
     private float currentSpawnTime, spawnTimer;
+    private bool Spawn;
     void Start()
     {
+        Spawn = false;
         PoolEnemies();
     }
     private void Update()
     {
+        if (!Spawn) return; 
         if (spawnTimer >= currentSpawnTime)
         {
             SpawnEnemy(GetRandomSpawnPoint());
@@ -63,5 +65,9 @@ public class GenerationGaster : MonoBehaviour
     {
         if(spawnTimeRange.x > 1) spawnTimeRange.x -= 0.5f;
         if (spawnTimeRange.y > 3) spawnTimeRange.y -= 0.5f;
+    }
+    public void ActiveBlaster()
+    {
+        Spawn = true;
     }
 }

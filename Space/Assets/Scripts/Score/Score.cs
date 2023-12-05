@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
     public static Score Instance { get; set; }
@@ -9,24 +10,49 @@ public class Score : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI highScoreText;
 
-    public int currentScore, highScore;
+    [Header("Next level")]
+    public int NextLevelPoinst;
+    public int Level;
+    public int CurrentScore, HighScore;
+
+    [Header("Ui Next level")]
+    [SerializeField] private Image barLevel;
+    [SerializeField] private TextMeshProUGUI TextLevel;
 
     private void Awake()
     {
+        Level = 1;
         Instance = this;
-        if (PlayerPrefs.HasKey("HighScore")) highScore = PlayerPrefs.GetInt("HighScore");
-        highScoreText.text = $"High Score: {highScore}";
+        if (PlayerPrefs.HasKey("HighScore")) HighScore = PlayerPrefs.GetInt("HighScore");
+        highScoreText.text = $"High Score: {HighScore}";
         scoreText.text = $"Score: {0}";
+    }
+    private void Start()
+    {
+        barLevel.fillAmount = (CurrentScore / NextLevelPoinst);
+        TextLevel.text = $"{CurrentScore}/{NextLevelPoinst}";
     }
     public void GetPoins(int poins)
     {
-        currentScore +=  poins;
-        if (currentScore > highScore)
+        
+        CurrentScore +=  poins;
+
+        barLevel.fillAmount = ((float)CurrentScore / (float)NextLevelPoinst);
+        TextLevel.text = $"{CurrentScore}/{NextLevelPoinst}";
+
+        if (CurrentScore > HighScore)
         {
-            highScore = currentScore;
-            PlayerPrefs.SetInt("HighScore", highScore);
-            highScoreText.text = $"High Score: \n{highScore}";
+            HighScore = CurrentScore;
+            PlayerPrefs.SetInt("HighScore", HighScore);
+            highScoreText.text = $"High Score: \n{HighScore}";
         }
-        scoreText.text = $"Score: {currentScore}";
+        scoreText.text = $"Score: {CurrentScore}";
     }
+    public void PastLevel()
+    {
+        print("se paso el nivel y se coloca la mejora ");
+        Level++;
+        barLevel.fillAmount = ((float)CurrentScore / (float)NextLevelPoinst);
+        TextLevel.text = $"{CurrentScore}/{NextLevelPoinst}";
+    } 
 }

@@ -36,6 +36,10 @@ public class GenerationEnemiesNormal : MonoBehaviour
 
         PoolEnemies(camperEnemy);
     }
+    private void Start()
+    {
+        Score.Instance.NextLevelPoinst = PointsToLevel;
+    }
     /// <summary>
     /// genera el pool de cada tipo
     /// </summary>
@@ -54,12 +58,13 @@ public class GenerationEnemiesNormal : MonoBehaviour
     }
     private void Update()
     {
+       
         if (spawnTimer >= currentSpawnTime)
         {
             int spawnCurrent = 1;
             while (MaxEnemyBySpawn >= spawnCurrent)
             {
-                ChangeDifficulty();
+               
                 SpawnEnemy(choose(), Configuration(positionToSpawn.position));
                 currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
                 spawnTimer = 0;
@@ -67,6 +72,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
             }
         }
         spawnTimer += Time.deltaTime;
+        ChangeDifficulty();
     }
     /// <summary>
     /// se escoje la lista que va a lansar 
@@ -111,23 +117,30 @@ public class GenerationEnemiesNormal : MonoBehaviour
         enemy.transform.position = Position;
         enemy.SetActive(true);
         enemy.GetComponent<Enemy>().ResetMovent(Position);
-
     }
     private void ChangeDifficulty()
     {
-        if (Score.Instance.currentScore >= PointsToLevel)
+        print(Score.Instance.CurrentScore);
+        if (Score.Instance.CurrentScore >= PointsToLevel)
         {
-            PointsToLevel = (PointsToLevel * 2) + PointsToLevel / 2; 
+            PointsToLevel = (PointsToLevel * 2) + PointsToLevel / 2;
+            Score.Instance.NextLevelPoinst = PointsToLevel;
+            Score.Instance.PastLevel();
             level++;
-
+            /*
+            2.primero se reduce el tiempo, 3.luego se activa los otros enemigos, 4.luego se activa los blaster y 5.luego mas enemigos por spawn y 
+            mas enemigos
+             * */
             switch (level)
             {
                 case 2:
                     ReduseTime();
                     break;
-
                 case 3:
                     maxTipyEnemy++;
+                    break;
+                case 4:
+                    generationGaster.ActiveBlaster();
                     break;
 
                 default:

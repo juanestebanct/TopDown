@@ -5121,7 +5121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Live: 3
   Damage: 1
-  Point: 12
+  Point: 4
   DeadVfx: {fileID: 0}
   movent: {fileID: 0}
 --- !u!58 &8386351460551214044

@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerStats))]
@@ -47,20 +49,34 @@ public class PlayerController : MonoBehaviour
     private void TriggerReset(InputAction.CallbackContext ctx) { if (OnReset != null) OnReset(); }
     private void FixedUpdate()
     {
+
+
         Move(inputManager.Player.Move.ReadValue<Vector2>());
         Move(new Vector2(floatingJoystick.Horizontal, floatingJoystick.Vertical));
     }
     private void Move(Vector2 movement)
     {
-       
-        if (movement.magnitude>0)
+        // Calculate the rotatio
+
+        // Check if there is any forward movement input
+        if (movement.y != 0 || movement.x != 0)
         {
+            // Calculate the target rotation based on the input
+            float targetRotation = Mathf.Atan2(-movement.x, movement.y) * Mathf.Rad2Deg;
+
+            // Smoothly rotate towards the target rotation
+            float rotationSpeed = 1000f;  // Adjust the rotation speed as needed
+            float newRotation = Mathf.MoveTowardsAngle(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+            rb.MoveRotation(newRotation);
+
+            // Move forward in the direction of the current rotation
             rb.velocity = movement * speed * 10 * Time.fixedDeltaTime;
         }
         else
         {
-            rb.velocity = Vector3.Lerp(rb.velocity, Vector3.zero, brakeSpeed * Time.fixedDeltaTime);
-        }  
+            // If there is no forward movement input, gradually slow down the Rigidbody
+            rb.velocity = Vector2.Lerp(rb.velocity, Vector2.zero, brakeSpeed * Time.fixedDeltaTime);
+        }
     }
     private void OnDisable()
     {
