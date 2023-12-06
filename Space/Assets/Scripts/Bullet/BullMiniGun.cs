@@ -7,13 +7,15 @@ using UnityEngine;
 public class BullMiniGun : Projectile
 {
     [Header("Starts BullMiniGun")]
-    [SerializeField] private float velocity;
+    [SerializeField] private float startVelocity;
     [SerializeField] private GameObject trail;
     [SerializeField] private int minDamage;
 
+    private float velocity;
     private Rigidbody2D rb;
     public void Awake()
     {
+        velocity = startVelocity;
         rb = GetComponent<Rigidbody2D>();
     }
     private void FixedUpdate()
@@ -46,6 +48,7 @@ public class BullMiniGun : Projectile
     }
     private void OnEnable()
     {
+        velocity = startVelocity;
         rb.velocity = new Vector2(0, 0);
         StartCoroutine(Active());
     }
@@ -58,5 +61,9 @@ public class BullMiniGun : Projectile
         trail.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.08f);
         trail.gameObject.SetActive(true);
+    }
+    public void MoreSpeed(float velocityPlayer)
+    {
+        velocity += velocityPlayer; 
     }
 }

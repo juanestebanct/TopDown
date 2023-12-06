@@ -257,9 +257,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4715069662694114597}
   - component: {fileID: 3231858551813850129}
-  - component: {fileID: 3633149726857970324}
-  - component: {fileID: 8403968622793587113}
   - component: {fileID: 7949200697938623383}
+  - component: {fileID: 6250310158101086886}
   m_Layer: 8
   m_Name: ShootgunBall
   m_TagString: PlayerBullet
@@ -311,7 +310,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &3633149726857970324
+--- !u!114 &7949200697938623383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8725064258866872384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e855eb31cf429e6499a6f81ffdb3d76f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 10
+  DesactivateTime: 0.5
+  curreDesactiveTime: 0
+  type: 1
+  velocity: 70
+  force: 80
+  trail: {fileID: 5978989713254280166}
+--- !u!70 &6250310158101086886
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -344,43 +362,5 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 1}
-  m_Direction: 0
---- !u!114 &8403968622793587113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8725064258866872384}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4298a02624eaa71479483c3b2187b5f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
-  DesactivateTime: 0
-  curreDesactiveTime: 0
-  type: 1
-  velocity: 70
-  force: 3
-  trail: {fileID: 5978989713254280166}
---- !u!114 &7949200697938623383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8725064258866872384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e855eb31cf429e6499a6f81ffdb3d76f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 10
-  DesactivateTime: 0.5
-  curreDesactiveTime: 0
-  type: 1
-  velocity: 70
-  force: 80
-  trail: {fileID: 5978989713254280166}
+  m_Size: {x: 3, y: 3}
+  m_Direction: 1

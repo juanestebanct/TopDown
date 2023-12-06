@@ -46,11 +46,11 @@ public class ShotGun : ProyectileWeapon
 
             float angle = (counter / (maxGunShoot - 1) - 0.5f) * 2 * maxRange;
 
-            Vector2 direction = Quaternion.Euler(0, 0, (angle)) * Vector2.up;
+            Vector2 direction = Quaternion.Euler(0, 0, (angle)) * transform.forward;
            // print(45*counter-45);
             float torque = Random.Range(500.0f, 1500.0f);
 
-            if (rb.velocity.y >= 0) NowVelocity = rb.velocity.y;
+            bullet.GetComponent<BulletShootGun>().MoreSpeed(rb.velocity.magnitude);
 
             Quaternion Rotation = Quaternion.LookRotation(direction);
             bullet.GetComponent<BulletShootGun>().AddForce(direction, Rotation);
@@ -61,6 +61,15 @@ public class ShotGun : ProyectileWeapon
         canFire = false;
         StartCoroutine(Delay());
         AudioManager.instance.PlayClip(AudioManager.instance.Shoot);
+    }
+
+    private void OnDisable()
+    {
+        PController.Fire -= Shoot;
+    }
+    private void OnEnable()
+    {
+        PController.Fire += Shoot;
     }
     private void pooling()
     {

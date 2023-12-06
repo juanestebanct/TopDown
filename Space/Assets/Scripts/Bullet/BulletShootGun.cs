@@ -37,7 +37,7 @@ public class BulletShootGun : Projectile
 
                 if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Meteorite"))
                 {
-                    print(collision);
+                    print(collision +""+ damage);
                     collision.gameObject.GetComponent<IDamage>().ResiveDamage(damage);
                 }
                 gameObject.SetActive(false);
@@ -68,6 +68,9 @@ public class BulletShootGun : Projectile
         transform.rotation = rotation;      
         Invoke("Desactive",DesactivateTime);
        
-
+    }
+    public void MoreSpeed(float velocityPlayer)
+    {
+        velocity += velocityPlayer;
     }
 }

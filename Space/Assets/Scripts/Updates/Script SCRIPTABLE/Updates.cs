@@ -1,19 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "NewUpdate", menuName = "update")]
 public class Updates : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum TypeUpdate
     {
-        
-    }
+        Live,
+        Weapon,
+        Speed,
 
-    // Update is called once per frame
-    void Update()
+    }
+    public Image ImageUpdate;
+
+    public TypeUpdate Type;
+
+    public virtual void ActivateImprovement()
     {
-        
+
     }
 }

@@ -49,7 +49,7 @@ public class MiniGun : ProyectileWeapon
             NowVelocityX = Mathf.Abs(rb.velocity.x);
             NowVelocityY = Mathf.Abs(rb.velocity.y);
 
-            bullet.GetComponent<Rigidbody2D>().velocity += new Vector2(NowVelocityX, NowVelocityY);
+            bullet.GetComponent<BullMiniGun>().MoreSpeed(rb.velocity.magnitude);
 
             canFire = false;
             StartCoroutine(Delay());
@@ -77,5 +77,13 @@ public class MiniGun : ProyectileWeapon
     {
         yield return new WaitForSeconds(TimeToFire);
         canFire = true;
+    }
+    private void OnDisable()
+    {
+        PController.Fire -= Shoot;
+    }
+    private void OnEnable()
+    {
+        PController.Fire += Shoot;
     }
 }

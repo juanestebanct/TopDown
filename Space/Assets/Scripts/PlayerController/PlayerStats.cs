@@ -42,8 +42,10 @@ public class PlayerStats : MonoBehaviour, IDamage
     public void MoreLive(int heal)
     {
         float TempLive = heal + live;
+
         if (TempLive >= maxLive) live = maxLive;
         else live = TempLive;
+
         barLive.fillAmount = (live / maxLive);
         liveText.text = $"{live}/{maxLive}";
     }

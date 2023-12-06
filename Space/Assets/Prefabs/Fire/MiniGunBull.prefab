@@ -260,7 +260,7 @@ CapsuleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 0.5}
-  m_Direction: 0
+  m_Direction: 1
 --- !u!114 &3989553689058479617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,7 +277,7 @@ MonoBehaviour:
   DesactivateTime: 4
   curreDesactiveTime: 0
   type: 1
-  velocity: 70
+  startVelocity: 70
   trail: {fileID: 789629585541568795}
   minDamage: 1
 --- !u!1 &4576817437765482586

@@ -5,6 +5,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
+using static Updates;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerStats))]
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
     public FloatingJoystick floatingJoystick;
     public InputManager inputManager;
+
     public Action OnPause,OnReset,Fire,Reset;
     public Shield Shield;
     public RayGun RayGun;
@@ -100,5 +102,12 @@ public class PlayerController : MonoBehaviour
     {
         RayGun.gameObject.SetActive(true);
         RayGun.DesactivarObjeto();
+    }
+    public void AplicationUpdate(TypeUpdate tipeUpdate,int moreLive)
+    {
+        switch (tipeUpdate)
+        {
+
+        }
     }
 }
