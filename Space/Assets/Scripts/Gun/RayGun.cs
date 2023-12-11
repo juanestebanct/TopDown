@@ -61,7 +61,9 @@ public class RayGun : MonoBehaviour
     /// <returns></returns>
     private void EndLaser()
     {
-        RaycastHit2D hit = Physics2D.Raycast(positionRay.position, positionRay.forward, rayCastDistance);
+
+        // Realiza el raycast con la máscara de capas.
+        RaycastHit2D hit = Physics2D.Raycast(positionRay.position, positionRay.forward, rayCastDistance, Mask);
 
         if (hit.collider != null)
         {
@@ -69,7 +71,9 @@ public class RayGun : MonoBehaviour
            
             float magnitudeBetweenVectors = Vector3.Distance(hit.collider.transform.position, positionRay.position);
 
+            print(magnitudeBetweenVectors);
             lastRayPosition = new Vector3(0,-magnitudeBetweenVectors, 0);
+            laser.transform.forward = positionRay.forward;
 
             if (disableforcedlacer)
             {
@@ -82,7 +86,7 @@ public class RayGun : MonoBehaviour
         else
         {
             // Si el rayo no golpea nada, dibuja una línea roja en la dirección hacia adelante.
-            Debug.DrawRay(positionRay.position, Vector2.down * rayCastDistance, Color.red);
+            Debug.DrawRay(positionRay.position, transform.forward * rayCastDistance, Color.red);
             
         }
     }

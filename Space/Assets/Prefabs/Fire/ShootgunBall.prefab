@@ -323,11 +323,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  DesactivateTime: 0.5
+  DesactivateTime: 0.3
   curreDesactiveTime: 0
   type: 1
-  velocity: 70
-  force: 80
+  velocity: 100
+  force: 100
   trail: {fileID: 5978989713254280166}
 --- !u!70 &6250310158101086886
 CapsuleCollider2D:

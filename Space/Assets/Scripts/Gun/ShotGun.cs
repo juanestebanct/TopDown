@@ -36,7 +36,7 @@ public class ShotGun : ProyectileWeapon
             GameObject bullet = bullets.Find(b => !b.activeSelf);
             if (bullet == null)
             {
-                bullet = Instantiate(Projectile, ProjectirePoint.position, transform.rotation);
+                bullet = Instantiate(Projectile, ProjectirePoint.position, ProjectirePoint.rotation);
                 bullets.Add(bullet);
             }
 
@@ -46,7 +46,7 @@ public class ShotGun : ProyectileWeapon
 
             float angle = (counter / (maxGunShoot - 1) - 0.5f) * 2 * maxRange;
 
-            Vector2 direction = Quaternion.Euler(0, 0, (angle)) * transform.forward;
+            Vector2 direction = Quaternion.Euler(0, 0, (angle)) * ProjectirePoint.forward;
            // print(45*counter-45);
             float torque = Random.Range(500.0f, 1500.0f);
 

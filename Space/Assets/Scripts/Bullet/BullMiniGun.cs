@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -10,17 +11,20 @@ public class BullMiniGun : Projectile
     [SerializeField] private float startVelocity;
     [SerializeField] private GameObject trail;
     [SerializeField] private int minDamage;
+    [SerializeField] private float force;
 
+    private Vector3 direction;
     private float velocity;
     private Rigidbody2D rb;
     public void Awake()
     {
         velocity = startVelocity;
+        direction = Vector3.forward;
         rb = GetComponent<Rigidbody2D>();
     }
     private void FixedUpdate()
     {
-        transform.Translate(Vector3.forward * velocity * Time.fixedDeltaTime);
+        //transform.Translate(direction * velocity * Time.fixedDeltaTime);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -64,6 +68,18 @@ public class BullMiniGun : Projectile
     }
     public void MoreSpeed(float velocityPlayer)
     {
-        velocity += velocityPlayer; 
+        velocity += velocityPlayer;
+        
+    }
+    public void newDireccion(Vector3 vector3)
+    {
+        direction = vector3;
+    }
+    public void AddForce(Vector2 tempMeteorite)
+    {
+        tempMeteorite.Normalize();
+        rb.AddForce(tempMeteorite * force, ForceMode2D.Impulse);
+        transform.forward = tempMeteorite;
+
     }
 }
