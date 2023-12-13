@@ -71,7 +71,6 @@ public class RayGun : MonoBehaviour
            
             float magnitudeBetweenVectors = Vector3.Distance(hit.collider.transform.position, positionRay.position);
 
-            print(magnitudeBetweenVectors);
             lastRayPosition = new Vector3(0,-magnitudeBetweenVectors, 0);
             laser.transform.forward = positionRay.forward;
 

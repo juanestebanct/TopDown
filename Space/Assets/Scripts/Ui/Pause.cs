@@ -22,16 +22,12 @@ public class Pause : MonoBehaviour
             Time.timeScale = 1;
             pauseMenu.SetActive(false);
             isPaused = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
         else if (Time.timeScale > 0)
         {
             Time.timeScale = 0;
             pauseMenu.SetActive(true);
             isPaused = true;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
         }
     }
     public void MainMenu()

@@ -22,10 +22,6 @@ public class BullMiniGun : Projectile
         direction = Vector3.forward;
         rb = GetComponent<Rigidbody2D>();
     }
-    private void FixedUpdate()
-    {
-        //transform.Translate(direction * velocity * Time.fixedDeltaTime);
-    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         switch (type)
@@ -75,11 +71,11 @@ public class BullMiniGun : Projectile
     {
         direction = vector3;
     }
-    public void AddForce(Vector2 tempMeteorite)
+    public void AddForce(Vector2 tempDireccion)
     {
-        tempMeteorite.Normalize();
-        rb.AddForce(tempMeteorite * force, ForceMode2D.Impulse);
-        transform.forward = tempMeteorite;
+        tempDireccion.Normalize();
+        rb.AddForce(tempDireccion * force, ForceMode2D.Impulse);
+        transform.forward = tempDireccion;
 
     }
 }

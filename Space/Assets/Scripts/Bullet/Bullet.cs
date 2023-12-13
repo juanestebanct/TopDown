@@ -17,10 +17,6 @@ public class Bullet : Projectile
     {
         rb = GetComponent<Rigidbody2D>();
     }
-    private void FixedUpdate()
-    {
-        transform.Translate(Vector3.forward * velocity * Time.fixedDeltaTime);
-    }
     private void Desactive()
     {
         gameObject.SetActive(false);
@@ -61,5 +57,16 @@ public class Bullet : Projectile
         trail.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.08f);
         trail.gameObject.SetActive(true);
+    }
+    public void MoreSpeed(float velocityPlayer)
+    {
+        velocity += velocityPlayer;
+    }
+    public void AddForce(Vector2 tempForce)
+    {
+        tempForce.Normalize();
+        rb.AddForce(tempForce * force, ForceMode2D.Impulse);
+        transform.forward = tempForce;
+
     }
 }

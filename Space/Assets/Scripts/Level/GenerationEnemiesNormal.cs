@@ -120,7 +120,6 @@ public class GenerationEnemiesNormal : MonoBehaviour
     }
     private void ChangeDifficulty()
     {
-        print(Score.Instance.CurrentScore);
         if (Score.Instance.CurrentScore >= PointsToLevel)
         {
             PointsToLevel = (PointsToLevel * 2) + PointsToLevel / 2;

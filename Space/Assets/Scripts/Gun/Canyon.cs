@@ -36,7 +36,8 @@ public class Canyon : ProyectileWeapon
         bullet.SetActive(true);
 
         if (rb.velocity.y >= 0) NowVelocity = rb.velocity.y;
-        bullet.GetComponent<Rigidbody2D>().velocity += new Vector2(0, NowVelocity);
+        bullet.GetComponent<Bullet>().AddForce(ProjectirePoint.forward);
+        bullet.GetComponent<Bullet>().MoreSpeed(rb.velocity.magnitude);
 
         canFire = false;
         StartCoroutine(Delay());
@@ -56,4 +57,5 @@ public class Canyon : ProyectileWeapon
         yield return new WaitForSeconds(TimeToFire);
         canFire = true;
     }
+
 }
