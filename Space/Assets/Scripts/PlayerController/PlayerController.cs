@@ -18,9 +18,11 @@ public class PlayerController : MonoBehaviour
     public FloatingJoystick floatingJoystickShoot;
     public InputManager inputManager;
 
-    public Action OnPause,OnReset,Fire,Reset;
+    public Action OnPause, OnReset, Fire, Reset;
     public Shield Shield;
     public RayGun RayGun;
+
+    public ProyectileWeapon[] Weapons; 
     #endregion
 
     #region private
@@ -32,6 +34,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform poinToShoot;
     [SerializeField] private float speed;
     [SerializeField] private float brakeSpeed;
+    [SerializeField] private ProyectileWeapon weapon;
+
 
     private void Awake()
     {
@@ -109,6 +113,10 @@ public class PlayerController : MonoBehaviour
     {
         RayGun.gameObject.SetActive(true);
         RayGun.DesactivarObjeto();
+    }
+    public void ChangeWeapon(ProyectileWeapon NewWeapon)
+    {
+        weapon = NewWeapon;
     }
     public void AplicationUpdate(TypeUpdate tipeUpdate,int moreLive)
     {

@@ -280,7 +280,7 @@ MonoBehaviour:
   startVelocity: 70
   trail: {fileID: 789629585541568795}
   minDamage: 1
-  force: 90
+  force: 180
 --- !u!1 &4576817437765482586
 GameObject:
   m_ObjectHideFlags: 0

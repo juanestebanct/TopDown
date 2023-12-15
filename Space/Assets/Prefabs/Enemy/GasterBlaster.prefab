@@ -5357,7 +5357,7 @@ Transform:
   - {fileID: 3364502186898786848}
   - {fileID: 4896215071961732989}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &7375108684343226472
 Rigidbody2D:
@@ -5452,7 +5452,7 @@ MonoBehaviour:
   disableforcedlacer: 0
   Mask:
     serializedVersion: 2
-    m_Bits: 8175
+    m_Bits: 8171
   timeRay: 0
 --- !u!58 &2650667637091182653
 CircleCollider2D:

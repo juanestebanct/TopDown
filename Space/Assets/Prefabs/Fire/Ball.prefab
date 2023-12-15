@@ -278,7 +278,7 @@ MonoBehaviour:
   curreDesactiveTime: 0
   type: 1
   velocity: 70
-  force: 120
+  force: 240
   trail: {fileID: 7389150227691036}
 --- !u!1001 &6466704450499743836
 PrefabInstance:

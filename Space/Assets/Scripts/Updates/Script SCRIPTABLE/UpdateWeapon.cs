@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpdateWeapon : MonoBehaviour
+[CreateAssetMenu(fileName = "NewUpdate", menuName = "WeaponsScript")]
+public class UpdateWeapon : Updates
 {
-    // Start is called before the first frame update
-    void Start()
+    public int weaponIndex;
+    /// <summary>
+    /// activa el arma
+    /// </summary>
+    /// <param name="Weapon"></param>
+    public  override void ActivateImprovement(ProyectileWeapon Weapon)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Weapon.gameObject.SetActive(true);
+        PlayerController.instance.ChangeWeapon(Weapon);
     }
 }

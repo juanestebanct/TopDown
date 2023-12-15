@@ -326,8 +326,8 @@ MonoBehaviour:
   DesactivateTime: 0.3
   curreDesactiveTime: 0
   type: 1
-  velocity: 100
-  force: 100
+  velocity: 200
+  force: 200
   trail: {fileID: 5978989713254280166}
 --- !u!70 &6250310158101086886
 CapsuleCollider2D:

@@ -58,7 +58,6 @@ public class PlayerStats : MonoBehaviour, IDamage
     IEnumerator ReactiveShield()
     {
         yield return new WaitForSeconds(10);
-
         damageable = true;
     }
    
