@@ -18,7 +18,7 @@ public class Score : MonoBehaviour
     [Header("Ui Next level")]
     [SerializeField] private Image barLevel;
     [SerializeField] private TextMeshProUGUI TextLevel;
-
+    [SerializeField] private UpdateControllers updateControllers;
     private void Awake()
     {
         Level = 1;
@@ -50,6 +50,7 @@ public class Score : MonoBehaviour
     }
     public void PastLevel()
     {
+        updateControllers.OpenMenuUpdate();
         print("se paso el nivel y se coloca la mejora ");
         Level++;
         barLevel.fillAmount = ((float)CurrentScore / (float)NextLevelPoinst);

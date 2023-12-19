@@ -9,10 +9,17 @@ using UnityEngine;
 public abstract class Enemy : MonoBehaviour, IDamage
 {
     public Action Move;
-    [SerializeField] protected int Live;
+    [SerializeField] protected int Level;
+    [SerializeField] protected float MaxLive;
+    [SerializeField] protected float Live;
     [SerializeField] protected int Damage;
     [SerializeField] protected int Point;
     [SerializeField] protected GameObject DeadVfx;
+    private void Start()
+    {
+        Live = MaxLive;
+        Level = 1;
+    }
     public virtual void ResetMovent(Vector3 position)
     {
         //var deathFX = Instantiate(DeadVfx);
@@ -25,6 +32,7 @@ public abstract class Enemy : MonoBehaviour, IDamage
         //var deathFX = Instantiate(DeadVfx);
         //deathFX.transform.positionRay = transform.positionRay;
         //Destroy(deathFX, 1f);
+        Live = MaxLive;
         gameObject.SetActive(false);
     }
     public virtual void FixedUpdate()
@@ -50,6 +58,15 @@ public abstract class Enemy : MonoBehaviour, IDamage
         }
         if (collision.gameObject.CompareTag("ResetZone")) Desactive();
     }
-
+    public void UpdateLevel(int currentLevel)
+    {
+        if (Level != currentLevel) 
+        {
+            print("next nevel" + currentLevel + "" + Level);
+            Level = currentLevel;
+            MaxLive += 2;
+            Damage += 2;
+        }
+    }
 
 }

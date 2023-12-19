@@ -22,12 +22,11 @@ public class Bullet : Projectile
         gameObject.SetActive(false);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         switch (type)
         {
             case BulletType.Enemy:
-                
                 break;
 
             case BulletType.Player:
@@ -36,13 +35,13 @@ public class Bullet : Projectile
                 {
                     print(collision);
                     collision.gameObject.GetComponent<IDamage>().ResiveDamage(damage);
+                    LostDrilling();
+                    return;
                 }
                 gameObject.SetActive(false);
-
-               break;
+                break;
         }
     }
-
     private void OnEnable()
     {
         rb.velocity = new Vector2(0, 0);
@@ -69,4 +68,5 @@ public class Bullet : Projectile
         transform.forward = tempForce;
 
     }
+   
 }

@@ -22,22 +22,23 @@ public class BullMiniGun : Projectile
         direction = Vector3.forward;
         rb = GetComponent<Rigidbody2D>();
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         switch (type)
         {
             case BulletType.Enemy:
-
                 break;
 
             case BulletType.Player:
 
                 if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Meteorite"))
                 {
-                    collision.gameObject.GetComponent<IDamage>().ResiveDamage(RangeDamage());
+                    print(collision);
+                    collision.gameObject.GetComponent<IDamage>().ResiveDamage(damage);
+                    LostDrilling();
+                    return;
                 }
                 gameObject.SetActive(false);
-
                 break;
         }
     }

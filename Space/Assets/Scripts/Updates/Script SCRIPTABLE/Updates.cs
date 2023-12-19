@@ -10,7 +10,9 @@ public class Updates : ScriptableObject
         Live,
         Weapon,
         Speed,
-
+        Moreshoot,
+        Drilling,
+        Cooldown
     }
     public Sprite ImageUpdate;
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class UpdateControllers : MonoBehaviour
 {
     [SerializeField] private UpdateWeapon[] WeaponsScript;
+    [SerializeField] private Updates[] UpdatesScript;
     [SerializeField] private CardUpdate[] cards;
     [SerializeField] private GameObject UpdateUi;
 
@@ -14,7 +15,6 @@ public class UpdateControllers : MonoBehaviour
         isPaused = false;
         TriggerPause();
         SelectWeapons();
-        Time.timeScale = 0;
     }
     public void SelectWeapons()
     {
@@ -26,8 +26,23 @@ public class UpdateControllers : MonoBehaviour
     }
     public void NewUpdates()
     {
+        List<Updates> temUpdates = new List<Updates>(UpdatesScript);
 
+        for (int i = 0; i < cards.Length; i++)
+        {
+            int tempIndex = Random.Range(0, temUpdates.Count);
+
+            cards[i].UpdateCard(temUpdates[tempIndex]);
+            temUpdates.RemoveAt(tempIndex);
+        }
     }
+
+    public void OpenMenuUpdate()
+    {
+        TriggerPause();
+        NewUpdates();
+    }
+
     public void TriggerPause()
     {
         if (isPaused)

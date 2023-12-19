@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c16e1b1d7dd5641877fb90e1f10d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Level: 1
+  MaxLive: 5
   Live: 3
   Damage: 1
   Point: 1

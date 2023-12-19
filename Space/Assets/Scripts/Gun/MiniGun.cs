@@ -28,7 +28,7 @@ public class MiniGun : ProyectileWeapon
     protected override void Shoot()
     {
         if (!canFire) return;
-        Shootpool();
+        StartCoroutine(startShoot());
     }
     // Start is called before the first frame update
     private void Shootpool()
@@ -48,11 +48,11 @@ public class MiniGun : ProyectileWeapon
 
             NowVelocityX = Mathf.Abs(rb.velocity.x);
             NowVelocityY = Mathf.Abs(rb.velocity.y);
+
+            bullet.GetComponent<Projectile>().DrillingWeapon(Drilling);
             bullet.GetComponent<BullMiniGun>().AddForce(ProjectirePoint.forward);
             bullet.GetComponent<BullMiniGun>().MoreSpeed(rb.velocity.magnitude);
 
-            canFire = false;
-            StartCoroutine(Delay());
             AudioManager.instance.PlayClip(AudioManager.instance.Shoot);
         }
     }
@@ -85,5 +85,18 @@ public class MiniGun : ProyectileWeapon
     private void OnEnable()
     {
         PController.Fire += Shoot;
+    }
+    private IEnumerator startShoot()
+    {
+        canFire = false;
+        int intShoot = 0;
+        StartCoroutine(Delay());
+        while (CicleShoot > intShoot)
+        {
+            intShoot++;
+            Shootpool();
+            yield return new WaitForSeconds(0.1f);
+            print("Repite shoot ");
+        }
     }
 }

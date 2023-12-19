@@ -41,7 +41,6 @@ public class CardUpdate : MonoBehaviour
     }
     private void SelectUpdate()
     {
-        print("Prende?");
         updateControllers.TriggerPause();
     }
 }

@@ -33,6 +33,7 @@ public class GenerationPickUp : MonoBehaviour
         {
             GameObject TempPickUp = Instantiate(pickUps[i]);
             TempPickUp.SetActive(false);
+            listpickUps.Add(TempPickUp);
         }
         currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
     }

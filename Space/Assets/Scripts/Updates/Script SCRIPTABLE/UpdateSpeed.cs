@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpdateSpeed : MonoBehaviour
+[CreateAssetMenu(fileName = "NewUpdate", menuName = "UpdateSpeed")]
+public class UpdateSpeed : Updates
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int SpeedPorcer;
 
-    // Update is called once per frame
-    void Update()
+    public override void ActivateImprovement()
     {
-        
+        PlayerController.instance.AplicationUpdate(Type, SpeedPorcer);
     }
 }

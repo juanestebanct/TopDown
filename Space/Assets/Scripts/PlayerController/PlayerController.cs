@@ -104,6 +104,11 @@ public class PlayerController : MonoBehaviour
             Fire();
         }
     }
+    private void AplicateSpeed(int moreSpeed)
+    {
+        speed += ((float)moreSpeed/100) * speed;
+     
+    }
     public void ActiveShield()
     {
         Shield.ActiveShield();
@@ -118,10 +123,27 @@ public class PlayerController : MonoBehaviour
     {
         weapon = NewWeapon;
     }
-    public void AplicationUpdate(TypeUpdate tipeUpdate,int moreLive)
+    public void AplicationUpdate(TypeUpdate typeUpdate,int Update)
     {
-        switch (tipeUpdate)
+        switch (typeUpdate)
         {
+            case TypeUpdate.Live:
+                playerStats.UpdateMoreLive(Update);
+                break;
+
+            case TypeUpdate.Speed:
+                AplicateSpeed(Update);
+                break;
+
+            case TypeUpdate.Moreshoot:
+                weapon.AddShoot(Update);
+                break;
+            case TypeUpdate.Drilling:
+                weapon.AddDilling(Update);
+                break;
+            case TypeUpdate.Cooldown:
+                break;
+
 
         }
     }

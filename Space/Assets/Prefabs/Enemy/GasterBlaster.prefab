@@ -5421,6 +5421,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 764dcee50da47bb4188fdd9cd3bd5a04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Level: 1
+  MaxLive: 1
   Live: 1
   Damage: 0
   Point: 4

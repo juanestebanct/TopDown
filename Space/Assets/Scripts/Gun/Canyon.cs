@@ -19,7 +19,7 @@ public class Canyon : ProyectileWeapon
     protected override void Shoot()
     {
         if (!canFire) return;
-        Shootpool();
+        StartCoroutine(startShoot());
     }
 
     private void Shootpool()
@@ -36,11 +36,10 @@ public class Canyon : ProyectileWeapon
         bullet.SetActive(true);
 
         if (rb.velocity.y >= 0) NowVelocity = rb.velocity.y;
+        bullet.GetComponent<Projectile>().DrillingWeapon(Drilling);
         bullet.GetComponent<Bullet>().AddForce(ProjectirePoint.forward);
         bullet.GetComponent<Bullet>().MoreSpeed(rb.velocity.magnitude);
 
-        canFire = false;
-        StartCoroutine(Delay());
         AudioManager.instance.PlayClip(AudioManager.instance.Shoot);
     }
     private void pooling()
@@ -56,6 +55,19 @@ public class Canyon : ProyectileWeapon
     {
         yield return new WaitForSeconds(TimeToFire);
         canFire = true;
+    }
+    private IEnumerator startShoot()
+    {
+        canFire = false;
+        int intShoot=0;
+        StartCoroutine(Delay());
+        while (CicleShoot > intShoot)
+        {
+            intShoot++;
+            Shootpool();
+            yield return new WaitForSeconds(0.1f);
+            print("Repite shoot ");
+        }
     }
 
 }

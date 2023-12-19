@@ -30,8 +30,7 @@ public class PlayerStats : MonoBehaviour, IDamage
         live -= Damage;
         StartCoroutine(RelockTime());
 
-        barLive.fillAmount = (live / maxLive);
-        liveText.text = $"{live}/{maxLive}";
+        UpdateBarlive();
         if (live < 1) PlayerController.instance.Reset();
     }
     public void DesactiveDamage()
@@ -46,6 +45,17 @@ public class PlayerStats : MonoBehaviour, IDamage
         if (TempLive >= maxLive) live = maxLive;
         else live = TempLive;
 
+        UpdateBarlive();
+    }
+    public void UpdateMoreLive(int moreLive)
+    {
+        maxLive += moreLive;
+        live = maxLive;
+        UpdateBarlive();
+    }
+
+    private void UpdateBarlive()
+    {
         barLive.fillAmount = (live / maxLive);
         liveText.text = $"{live}/{maxLive}";
     }

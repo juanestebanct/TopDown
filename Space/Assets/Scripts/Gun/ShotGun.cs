@@ -26,7 +26,7 @@ public class ShotGun : ProyectileWeapon
     protected override void Shoot()
     {
         if (!canFire) return;
-        Shootpool();
+        StartCoroutine(startShoot());
     }
 
     private void Shootpool()
@@ -53,13 +53,12 @@ public class ShotGun : ProyectileWeapon
             bullet.GetComponent<BulletShootGun>().MoreSpeed(rb.velocity.magnitude);
 
             Quaternion Rotation = Quaternion.LookRotation(direction);
+
+            bullet.GetComponent<Projectile>().DrillingWeapon(Drilling);
             bullet.GetComponent<BulletShootGun>().AddForce(direction, Rotation);
             bullet.GetComponent<Rigidbody2D>().velocity += new Vector2(0, NowVelocity);
 
         }
-
-        canFire = false;
-        StartCoroutine(Delay());
         AudioManager.instance.PlayClip(AudioManager.instance.Shoot);
     }
 
@@ -85,4 +84,18 @@ public class ShotGun : ProyectileWeapon
         yield return new WaitForSeconds(TimeToFire);
         canFire = true;
     }
+    private IEnumerator startShoot()
+    {
+        canFire = false;
+        int intShoot = 0;
+        StartCoroutine(Delay());
+        while (CicleShoot > intShoot)
+        {
+            intShoot++;
+            Shootpool();
+            yield return new WaitForSeconds(0.1f);
+            print("Repite shoot ");
+        }
+    }
+
 }

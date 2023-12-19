@@ -12,7 +12,8 @@ public class GenerationEnemiesNormal : MonoBehaviour
     [SerializeField] private Vector2 MaxPosition = new Vector2(-50, 50);
     [SerializeField] private int level,PointsToLevel;
 
-    private int indexEnemy = 0, maxTipyEnemy,MaxEnemyBySpawn;
+    [SerializeField] private int maxTipyEnemy,maxEnemyBySpawn;
+    private int indexEnemy = 0;
     private float currentSpawnTime, spawnTimer;
 
     private List<GameObject> communEnemy = new List<GameObject>();
@@ -23,7 +24,6 @@ public class GenerationEnemiesNormal : MonoBehaviour
 
     private void Awake()
     {
-        MaxEnemyBySpawn = 1;
         level = 1;
 
         generationGaster = GetComponent<GenerationGaster>();
@@ -62,7 +62,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
         if (spawnTimer >= currentSpawnTime)
         {
             int spawnCurrent = 1;
-            while (MaxEnemyBySpawn >= spawnCurrent)
+            while (maxEnemyBySpawn >= spawnCurrent)
             {
                
                 SpawnEnemy(choose(), Configuration(positionToSpawn.position));
@@ -81,7 +81,6 @@ public class GenerationEnemiesNormal : MonoBehaviour
     private List<GameObject> choose()
     {
         int opcion = Random.Range(0,maxTipyEnemy);
-        print(opcion);
         if (opcion == 0)
         {
             indexEnemy = 0;
@@ -116,6 +115,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
         }
         enemy.transform.position = Position;
         enemy.SetActive(true);
+        enemy.GetComponent<Enemy>().UpdateLevel(level);
         enemy.GetComponent<Enemy>().ResetMovent(Position);
     }
     private void ChangeDifficulty()
@@ -157,6 +157,6 @@ public class GenerationEnemiesNormal : MonoBehaviour
     }
     private void MoreEnemy()
     {
-        MaxEnemyBySpawn++;
+        maxEnemyBySpawn += 3;
     }
 }
