@@ -158,5 +158,6 @@ public class GenerationEnemiesNormal : MonoBehaviour
     private void MoreEnemy()
     {
         maxEnemyBySpawn += 3;
+        print("algo de enemgiso ");
     }
 }

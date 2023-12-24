@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3795126815154708149, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.05
+      value: 22.1
       objectReference: {fileID: 0}
     - target: {fileID: 3795126815154708149, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -181,7 +181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4237093972436457081, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5988961227033915197, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: coinValue
@@ -2615,7 +2615,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3795126815154708149, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.05
+      value: 42.4
       objectReference: {fileID: 0}
     - target: {fileID: 3795126815154708149, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2659,7 +2659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4237093972436457081, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5988961227033915197, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: coinValue
@@ -3398,7 +3398,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3795126815154708149, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.05
+      value: 30.9
       objectReference: {fileID: 0}
     - target: {fileID: 3795126815154708149, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3442,7 +3442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4237093972436457081, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5988961227033915197, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: coinValue
@@ -11474,10 +11474,10 @@ RectTransform:
   m_Father: {fileID: 1672048942}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 340}
+  m_SizeDelta: {x: 200, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1175817014
 MonoBehaviour:
@@ -12109,7 +12109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3795126815154708149, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.05
+      value: 42.4
       objectReference: {fileID: 0}
     - target: {fileID: 3795126815154708149, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -12153,7 +12153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4237093972436457081, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5988961227033915197, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: coinValue
@@ -17691,7 +17691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1409979409
 Transform:
   m_ObjectHideFlags: 0
@@ -17781,7 +17781,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4237093972436457081, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5988961227033915197, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: coinValue
@@ -18470,7 +18470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3795126815154708149, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 12.05
+      value: 42.4
       objectReference: {fileID: 0}
     - target: {fileID: 3795126815154708149, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18514,7 +18514,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4237093972436457081, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5988961227033915197, guid: b6035bad4d261fb4bb233e381fbe17b4, type: 3}
       propertyPath: coinValue
@@ -19522,7 +19522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meteoritePrefb: {fileID: 8045469407741393379, guid: 9793496d1a1fbe943a90807b0f8e4b38, type: 3}
   miniMetoritePrefb: {fileID: 908424992922748207, guid: f3d22496e1f7b584f8c1492801687b19, type: 3}
-  spawnTimeRange: {x: 10, y: 20}
+  spawnTimeRange: {x: 10, y: 15}
   SpawnPoint:
   - {fileID: 1255858943}
   - {fileID: 404367117}

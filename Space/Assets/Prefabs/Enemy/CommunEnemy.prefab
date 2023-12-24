@@ -80,7 +80,7 @@ MonoBehaviour:
   circleRadius: 10
   rotatioSpeed: 3
   downSpeed: 10
-  speedChase: 20
+  speedChase: 40
   rotationLook: 200
   SpeedDown: 5
   timeToDown: 5

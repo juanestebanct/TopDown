@@ -10109,7 +10109,7 @@ MonoBehaviour:
   circleRadius: 10
   rotatioSpeed: 3
   downSpeed: 10
-  speedChase: 15
+  speedChase: 25
   rotationLook: 0
   SpeedDown: 15
   timeToDown: 4

@@ -62,10 +62,11 @@ public abstract class Enemy : MonoBehaviour, IDamage
     {
         if (Level != currentLevel) 
         {
+            int tempLevel = currentLevel - Level;
             print("next nevel" + currentLevel + "" + Level);
             Level = currentLevel;
-            MaxLive += 2;
-            Damage += 2;
+            MaxLive += tempLevel * 2;
+            Damage += tempLevel * 2;
         }
     }
 
