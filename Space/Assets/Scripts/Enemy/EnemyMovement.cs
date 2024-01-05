@@ -27,6 +27,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float rotationLook;
     private bool triggerTargetPosition;
     private Vector3 targetPosition;
+    private PlayerController reference;
 
     [Header("MoveDown")]
     [SerializeField] private float SpeedDown;
@@ -49,6 +50,10 @@ public class EnemyMovement : MonoBehaviour
     {
         ChangePatron();
     }
+    private void Start()
+    {
+        if (reference == null) { reference = PlayerController.instance; }
+    }
 
     private void MovementCircule()
     {
@@ -58,14 +63,16 @@ public class EnemyMovement : MonoBehaviour
         float y = Mathf.Sin(angle) * circleRadius;
 
         Vector2 circlePosition = startPosition + new Vector3(x, y);
+
         rb.MovePosition(circlePosition + Vector2.down * elapsedTime * downSpeed);
     }
 
     private void ChaseToPlayer()
     {
+
         if (triggerTargetPosition)
         {
-            targetPosition = PlayerController.instance.transform.position;
+            targetPosition = reference.transform.position;
             triggerTargetPosition = false;
         }
 
