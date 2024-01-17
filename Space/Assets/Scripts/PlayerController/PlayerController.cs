@@ -125,12 +125,13 @@ public class PlayerController : MonoBehaviour
     }
     public void AplicationUpdate(TypeUpdate typeUpdate,int Update)
     {
+        StartCoroutine(playerStats.RelockTime());
+
         switch (typeUpdate)
         {
             case TypeUpdate.Live:
                 playerStats.UpdateMoreLive(Update);
                 break;
-
             case TypeUpdate.Speed:
                 AplicateSpeed(Update);
                 break;
@@ -147,4 +148,5 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+    
 }

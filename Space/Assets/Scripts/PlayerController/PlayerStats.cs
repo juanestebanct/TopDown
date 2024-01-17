@@ -59,13 +59,14 @@ public class PlayerStats : MonoBehaviour, IDamage
         barLive.fillAmount = (live / maxLive);
         liveText.text = $"{live}/{maxLive}";
     }
-    IEnumerator RelockTime()
+    public IEnumerator RelockTime()
     {
+        print("se activa temporalmente inmortal");
         damageable = false;
         yield return new WaitForSeconds(timeActiveDamage);
         damageable = true;
     }
-    IEnumerator ReactiveShield()
+    private IEnumerator ReactiveShield()
     {
         yield return new WaitForSeconds(10);
         damageable = true;

@@ -48,7 +48,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 94.37
+  m_Mass: 2
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -104,6 +104,7 @@ MonoBehaviour:
   Damage: 1
   Point: 1
   DeadVfx: {fileID: 0}
+  forceReturn: 100
   movent: {fileID: 0}
 --- !u!58 &853547988114501049
 CircleCollider2D:

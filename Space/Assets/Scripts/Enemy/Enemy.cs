@@ -15,8 +15,14 @@ public abstract class Enemy : MonoBehaviour, IDamage
     [SerializeField] protected int Damage;
     [SerializeField] protected int Point;
     [SerializeField] protected GameObject DeadVfx;
+
+
+    [SerializeField] private float forceReturn = 50;
+    private bool desactiveMove;
+    private Rigidbody2D rb;
     private void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         Live = MaxLive;
         Level = 1;
     }
@@ -37,7 +43,7 @@ public abstract class Enemy : MonoBehaviour, IDamage
     }
     public virtual void FixedUpdate()
     {
-        if (Move != null)
+        if (Move != null && !desactiveMove)
         {
             Move();
         }
@@ -56,6 +62,13 @@ public abstract class Enemy : MonoBehaviour, IDamage
             gameObject.SetActive(false);
             AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
         }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            StartCoroutine(ActivateForce());
+            print("Coliciono con enemigo");
+            Vector3 pushDirection = transform.position - collision.gameObject.transform.position;
+            rb.AddForce(pushDirection.normalized * forceReturn, ForceMode2D.Impulse);
+        }
         if (collision.gameObject.CompareTag("ResetZone")) Desactive();
     }
     public void UpdateLevel(int currentLevel)
@@ -68,6 +81,12 @@ public abstract class Enemy : MonoBehaviour, IDamage
             MaxLive += tempLevel * 2;
             Damage += tempLevel * 2;
         }
+    }
+    private IEnumerator ActivateForce()
+    {
+        desactiveMove = true;
+        yield return new WaitForSeconds(0.2f);
+        desactiveMove = false;
     }
 
 }

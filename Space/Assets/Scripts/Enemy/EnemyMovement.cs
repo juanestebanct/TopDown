@@ -25,6 +25,7 @@ public class EnemyMovement : MonoBehaviour
     [Header("ChaseToPlayer")]
     [SerializeField] private float speedChase;
     [SerializeField] private float rotationLook;
+
     private bool triggerTargetPosition;
     private Vector3 targetPosition;
     private PlayerController reference;
@@ -39,7 +40,7 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     private void Awake()
     {
-        enemy= GetComponent<Enemy>();
+        enemy = GetComponent<Enemy>();
         rb = GetComponent<Rigidbody2D>();
         startPosition = transform.position;
         startTime = Time.time;
@@ -52,7 +53,7 @@ public class EnemyMovement : MonoBehaviour
     }
     private void Start()
     {
-        if (reference == null) { reference = PlayerController.instance; }
+       
     }
 
     private void MovementCircule()
@@ -86,13 +87,13 @@ public class EnemyMovement : MonoBehaviour
         Vector2 movement = direction * speedChase * Time.fixedDeltaTime;
 
         rb.MovePosition(rb.position + movement);
-        if (Vector3.Distance(transform.position, targetPosition) <=1f) triggerTargetPosition = true;
+        if (Vector3.Distance(transform.position, targetPosition) <= 1f) triggerTargetPosition = true;
     }
 
     private void ChaseHorizon()
     {
         targetPosition = PlayerController.instance.transform.position;
-        Vector2 direction = new Vector2((targetPosition.x - transform.position.x),0).normalized;
+        Vector2 direction = new Vector2((targetPosition.x - transform.position.x), 0).normalized;
 
         float distanciaEnEjeX = Mathf.Abs(transform.position.x - targetPosition.x);
         if (distanciaEnEjeX >= 1f)
@@ -169,7 +170,7 @@ public class EnemyMovement : MonoBehaviour
         startTime = Time.time;
         triggerTargetPosition = true;
         patron = pattern;
-        transform.rotation= Quaternion.Euler(0, 0, 0);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
         currentDropTime = 0;
         ChangePatron();
     }
@@ -184,4 +185,11 @@ public class EnemyMovement : MonoBehaviour
         Vector2 movement = transform.up * speedBack * Time.fixedDeltaTime;
         rb.MovePosition(rb.position + movement);
     }
+    public void GetReference(PlayerController tempReference)
+    {
+        reference = tempReference;
+        if (reference == null) { reference = PlayerController.instance; }
+        
+    }
+
 }

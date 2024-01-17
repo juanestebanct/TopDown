@@ -353,8 +353,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 59346407}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -143.6, y: 3.9026, z: -12.4}
-  m_LocalScale: {x: 45.136494, y: 185.3978, z: 1}
+  m_LocalPosition: {x: -145.1261, y: 3.9026, z: -12.4}
+  m_LocalScale: {x: 42.085266, y: 185.3978, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 635665798}
@@ -745,8 +745,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129027233}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 151.4, y: 3.7832, z: -10.7}
-  m_LocalScale: {x: 54.288746, y: 184.83365, z: 1}
+  m_LocalPosition: {x: 151.4, y: 3.3768, z: -10.7}
+  m_LocalScale: {x: 54.288746, y: 188.26802, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 635665798}
@@ -10928,7 +10928,7 @@ Camera:
   far clip plane: 1000
   field of view: 45.5
   orthographic: 1
-  orthographic size: 52.42
+  orthographic size: 46
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -18301,7 +18301,7 @@ MonoBehaviour:
   m_Follow: {fileID: 329281936}
   m_Lens:
     FieldOfView: 45.5
-    OrthographicSize: 52.42
+    OrthographicSize: 46
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -18347,7 +18347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BoundingShape2D: {fileID: 711187011}
-  m_Damping: 0.5
+  m_Damping: 1.5
   m_MaxWindowSize: -1
 --- !u!1 &1526753715
 GameObject:
@@ -20275,7 +20275,7 @@ MonoBehaviour:
   MaxBulletBullet: 4
   Drilling: 1
   CicleShoot: 1
-  maxRange: 25
+  maxRange: 15
   maxGunShoot: 4
   force: 160
   DesplazM: 0

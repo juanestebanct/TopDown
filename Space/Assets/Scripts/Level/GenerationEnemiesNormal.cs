@@ -19,6 +19,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
     private List<GameObject> communEnemy = new List<GameObject>();
     private List<GameObject> camperEnemy = new List<GameObject>();
 
+    private PlayerController playerController;
     private GenerationGaster generationGaster;
     private GenerationAsteroid generationAsteroid;
 
@@ -35,6 +36,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
         maxTipyEnemy++;
 
         PoolEnemies(camperEnemy);
+        playerController = PlayerController.instance;
     }
     private void Start()
     {
@@ -51,6 +53,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
             enemy.SetActive(false);
             enemy.transform.position = positionToSpawn.position;
             enemy.transform.parent = transform.parent;
+            enemy.GetComponent<EnemyMovement>().GetReference(playerController);
             list.Add(enemy);
         }
         currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
@@ -107,12 +110,15 @@ public class GenerationEnemiesNormal : MonoBehaviour
     private void SpawnEnemy(List<GameObject> pool, Vector3 Position)
     {
         GameObject enemy = pool.Find(b => !b.activeSelf);
+
         if (enemy == null)
         {
             int range = Random.Range(0, enemys.Length);
             enemy = Instantiate(enemys[indexEnemy]);
+            enemy.GetComponent<EnemyMovement>().GetReference(playerController);
             pool.Add(enemy);
         }
+
         enemy.transform.position = Position;
         enemy.SetActive(true);
         enemy.GetComponent<Enemy>().UpdateLevel(level);

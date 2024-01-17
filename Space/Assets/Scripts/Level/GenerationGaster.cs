@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 using Random = UnityEngine.Random;
 
 public class GenerationGaster : MonoBehaviour
@@ -13,6 +14,7 @@ public class GenerationGaster : MonoBehaviour
     private List<GameObject> blaster = new List<GameObject>();
     private float currentSpawnTime, spawnTimer;
     private bool Spawn;
+    private PlayerController playerController;
     void Start()
     {
         Spawn = false;
@@ -34,6 +36,7 @@ public class GenerationGaster : MonoBehaviour
         for (int i = 0; i < 1; i++)
         {
             GameObject Tempblaster = Instantiate(blasterGaster);
+            Tempblaster.GetComponent<EnemyMovement>().GetReference(playerController);
             Tempblaster.SetActive(false);
             blaster.Add(Tempblaster);
         }
@@ -50,15 +53,16 @@ public class GenerationGaster : MonoBehaviour
     }
     private void SpawnEnemy(Vector2 Position)
     {
-        GameObject enemy = blaster.Find(b => !b.activeSelf);
-        if (enemy == null)
+        GameObject Tempblaster = blaster.Find(b => !b.activeSelf);
+        if (Tempblaster == null)
         {
-            enemy = Instantiate(blasterGaster);
-            blaster.Add(enemy);
+            Tempblaster = Instantiate(blasterGaster);
+            Tempblaster.GetComponent<EnemyMovement>().GetReference(playerController);
+            blaster.Add(Tempblaster);
         }
-        enemy.transform.position = GetRandomSpawnPoint();
-        enemy.SetActive(true);
-        enemy.GetComponent<Enemy>().ResetMovent(Position);
+        Tempblaster.transform.position = GetRandomSpawnPoint();
+        Tempblaster.SetActive(true);
+        Tempblaster.GetComponent<Enemy>().ResetMovent(Position);
 
     }
     public void ReduceTimeBlaster()

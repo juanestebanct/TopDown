@@ -9,7 +9,6 @@ public class BullMiniGun : Projectile
 {
     [Header("Starts BullMiniGun")]
     [SerializeField] private float startVelocity;
-    [SerializeField] private GameObject trail;
     [SerializeField] private int minDamage;
     [SerializeField] private float force;
 
@@ -51,17 +50,6 @@ public class BullMiniGun : Projectile
     {
         velocity = startVelocity;
         rb.velocity = new Vector2(0, 0);
-        StartCoroutine(Active());
-    }
-    private void OnDisable()
-    {
-        trail.gameObject.SetActive(false);
-    }
-    private IEnumerator Active()
-    {
-        trail.gameObject.SetActive(false);
-        yield return new WaitForSeconds(0.08f);
-        trail.gameObject.SetActive(true);
     }
     public void MoreSpeed(float velocityPlayer)
     {

@@ -10,7 +10,6 @@ public class BulletShootGun : Projectile
     [Header("Starts Bull")]
     [SerializeField] private float velocity;
     [SerializeField] private float force;
-    [SerializeField] private GameObject trail;
 
     private Rigidbody2D rb;
     public void Awake()
@@ -48,22 +47,17 @@ public class BulletShootGun : Projectile
     private void OnEnable()
     {
         rb.velocity = new Vector2(0, 0);
-        StartCoroutine(Active());
     }
-    private void OnDisable()
+    private int RandomForce()
     {
-        trail.gameObject.SetActive(false);
+        int randomForce = 0;
+        randomForce = (int)Random.Range((force-30), (force+30));
+        return randomForce;
     }
-    private IEnumerator Active()
+    public void AddForce(Vector2 tempForcce, Quaternion rotation)
     {
-        trail.gameObject.SetActive(false);
-        yield return new WaitForSeconds(0.08f);
-        trail.gameObject.SetActive(true);
-    }
-    public void AddForce(Vector2 tempMeteorite, Quaternion rotation)
-    {
-        tempMeteorite.Normalize();
-        rb.AddForce(tempMeteorite * force, ForceMode2D.Impulse);
+        tempForcce.Normalize();
+        rb.AddForce(tempForcce * RandomForce(), ForceMode2D.Impulse);
         transform.rotation = rotation;      
         Invoke("Desactive",DesactivateTime);
        

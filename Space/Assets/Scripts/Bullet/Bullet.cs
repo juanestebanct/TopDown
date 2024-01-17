@@ -10,7 +10,6 @@ public class Bullet : Projectile
     [Header("Starts Bull")]
     [SerializeField] private float velocity;
     [SerializeField] private float force;
-    [SerializeField] private GameObject trail;
 
     private Rigidbody2D rb;
     public void Awake()
@@ -45,17 +44,6 @@ public class Bullet : Projectile
     private void OnEnable()
     {
         rb.velocity = new Vector2(0, 0);
-        StartCoroutine(Active());
-    }
-    private void OnDisable()
-    {
-        trail.gameObject.SetActive(false);
-    }
-    private IEnumerator Active()
-    {
-        trail.gameObject.SetActive(false);
-        yield return new WaitForSeconds(0.08f);
-        trail.gameObject.SetActive(true);
     }
     public void MoreSpeed(float velocityPlayer)
     {
