@@ -10,7 +10,7 @@ public class ResetLevel : MonoBehaviour
 
     private void Start()
     {
-        PlayerController.instance.Reset += RestartLevel;
+        //PlayerController.instance.Reset += RestartLevel;
     }
     public void RestartLevel()
     {

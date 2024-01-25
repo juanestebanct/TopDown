@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float brakeSpeed;
     [SerializeField] private ProyectileWeapon weapon;
-
+    [SerializeField] private GameObject active;
 
     private void Awake()
     {
@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
         EnableInputs();
         rb = GetComponent<Rigidbody2D>();
         playerStats = GetComponent<PlayerStats>();
+        Reset += OpenDeadMenu;
     }
 
     private void Update()
@@ -109,6 +110,11 @@ public class PlayerController : MonoBehaviour
         speed += ((float)moreSpeed/100) * speed;
      
     }
+    public void OpenDeadMenu()
+    {
+        active.SetActive(true);
+        Time.timeScale = 0;
+    }
     public void ActiveShield()
     {
         Shield.ActiveShield();
@@ -135,7 +141,6 @@ public class PlayerController : MonoBehaviour
             case TypeUpdate.Speed:
                 AplicateSpeed(Update);
                 break;
-
             case TypeUpdate.Moreshoot:
                 weapon.AddShoot(Update);
                 break;

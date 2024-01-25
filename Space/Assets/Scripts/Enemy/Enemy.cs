@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Runtime.InteropServices;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(EnemyMovement))]
 public abstract class Enemy : MonoBehaviour, IDamage
@@ -16,16 +17,20 @@ public abstract class Enemy : MonoBehaviour, IDamage
     [SerializeField] protected int Point;
     [SerializeField] protected GameObject DeadVfx;
 
-
     [SerializeField] private float forceReturn = 50;
+
     private bool desactiveMove;
     private Rigidbody2D rb;
+    private Collider2D collition;
+    private Coroutine coroutine;
     private void Start()
     {
+        collition = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
         Live = MaxLive;
         Level = 1;
     }
+
     public virtual void ResetMovent(Vector3 position)
     {
         //var deathFX = Instantiate(DeadVfx);
@@ -53,24 +58,6 @@ public abstract class Enemy : MonoBehaviour, IDamage
     {
       
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            collision.gameObject.GetComponent<IDamage>().ResiveDamage(Damage);
-            gameObject.SetActive(false);
-            AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
-        }
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            StartCoroutine(ActivateForce());
-            print("Coliciono con enemigo");
-            Vector3 pushDirection = transform.position - collision.gameObject.transform.position;
-            rb.AddForce(pushDirection.normalized * forceReturn, ForceMode2D.Impulse);
-        }
-        if (collision.gameObject.CompareTag("ResetZone")) Desactive();
-    }
     public void UpdateLevel(int currentLevel)
     {
         if (Level != currentLevel) 
@@ -82,11 +69,33 @@ public abstract class Enemy : MonoBehaviour, IDamage
             Damage += tempLevel * 2;
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<IDamage>().ResiveDamage(Damage);
+            gameObject.SetActive(false);
+            AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
+        }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+
+            Vector3 pushDirection = transform.position - collision.gameObject.transform.position;
+            float deviationAngle = Random.Range(-80f, 80f);
+            Quaternion rotation = Quaternion.Euler(deviationAngle, 0, 0);
+            Vector3 rotatedDirection = rotation * pushDirection;
+
+            //rb.AddForce(rotatedDirection.normalized  * forceReturn, ForceMode2D.Impulse);
+        }
+        if (collision.gameObject.CompareTag("ResetZone")) Desactive();
+    }
     private IEnumerator ActivateForce()
     {
-        desactiveMove = true;
-        yield return new WaitForSeconds(0.2f);
-        desactiveMove = false;
+        collition.enabled = false;
+
+        yield return new WaitForSeconds(0.3f);
+        collition.enabled = true;
     }
 
 }

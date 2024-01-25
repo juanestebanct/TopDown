@@ -62,7 +62,6 @@ public class RayGun : MonoBehaviour
     private void EndLaser()
     {
 
-        // Realiza el raycast con la máscara de capas.
         RaycastHit2D hit = Physics2D.Raycast(positionRay.position, positionRay.forward, rayCastDistance, Mask);
 
         if (hit.collider != null)

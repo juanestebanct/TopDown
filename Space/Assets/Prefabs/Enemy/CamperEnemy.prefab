@@ -10063,7 +10063,7 @@ Transform:
   - {fileID: 8250199079774379898}
   - {fileID: 8976264266798563491}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &5745254983848063576
 Rigidbody2D:
@@ -10136,8 +10136,8 @@ MonoBehaviour:
   disableforcedlacer: 0
   Mask:
     serializedVersion: 2
-    m_Bits: 4294967295
-  timeRay: 0
+    m_Bits: 1564
+  timeRay: 2.5
 --- !u!114 &3925621497205110388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10156,7 +10156,7 @@ MonoBehaviour:
   Damage: 1
   Point: 4
   DeadVfx: {fileID: 0}
-  forceReturn: 100
+  forceReturn: 10
   movent: {fileID: 0}
 --- !u!58 &8386351460551214044
 CircleCollider2D:

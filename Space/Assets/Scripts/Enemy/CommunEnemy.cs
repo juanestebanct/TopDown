@@ -16,7 +16,11 @@ public class CommunEnemy : Enemy
         MoventPatron patron = (MoventPatron)Random.Range(0, 2);
         movent.ResetValues(position,patron);
     }
-
+    public void ResetMovent(Vector3 position, MoventPatron patrons)
+    {
+        MoventPatron patron = patrons;
+        movent.ResetValues(position, patron);
+    }
     public override void ResiveDamage(float Damage)
     {
         Live -= Damage;

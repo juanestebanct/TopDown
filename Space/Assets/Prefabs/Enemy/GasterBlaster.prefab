@@ -5427,7 +5427,7 @@ MonoBehaviour:
   Damage: 0
   Point: 4
   DeadVfx: {fileID: 0}
-  forceReturn: 100
+  forceReturn: 10
   movent: {fileID: 0}
   timeToFire: 1.6
   currentime: 0

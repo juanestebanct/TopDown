@@ -53,11 +53,16 @@ public class LaserRay : Projectile
 
     public void Damage(GameObject Objetive)
     {
+        print("colliciono con el jugador"+ Objetive.name);
         if (!canDamage) return; 
         switch (type)
         {
             case BulletType.Enemy:
-                if (Objetive.CompareTag("Player")) Objetive.GetComponent<IDamage>().ResiveDamage(damage);
+                if (Objetive.CompareTag("Player")) 
+                {
+                    print("colliciono con el jugador");
+                    Objetive.GetComponent<IDamage>().ResiveDamage(damage); 
+                }
                 break;
             case BulletType.Player:
                 if (Objetive.CompareTag("Enemy") || Objetive.gameObject.CompareTag("Meteorite"))

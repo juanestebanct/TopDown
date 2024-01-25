@@ -10,9 +10,15 @@ public class GenerationEnemiesNormal : MonoBehaviour
     [SerializeField] private Transform positionToSpawn;
     [SerializeField] private Vector2 spawnTimeRange = new Vector2(5, 10);
     [SerializeField] private Vector2 MaxPosition = new Vector2(-50, 50);
-    [SerializeField] private int level,PointsToLevel;
 
-    [SerializeField] private int maxTipyEnemy,maxEnemyBySpawn;
+    [Header("spawn zone")]
+    [SerializeField] float spawnRadius = 5.0f;
+    [SerializeField] float spawnDistanceBeyondRadius = 2.0f;
+
+    [Header("To next level")]
+    [SerializeField] private int level,PointsToLevel;
+    [SerializeField] private int maxTipyEnemy,maxEnemyBySpawn,moreEnemyForLevel;
+
     private int indexEnemy = 0;
     private float currentSpawnTime, spawnTimer;
 
@@ -104,6 +110,21 @@ public class GenerationEnemiesNormal : MonoBehaviour
     /// <returns></returns>
     private Vector3 Configuration(Vector3 position)
     {
+        Vector2 playerPosition = new Vector2(playerController.transform.position.x, playerController.transform.position.y);
+        // Radio en el que aparecerá el enemigo
+
+        // Generar una posición aleatoria en la circunferencia del círculo
+        Vector2 randomSpawnDirection = Random.insideUnitCircle.normalized;
+        Vector2 spawnPositionOnCircle = playerPosition + randomSpawnDirection * spawnRadius;
+
+        // Mover la posición más allá del radio
+        Vector2 spawnPositionBeyondRadius = spawnPositionOnCircle + randomSpawnDirection * spawnDistanceBeyondRadius;
+
+        Vector3 TempPosition = new Vector3(spawnPositionBeyondRadius.x, spawnPositionBeyondRadius.y,0);
+        return TempPosition;
+    }
+    private Vector3 ConfigurationPocition(Vector3 position)
+    {
         Vector3 TempPosition = new Vector3(Random.Range(MaxPosition.x, MaxPosition.y), position.y, position.z);
         return TempPosition;
     }
@@ -118,6 +139,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
             enemy.GetComponent<EnemyMovement>().GetReference(playerController);
             pool.Add(enemy);
         }
+        if (enemy.GetComponent<Enemy>() is CamperEnemy) Position = ConfigurationPocition(positionToSpawn.position);
 
         enemy.transform.position = Position;
         enemy.SetActive(true);
@@ -163,7 +185,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
     }
     private void MoreEnemy()
     {
-        maxEnemyBySpawn += 3;
+        maxEnemyBySpawn += moreEnemyForLevel;
         print("algo de enemgiso ");
     }
 }

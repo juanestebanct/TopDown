@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-public enum MoventPatron {Circule,ChaseToPlayer,Down,HorizonChange,LookPlayer,GoBack }
+public enum MoventPatron {Circule,ChaseToPlayer,Down,HorizonChange,LookPlayer,GoBack,Invoker }
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyMovement : MonoBehaviour
@@ -36,6 +36,11 @@ public class EnemyMovement : MonoBehaviour
 
     [Header("MoveBack")]
     [SerializeField] private float speedBack;
+
+    [Header("MoveInvoker")]
+    [SerializeField] private float speedToPlayer;
+    [SerializeField] private float rangeToInvoke;
+    [SerializeField] private bool StopToInvoke;
 
     // Update is called once per frame
     private void Awake()
@@ -71,13 +76,7 @@ public class EnemyMovement : MonoBehaviour
     private void ChaseToPlayer()
     {
 
-        if (triggerTargetPosition)
-        {
-            targetPosition = reference.transform.position;
-            triggerTargetPosition = false;
-        }
-
-        Vector2 direction = (targetPosition - transform.position).normalized;
+        Vector2 direction = (reference.transform.position - transform.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         // Rotacion 
@@ -128,15 +127,36 @@ public class EnemyMovement : MonoBehaviour
 
     private void LookAtThePlayer()
     {
-        targetPosition = PlayerController.instance.transform.position;
+       // targetPosition = PlayerController.instance.transform.position;
 
-        Vector2 direction = (targetPosition - transform.position).normalized;
+        Vector2 direction = (reference.transform.position - transform.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
         // Rotacion 
         Quaternion targetRotation = Quaternion.Euler(0, 0, angle + 90.0f);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationLook * Time.deltaTime);
         ChangePatron();
+    }
+
+    private void MovenInvoke()
+    {
+        GetReference(null);
+        float tempDistance = Vector3.Distance(reference.transform.position, transform.position);
+        LookAtThePlayer();
+
+        if (rangeToInvoke <= tempDistance)
+        {
+            Vector2 direction = (reference.transform.position - transform.position).normalized;
+
+            Vector2 movement = direction * speedToPlayer * Time.fixedDeltaTime;
+
+            rb.MovePosition(rb.position + movement);
+            if (Vector3.Distance(transform.position, targetPosition) <= 1f) triggerTargetPosition = true;
+        }
+        else
+        {
+
+        }
     }
 
     private void ChangePatron()
@@ -160,6 +180,9 @@ public class EnemyMovement : MonoBehaviour
                 break;
             case MoventPatron.GoBack:
                 enemy.Move = GoBack;
+                break;
+            case MoventPatron.Invoker:
+                enemy.Move = MovenInvoke;
                 break;
 
         }
