@@ -24,6 +24,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
 
     private List<GameObject> communEnemy = new List<GameObject>();
     private List<GameObject> camperEnemy = new List<GameObject>();
+    private List<GameObject> invokeEnemy = new List<GameObject>();
 
     private PlayerController playerController;
     private GenerationGaster generationGaster;
@@ -32,16 +33,15 @@ public class GenerationEnemiesNormal : MonoBehaviour
     private void Awake()
     {
         level = 1;
+        maxTipyEnemy = 1;
 
         generationGaster = GetComponent<GenerationGaster>();
         generationAsteroid = GetComponent<GenerationAsteroid>();
 
         PoolEnemies(communEnemy);
-
-        indexEnemy = 1;
-        maxTipyEnemy++;
-
         PoolEnemies(camperEnemy);
+        PoolEnemies(invokeEnemy);
+
         playerController = PlayerController.instance;
     }
     private void Start()
@@ -62,6 +62,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
             enemy.GetComponent<EnemyMovement>().GetReference(playerController);
             list.Add(enemy);
         }
+        indexEnemy++;
         currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
 
     }
@@ -90,17 +91,23 @@ public class GenerationEnemiesNormal : MonoBehaviour
     private List<GameObject> choose()
     {
         int opcion = Random.Range(0,maxTipyEnemy);
-        if (opcion == 0)
+
+        switch (opcion)
         {
-            indexEnemy = 0;
-            print("Comun");
-            return communEnemy;
-        }
-        else
-        {
-            indexEnemy = 1;
-            print("Camper");
-            return camperEnemy;
+            case 0:
+                indexEnemy = 0;
+                print("Comun");
+                return communEnemy;
+            case 1:
+                indexEnemy = 1;
+                print("Camper");
+                return camperEnemy;
+            case 2:
+                indexEnemy = 2;
+                print("invoke");
+                return invokeEnemy;
+            default: 
+                return communEnemy;
         }
     }
     /// <summary>
@@ -168,6 +175,9 @@ public class GenerationEnemiesNormal : MonoBehaviour
                     break;
                 case 4:
                     generationGaster.ActiveBlaster();
+                    break;
+                case 5:
+                    maxTipyEnemy++;
                     break;
 
                 default:

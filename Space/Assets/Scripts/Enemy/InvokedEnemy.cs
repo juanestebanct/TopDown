@@ -28,6 +28,7 @@ public class InvokeEnemy : Enemy
         playerController = PlayerController.instance;
         PoolEnemies();
     }
+
     void Update()
     {
         if (currentime >= timeToInvoke)
@@ -79,5 +80,20 @@ public class InvokeEnemy : Enemy
             enemy.SetActive(true);
             enemy.GetComponent<CommunEnemy>().ResetMovent(Configuration(), MoventPatron.ChaseToPlayer);
         }
+    }
+
+    public override void ResetMovent(Vector3 position)
+    {
+        MoventPatron patron = MoventPatron.Invoker;
+        if(movent != null) movent.ResetValues(position, patron);
+    }
+    public override void ResiveDamage(float Damage)
+    {
+        Live -= Damage;
+        print("live" + Live);
+        if (Live > 0) return;
+        Score.Instance.GetPoins(Point);
+        AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
+        Desactive();
     }
 }

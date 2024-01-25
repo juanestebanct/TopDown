@@ -20,7 +20,6 @@ public class UpdateControllers : MonoBehaviour
     {
         for (int i = 0; i < cards.Length; i++)
         {
-            print("a");
             cards[i].UpdateCard(WeaponsScript[i]);
         }
     }

@@ -21,7 +21,6 @@ public class CardUpdate : MonoBehaviour
     }
     public void UpdateCard(Updates temUpdates)
     {
-        print("paso por aca");
         update = temUpdates;
         title.text = update.Title;
         description.text = update.Description;
