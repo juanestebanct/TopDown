@@ -26,6 +26,8 @@ public class GenerationEnemiesNormal : MonoBehaviour
     private List<GameObject> camperEnemy = new List<GameObject>();
     private List<GameObject> invokeEnemy = new List<GameObject>();
 
+    private List<List<GameObject>> AllEnemy = new List<List<GameObject>>();
+
     private PlayerController playerController;
     private GenerationGaster generationGaster;
     private GenerationAsteroid generationAsteroid;
@@ -64,6 +66,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
         }
         indexEnemy++;
         currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
+        AllEnemy.Add(list);
 
     }
     private void Update()
@@ -91,21 +94,22 @@ public class GenerationEnemiesNormal : MonoBehaviour
     private List<GameObject> choose()
     {
         int opcion = Random.Range(0,maxTipyEnemy);
+        print(AllEnemy[opcion]);
 
         switch (opcion)
         {
             case 0:
                 indexEnemy = 0;
                 print("Comun");
-                return communEnemy;
+                return AllEnemy[opcion];
             case 1:
                 indexEnemy = 1;
                 print("Camper");
-                return camperEnemy;
+                return AllEnemy[opcion];
             case 2:
                 indexEnemy = 2;
                 print("invoke");
-                return invokeEnemy;
+                return AllEnemy[opcion];
             default: 
                 return communEnemy;
         }
