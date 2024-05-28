@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-public enum MoventPatron {Circule,ChaseToPlayer,Down,HorizonChange,LookPlayer,GoBack,Invoker }
+public enum MoventPatron {Circule,ChaseToPlayer,Down,HorizonChange,LookPlayer,GoBack,Invoker,Tackle }
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyMovement : MonoBehaviour
@@ -41,6 +41,13 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float speedToPlayer;
     [SerializeField] private float rangeToInvoke;
     [SerializeField] private bool StopToInvoke;
+
+    [Header("Charter")]
+    [SerializeField] private float speedshot;
+    [SerializeField] private float rangeToPlacaje;
+    [SerializeField] private float delayJump;
+    [SerializeField] private bool attackPlacaje;
+    private bool attacking = false;
 
     // Update is called once per frame
     private void Awake()
@@ -107,10 +114,8 @@ public class EnemyMovement : MonoBehaviour
             ChangePatron();
         }
         currentDropTime += Time.deltaTime;
-
     }
 
-    //lo baja verticalmente hasta un punto
     private void MovenDown()
     {
         Vector2 movement = Vector2.down * SpeedDown * Time.fixedDeltaTime;
@@ -127,12 +132,9 @@ public class EnemyMovement : MonoBehaviour
 
     private void LookAtThePlayer()
     {
-       // targetPosition = PlayerController.instance.transform.position;
-
         Vector2 direction = (reference.transform.position - transform.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        // Rotacion 
         Quaternion targetRotation = Quaternion.Euler(0, 0, angle + 90.0f);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationLook * Time.deltaTime);
         ChangePatron();
@@ -153,10 +155,25 @@ public class EnemyMovement : MonoBehaviour
             rb.MovePosition(rb.position + movement);
             if (Vector3.Distance(transform.position, targetPosition) <= 1f) triggerTargetPosition = true;
         }
-        else
-        {
+    }
+    private void MovenTackle()
+    {
+        GetReference(null);
+        float tempDistance = Vector3.Distance(reference.transform.position, transform.position);
+        LookAtThePlayer();
 
+      
+        if (rangeToPlacaje <= tempDistance && !attacking)
+        {
+            attacking = true;
+            StartCoroutine(LaunchAfterTime());
         }
+
+        if (!attacking)
+        {
+            ChaseToPlayer();
+        }
+
     }
 
     private void ChangePatron()
@@ -183,6 +200,9 @@ public class EnemyMovement : MonoBehaviour
                 break;
             case MoventPatron.Invoker:
                 enemy.Move = MovenInvoke;
+                break;
+            case MoventPatron.Tackle:
+                enemy.Move = MovenTackle;
                 break;
 
         }
@@ -213,6 +233,19 @@ public class EnemyMovement : MonoBehaviour
         reference = tempReference;
         if (reference == null) { reference = PlayerController.instance; }
         
+    }
+
+    IEnumerator LaunchAfterTime()
+    {
+        print("Entro al placaje ");
+        yield return new WaitForSeconds(delayJump);
+        Vector2 direction = (reference.transform.position - transform.position).normalized;
+        rb.AddForce(direction *(speedshot * 10));
+
+        yield return new WaitForSeconds(delayJump*2);
+        attacking = false;
+        rb.velocity = Vector2.zero;
+        print("salio al placaje ");
     }
 
 }
