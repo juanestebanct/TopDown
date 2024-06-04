@@ -26,6 +26,15 @@ public class Bullet : Projectile
         switch (type)
         {
             case BulletType.Enemy:
+                if (collision.gameObject.CompareTag("Player"))
+                {
+                    print("Recive damage");
+                    collision.gameObject.GetComponent<IDamage>().ResiveDamage(damage);
+                    LostDrilling();
+                    return;
+                }
+                print("Recive damage");
+                gameObject.SetActive(false);
                 break;
 
             case BulletType.Player:
@@ -54,6 +63,7 @@ public class Bullet : Projectile
         tempForce.Normalize();
         rb.AddForce(tempForce * force, ForceMode2D.Impulse);
         transform.forward = tempForce;
+        Invoke("Desactive", DesactivateTime);
 
     }
    

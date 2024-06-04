@@ -13,7 +13,7 @@ public class ProyectileWeapon : MonoBehaviour
     [SerializeField] protected int Drilling = 1;
     [SerializeField] protected int CicleShoot = 1;
 
-    protected virtual void Shoot()
+    public virtual void Shoot()
     {
 
     }

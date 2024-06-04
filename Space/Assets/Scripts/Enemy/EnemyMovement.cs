@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-public enum MoventPatron {Circule,ChaseToPlayer,Down,HorizonChange,LookPlayer,GoBack,Invoker,Tackle }
+public enum MoventPatron {Circule,ChaseToPlayer,Down,HorizonChange,LookPlayer,GoBack,Invoker,Tackle, MovenSHoot }
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyMovement : MonoBehaviour
@@ -48,6 +48,10 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float delayJump;
     [SerializeField] private bool attackPlacaje;
     private bool attacking = false;
+
+    [Header("Rotate")]
+    [SerializeField] private float rotationSpeed;
+
 
     // Update is called once per frame
     private void Awake()
@@ -161,21 +165,27 @@ public class EnemyMovement : MonoBehaviour
         GetReference(null);
         float tempDistance = Vector3.Distance(reference.transform.position, transform.position);
         LookAtThePlayer();
-
       
-        if (rangeToPlacaje <= tempDistance && !attacking)
+        if (rangeToPlacaje >= tempDistance && !attacking)
         {
             attacking = true;
+            attackPlacaje = true;
             StartCoroutine(LaunchAfterTime());
         }
 
-        if (!attacking)
+        if (attackPlacaje == false)
         {
             ChaseToPlayer();
         }
 
-    }
+    }/// <summary>
+    /// Funcion para rotar solamente 
+    /// </summary>
+    private void MovenSHoot()
+    {
+        transform.Rotate(Vector3.forward, rotationSpeed * Time.fixedDeltaTime);
 
+    }
     private void ChangePatron()
     {
         switch (patron)
@@ -204,8 +214,15 @@ public class EnemyMovement : MonoBehaviour
             case MoventPatron.Tackle:
                 enemy.Move = MovenTackle;
                 break;
-
+            case MoventPatron.MovenSHoot:
+                enemy.Move = MovenSHoot;
+                break;
         }
+    }
+    public void ChangePatron(MoventPatron pattern)
+    {
+        patron = pattern;
+        ChangePatron();
     }
     public void ResetValues(Vector3 newPosition, MoventPatron pattern)
     {
@@ -234,18 +251,23 @@ public class EnemyMovement : MonoBehaviour
         if (reference == null) { reference = PlayerController.instance; }
         
     }
+    public PlayerController GetRefenecePlayer()
+    {
+        if (reference == null) { reference = PlayerController.instance; }
+        return reference;
+    }
 
     IEnumerator LaunchAfterTime()
     {
-        print("Entro al placaje ");
         yield return new WaitForSeconds(delayJump);
         Vector2 direction = (reference.transform.position - transform.position).normalized;
-        rb.AddForce(direction *(speedshot * 10));
+        rb.AddForce(direction * (speedshot * 10));
 
-        yield return new WaitForSeconds(delayJump*2);
-        attacking = false;
+        yield return new WaitForSeconds(delayJump * 2);
         rb.velocity = Vector2.zero;
-        print("salio al placaje ");
+        attacking = false;
+        attackPlacaje = false;
+
     }
 
 }

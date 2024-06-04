@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 9164255705839795898}
   - component: {fileID: 2969062035973838841}
   - component: {fileID: 5481047720132020800}
-  m_Layer: 8
-  m_Name: Ball
+  m_Layer: 7
+  m_Name: BallEnemy
   m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,12 +110,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4298a02624eaa71479483c3b2187b5f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
-  DesactivateTime: 0
+  damage: 1
+  DesactivateTime: 5
   curreDesactiveTime: 0
   type: 0
-  velocity: 70
-  force: 240
+  velocity: 40
+  force: 40
 --- !u!1001 &4468477454127064251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -124,6 +124,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3513362781926921333}
     m_Modifications:
+    - target: {fileID: 5113939982001710257, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5113939982001710258, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
       propertyPath: m_LocalPosition.z
       value: 1.68
@@ -135,6 +139,10 @@ PrefabInstance:
     - target: {fileID: 5113939982001710268, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
       propertyPath: InitialModule.startSize.minScalar
       value: 2.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113939982486074274, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5113939982486074275, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -152,6 +160,10 @@ PrefabInstance:
       propertyPath: InitialModule.startSizeZ.scalar
       value: 3.22
       objectReference: {fileID: 0}
+    - target: {fileID: 5113939982507611620, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5113939982507611623, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 0.98
@@ -163,6 +175,10 @@ PrefabInstance:
     - target: {fileID: 5113939982577181048, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
       propertyPath: m_Name
       value: FireProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113939982577181048, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5113939982577181050, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -224,6 +240,10 @@ PrefabInstance:
       propertyPath: InitialModule.startSize.minScalar
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 5113939982951544106, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5113939982951544107, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
       propertyPath: m_LocalPosition.z
       value: -2.24
@@ -235,6 +255,10 @@ PrefabInstance:
     - target: {fileID: 5113939983356716978, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 2.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113939983356716983, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -254,9 +278,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3513362781926921333}
     m_Modifications:
+    - target: {fileID: 5113939982001710257, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113939982486074274, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113939982507611620, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5113939982577181048, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
       propertyPath: m_Name
       value: FireProjectile (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113939982577181048, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5113939982577181048, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
       propertyPath: m_IsActive
@@ -305,6 +345,14 @@ PrefabInstance:
     - target: {fileID: 5113939982577181051, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113939982951544106, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5113939983356716983, guid: d33e687613bacc04f91da0c85fb340c3, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

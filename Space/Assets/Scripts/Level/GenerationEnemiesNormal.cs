@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -16,8 +17,11 @@ public class GenerationEnemiesNormal : MonoBehaviour
     [SerializeField] float spawnDistanceBeyondRadius = 2.0f;
 
     [Header("To next level")]
-    [SerializeField] private int level,PointsToLevel;
+    [SerializeField] private int level,PointsToLevel,eventIndex;
     [SerializeField] private int maxTipyEnemy,maxEnemyBySpawn,moreEnemyForLevel;
+    [SerializeField] float elapsedTime, timeToNowdifficulty;
+    [SerializeField] float[] listTimer;
+    [SerializeField] private TextMeshProUGUI timer;
 
     private int indexEnemy = 0;
     private float currentSpawnTime, spawnTimer;
@@ -36,6 +40,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
     {
         level = 1;
         maxTipyEnemy = 1;
+        eventIndex = 0;
 
         generationGaster = GetComponent<GenerationGaster>();
         generationAsteroid = GetComponent<GenerationAsteroid>();
@@ -49,6 +54,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
     private void Start()
     {
         Score.Instance.NextLevelPoinst = PointsToLevel;
+       
     }
     /// <summary>
     /// genera el pool de cada tipo
@@ -86,6 +92,12 @@ public class GenerationEnemiesNormal : MonoBehaviour
         }
         spawnTimer += Time.deltaTime;
         ChangeDifficulty();
+        elapsedTime = Time.time;
+        int minutes = Mathf.FloorToInt((elapsedTime % 3600) / 60);
+        int seconds = Mathf.FloorToInt(elapsedTime % 60);
+        print(string.Format("{0:00}:{1:00}", minutes, seconds));
+        timer.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        nextLevel();
     }
     /// <summary>
     /// se escoje la lista que va a lansar 
@@ -159,28 +171,27 @@ public class GenerationEnemiesNormal : MonoBehaviour
     }
     private void ChangeDifficulty()
     {
-        if (Score.Instance.CurrentScore >= PointsToLevel)
+        if (elapsedTime >= timeToNowdifficulty)
         {
-            PointsToLevel = (PointsToLevel * 2) + PointsToLevel / 2;
-            Score.Instance.NextLevelPoinst = PointsToLevel;
-            Score.Instance.PastLevel();
-            level++;
+            timeToNowdifficulty += timeToNowdifficulty;
+            eventIndex++;
+            print("Cambio nivel"+ eventIndex + listTimer[eventIndex]);
             /*
             2.primero se reduce el tiempo, 3.luego se activa los otros enemigos, 4.luego se activa los blaster y 5.luego mas enemigos por spawn y 
             mas enemigos
              * */
-            switch (level)
+            switch (eventIndex)
             {
-                case 2:
+                case 1:
                     ReduseTime();
                     break;
-                case 3:
+                case 2:
                     maxTipyEnemy++;
                     break;
-                case 4:
+                case 3:
                     generationGaster.ActiveBlaster();
                     break;
-                case 5:
+                case 4:
                     maxTipyEnemy++;
                     break;
 
@@ -189,6 +200,16 @@ public class GenerationEnemiesNormal : MonoBehaviour
                     MoreEnemy();
                     break;
             }
+        }
+    }
+    private void nextLevel()
+    {
+        if (Score.Instance.CurrentScore >= PointsToLevel)
+        {
+            PointsToLevel = (PointsToLevel * 2) + PointsToLevel / 2;
+            Score.Instance.NextLevelPoinst = PointsToLevel;
+            Score.Instance.PastLevel();
+            level++;
         }
     }
     private void ReduseTime()

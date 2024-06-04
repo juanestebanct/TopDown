@@ -25,7 +25,7 @@ public class MiniGun : ProyectileWeapon
         PController.Fire += Shoot;
         pooling();
     }
-    protected override void Shoot()
+    public override void Shoot()
     {
         if (!canFire) return;
         StartCoroutine(startShoot());
