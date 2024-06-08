@@ -8,9 +8,6 @@ public class TourShootEnemy : Enemy
     [SerializeField] protected EnemyMovement movent;
     [SerializeField] private ProyectileWeapon weapon;
 
-    [SerializeField] private AudioSource spawnSource;
-    [SerializeField] private AudioClip spawnClip;
-
     private PlayerController reference;
     ///Desde aqui se desaciva el movent y se coloca a uno que va a girar 45 grados en la direccion y desde aqui se va a 
     ///disparar
@@ -28,19 +25,26 @@ public class TourShootEnemy : Enemy
     }
     public override void ResetMovent(Vector3 position)
     {
-        MoventPatron patron = MoventPatron.LookPlayer;
+        movent.ResetValues(position, MoventPatron.MovenSHoot);
+    }
+    public void ResetMovent(Vector3 position, MoventPatron patrons)
+    {
+        MoventPatron patron = patrons;
         movent.ResetValues(position, patron);
     }
-
     public override void ResiveDamage(float Damage)
     {
+        Live -= Damage;
+        print("live" + Live);
+        if (Live > 0) return;
         Score.Instance.GetPoins(Point);
         AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
-        //Desactive();
+        Desactive();
     }
-    public void OnEnable()
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        spawnSource.PlayOneShot(spawnClip);
+        if (collision.CompareTag("ResetZone")) Desactive();
     }
 
 }

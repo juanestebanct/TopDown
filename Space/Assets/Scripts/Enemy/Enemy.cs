@@ -75,8 +75,9 @@ public abstract class Enemy : MonoBehaviour, IDamage
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.gameObject.GetComponent<IDamage>().ResiveDamage(Damage);
-            gameObject.SetActive(false);
             AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
+            if(this is BossChaster)
+            collision.gameObject.GetComponent<PlayerController>().ForcePlacaje(100,transform.up);
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {

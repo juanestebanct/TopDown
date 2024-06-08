@@ -8,8 +8,8 @@ public class BossChaster : Enemy
     [Header("BossChaster")]
     [SerializeField] protected MoventPatron[] patrons;
     [SerializeField] protected EnemyMovement movent;
-    [SerializeField] private ProyectileWeapon weapon;
-    [SerializeField] private float delayChange;
+    [SerializeField] private ProyectileWeapon weapon,shotgun;
+    [SerializeField] private float delayChange,delayShoot;
 
     [SerializeField] private AudioSource spawnSource;
     [SerializeField] private AudioClip spawnClip;
@@ -41,14 +41,18 @@ public class BossChaster : Enemy
 
     public override void ResiveDamage(float Damage)
     {
+        Live -= Damage;
+        print("live" + Live);
+        if (Live > 0) return;
         Score.Instance.GetPoins(Point);
         AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
-        //Desactive();
+        Desactive();
     }
     public void OnEnable()
     {
         spawnSource.PlayOneShot(spawnClip);
     }
+
     IEnumerator ActivateForce()
     {
         print("hola");
@@ -59,6 +63,13 @@ public class BossChaster : Enemy
         movent.ChangePatron(patrons[range]);
         print(range);
         StartCoroutine(ActivateForce());
+        if(patrons[range] == MoventPatron.Tackle) StartCoroutine(ShotShogun());
+    }
+    IEnumerator ShotShogun()
+    {
+        yield return new WaitForSeconds(delayShoot);
+        shotgun.Shoot();
+
     }
     private void OnDisable()
     {

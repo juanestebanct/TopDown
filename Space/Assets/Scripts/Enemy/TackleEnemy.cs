@@ -12,13 +12,17 @@ public class TackleEnemy : Enemy
 
     public override void ResetMovent(Vector3 position)
     {
-        MoventPatron patron = MoventPatron.ChaseToPlayer;
+        MoventPatron patron = MoventPatron.Tackle;
         movent.ResetValues(position, patron);
     }
-
-    // Update is called once per frame
-    void Update()
+    public override void ResiveDamage(float Damage)
     {
-        
+        Live -= Damage;
+        print("live" + Live);
+        if (Live > 0) return;
+        Score.Instance.GetPoins(Point);
+        AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
+        Desactive();
     }
+
 }

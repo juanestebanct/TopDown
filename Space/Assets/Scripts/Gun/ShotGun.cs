@@ -20,7 +20,8 @@ public class ShotGun : ProyectileWeapon
     private void Awake()
     {
         rb = PController.GetComponent<Rigidbody2D>();
-        PController.Fire += Shoot;
+        if (PController.GetComponent<PlayerController>())
+            PController.GetComponent<PlayerController>().Fire += Shoot;
         pooling();
     }
     public override void Shoot()
@@ -64,11 +65,11 @@ public class ShotGun : ProyectileWeapon
 
     private void OnDisable()
     {
-        PController.Fire -= Shoot;
+       // PController.Fire -= Shoot;
     }
     private void OnEnable()
     {
-        PController.Fire += Shoot;
+        //PController.Fire += Shoot;
     }
     private void pooling()
     {

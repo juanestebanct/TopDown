@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProyectileWeapon : MonoBehaviour
 {
     [Header("Weapon Reference")]
-    [SerializeField] protected PlayerController PController;
+    [SerializeField] protected GameObject PController;
     [SerializeField] protected GameObject Projectile;
     [SerializeField] protected Transform ProjectirePoint;
     [SerializeField] protected float TimeToFire = 2f;

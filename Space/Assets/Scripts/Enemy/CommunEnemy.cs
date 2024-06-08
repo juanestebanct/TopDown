@@ -30,7 +30,6 @@ public class CommunEnemy : Enemy
         AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
         Desactive();
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("ResetZone")) Desactive();

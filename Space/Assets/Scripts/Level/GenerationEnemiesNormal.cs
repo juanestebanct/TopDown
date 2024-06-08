@@ -23,7 +23,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
     [SerializeField] float[] listTimer;
     [SerializeField] private TextMeshProUGUI timer;
 
-    private int indexEnemy = 0;
+    [SerializeField] private int indexEnemy = 0;
     private float currentSpawnTime, spawnTimer;
 
     private List<GameObject> communEnemy = new List<GameObject>();
@@ -45,9 +45,11 @@ public class GenerationEnemiesNormal : MonoBehaviour
         generationGaster = GetComponent<GenerationGaster>();
         generationAsteroid = GetComponent<GenerationAsteroid>();
 
-        PoolEnemies(communEnemy);
-        PoolEnemies(camperEnemy);
-        PoolEnemies(invokeEnemy);
+        PoolEnemies();
+        PoolEnemies();
+        PoolEnemies();
+        PoolEnemies();
+
 
         playerController = PlayerController.instance;
     }
@@ -59,8 +61,10 @@ public class GenerationEnemiesNormal : MonoBehaviour
     /// <summary>
     /// genera el pool de cada tipo
     /// </summary>
-    private void PoolEnemies(List<GameObject> list)
+    private void PoolEnemies()
     {
+        List<GameObject> list = new List<GameObject>();
+
         for (int i = 0; i < 3; i++)
         {
             GameObject enemy = Instantiate(enemys[indexEnemy]);
@@ -122,6 +126,15 @@ public class GenerationEnemiesNormal : MonoBehaviour
                 indexEnemy = 2;
                 print("invoke");
                 return AllEnemy[opcion];
+            case 3:
+                indexEnemy = 3;
+                print("Tacle");
+                return AllEnemy[opcion];
+            case 4:
+                indexEnemy = 4;
+                print("Shoot");
+                return AllEnemy[opcion];
+
             default: 
                 return communEnemy;
         }
@@ -194,6 +207,13 @@ public class GenerationEnemiesNormal : MonoBehaviour
                 case 4:
                     maxTipyEnemy++;
                     break;
+                case 5:
+                    maxTipyEnemy++;
+                    break;
+                case 6:
+                    maxTipyEnemy++;
+                    break;
+
 
                 default:
                     ReduseTime();

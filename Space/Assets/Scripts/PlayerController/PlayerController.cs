@@ -153,5 +153,10 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+
+    public void ForcePlacaje(float force, Vector2 direction)
+    {
+        rb.AddForce(-direction * (force * 10),ForceMode2D.Impulse);
+    }
     
 }

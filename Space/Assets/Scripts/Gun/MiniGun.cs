@@ -22,7 +22,8 @@ public class MiniGun : ProyectileWeapon
     private void Awake()
     {
         rb = PController.GetComponent<Rigidbody2D>();
-        PController.Fire += Shoot;
+        if (PController.GetComponent<PlayerController>())
+            PController.GetComponent<PlayerController>().Fire += Shoot;
         pooling();
     }
     public override void Shoot()
@@ -80,11 +81,13 @@ public class MiniGun : ProyectileWeapon
     }
     private void OnDisable()
     {
-        PController.Fire -= Shoot;
+        if (PController.GetComponent<PlayerController>())
+            PController.GetComponent<PlayerController>().Fire -= Shoot;
     }
     private void OnEnable()
     {
-        PController.Fire += Shoot;
+        if (PController.GetComponent<PlayerController>())
+            PController.GetComponent<PlayerController>().Fire += Shoot;
     }
     private IEnumerator startShoot()
     {
