@@ -74,4 +74,8 @@ public class GenerationGaster : MonoBehaviour
     {
         Spawn = true;
     }
+    public void DesactiveBlaster()
+    {
+        Spawn = false;
+    }
 }

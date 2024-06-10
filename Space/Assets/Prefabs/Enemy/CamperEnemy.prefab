@@ -10115,6 +10115,14 @@ MonoBehaviour:
   timeToDown: 4
   currentDropTime: 6
   speedBack: 0
+  speedToPlayer: 0
+  rangeToInvoke: 0
+  StopToInvoke: 0
+  speedshot: 0
+  rangeToPlacaje: 0
+  delayJump: 0
+  attackPlacaje: 0
+  rotationSpeed: 0
 --- !u!114 &2610826097518184070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10154,8 +10162,8 @@ MonoBehaviour:
   MaxLive: 2
   Live: 3
   Damage: 1
-  Point: 4
-  DeadVfx: {fileID: 0}
+  Point: 2
+  deathParticlePrefab: {fileID: 6790947676075578654, guid: 3cf5e28d5b8bbab488da18f423d7c75b, type: 3}
   forceReturn: 10
   movent: {fileID: 0}
 --- !u!58 &8386351460551214044

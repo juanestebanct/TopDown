@@ -33,8 +33,8 @@ public class Bullet : Projectile
                     LostDrilling();
                     return;
                 }
-                print("Recive damage");
-                gameObject.SetActive(false);
+                //print("Recive damage");
+                //gameObject.SetActive(false);
                 break;
 
             case BulletType.Player:
@@ -46,6 +46,7 @@ public class Bullet : Projectile
                     LostDrilling();
                     return;
                 }
+                print(collision);
                 gameObject.SetActive(false);
                 break;
         }

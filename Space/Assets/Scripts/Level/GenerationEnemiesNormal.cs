@@ -8,7 +8,9 @@ public class GenerationEnemiesNormal : MonoBehaviour
 {
     [Header("Stats to spawn")]
     [SerializeField] private GameObject[] enemys;
+    [SerializeField] private GameObject[] boss;
     [SerializeField] private Transform positionToSpawn;
+    [SerializeField] private GameObject ParticuleSpawn;
     [SerializeField] private Vector2 spawnTimeRange = new Vector2(5, 10);
     [SerializeField] private Vector2 MaxPosition = new Vector2(-50, 50);
 
@@ -17,19 +19,15 @@ public class GenerationEnemiesNormal : MonoBehaviour
     [SerializeField] float spawnDistanceBeyondRadius = 2.0f;
 
     [Header("To next level")]
-    [SerializeField] private int level,PointsToLevel,eventIndex;
+    [SerializeField] private int level,PointsToLevel,eventIndex, indexBoss;
     [SerializeField] private int maxTipyEnemy,maxEnemyBySpawn,moreEnemyForLevel;
-    [SerializeField] float elapsedTime, timeToNowdifficulty;
+    [SerializeField] float elapsedTime, timeToNowdifficulty, timeBeforeSpawn;
     [SerializeField] float[] listTimer;
     [SerializeField] private TextMeshProUGUI timer;
 
     [SerializeField] private int indexEnemy = 0;
     private float currentSpawnTime, spawnTimer;
-
-    private List<GameObject> communEnemy = new List<GameObject>();
-    private List<GameObject> camperEnemy = new List<GameObject>();
-    private List<GameObject> invokeEnemy = new List<GameObject>();
-
+    private bool bossEvent;
     private List<List<GameObject>> AllEnemy = new List<List<GameObject>>();
 
     private PlayerController playerController;
@@ -81,14 +79,13 @@ public class GenerationEnemiesNormal : MonoBehaviour
     }
     private void Update()
     {
-       
+        if (bossEvent) return;
         if (spawnTimer >= currentSpawnTime)
         {
             int spawnCurrent = 1;
             while (maxEnemyBySpawn >= spawnCurrent)
             {
-               
-                SpawnEnemy(choose(), Configuration(positionToSpawn.position));
+                StartCoroutine(SpawnCorrutineBucle());
                 currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
                 spawnTimer = 0;
                 spawnCurrent++;
@@ -96,10 +93,9 @@ public class GenerationEnemiesNormal : MonoBehaviour
         }
         spawnTimer += Time.deltaTime;
         ChangeDifficulty();
-        elapsedTime = Time.time;
+        elapsedTime += Time.deltaTime;
         int minutes = Mathf.FloorToInt((elapsedTime % 3600) / 60);
         int seconds = Mathf.FloorToInt(elapsedTime % 60);
-        print(string.Format("{0:00}:{1:00}", minutes, seconds));
         timer.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         nextLevel();
     }
@@ -136,7 +132,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
                 return AllEnemy[opcion];
 
             default: 
-                return communEnemy;
+                return AllEnemy[0];
         }
     }
     /// <summary>
@@ -148,7 +144,6 @@ public class GenerationEnemiesNormal : MonoBehaviour
     {
         Vector2 playerPosition = new Vector2(playerController.transform.position.x, playerController.transform.position.y);
         // Radio en el que aparecerá el enemigo
-
         // Generar una posición aleatoria en la circunferencia del círculo
         Vector2 randomSpawnDirection = Random.insideUnitCircle.normalized;
         Vector2 spawnPositionOnCircle = playerPosition + randomSpawnDirection * spawnRadius;
@@ -188,7 +183,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
         {
             timeToNowdifficulty += timeToNowdifficulty;
             eventIndex++;
-            print("Cambio nivel"+ eventIndex + listTimer[eventIndex]);
+            print("Cambio nivel"+ eventIndex );
             /*
             2.primero se reduce el tiempo, 3.luego se activa los otros enemigos, 4.luego se activa los blaster y 5.luego mas enemigos por spawn y 
             mas enemigos
@@ -221,6 +216,16 @@ public class GenerationEnemiesNormal : MonoBehaviour
                     break;
             }
         }
+        if (elapsedTime >= listTimer[indexBoss])
+        {
+            Transform temp = transform;
+            temp.position = Configuration(positionToSpawn.position);
+            GameObject bossTemp = Instantiate(boss[indexBoss], Configuration(positionToSpawn.position), Quaternion.identity);
+            bossTemp.GetComponent<BossChaster>().Ref(this);
+            bossEvent = true;
+            generationGaster.DesactiveBlaster();
+            indexBoss++;
+        }
     }
     private void nextLevel()
     {
@@ -241,6 +246,22 @@ public class GenerationEnemiesNormal : MonoBehaviour
     private void MoreEnemy()
     {
         maxEnemyBySpawn += moreEnemyForLevel;
-        print("algo de enemgiso ");
+    }
+
+    public void ActiveEvent()
+    {
+        bossEvent = false;
+        generationGaster.ActiveBlaster();
+    }
+    IEnumerator SpawnCorrutineBucle()
+    {
+        Vector3 tempVector = Configuration(positionToSpawn.position);
+        var spawnParticle = Instantiate(ParticuleSpawn, tempVector, transform.rotation);
+        spawnParticle.GetComponent<ParticleSystem>().Play();
+        Destroy(spawnParticle, 2f);
+        yield return new WaitForSeconds(timeBeforeSpawn);
+        
+        SpawnEnemy(choose(), tempVector);
+        //SpawnEnemys(choose(), tempVector);
     }
 }

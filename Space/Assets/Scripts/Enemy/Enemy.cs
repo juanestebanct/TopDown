@@ -15,7 +15,7 @@ public abstract class Enemy : MonoBehaviour, IDamage
     [SerializeField] protected float Live;
     [SerializeField] protected int Damage;
     [SerializeField] protected int Point;
-    [SerializeField] protected GameObject DeadVfx;
+    [SerializeField] protected GameObject deathParticlePrefab;
 
     [SerializeField] private float forceReturn = 50;
 
@@ -40,10 +40,12 @@ public abstract class Enemy : MonoBehaviour, IDamage
     }
     public virtual void Desactive()
     {
-        //var deathFX = Instantiate(DeadVfx);
-        //deathFX.transform.positionRay = transform.positionRay;
-        //Destroy(deathFX, 1f);
+        var particule = Instantiate(deathParticlePrefab, transform.position, Quaternion.identity);
+        deathParticlePrefab.GetComponent<ParticleSystem>().Play();
+
+        Destroy(particule, 2f);
         Live = MaxLive;
+        print("particula");
         gameObject.SetActive(false);
     }
     public virtual void FixedUpdate()

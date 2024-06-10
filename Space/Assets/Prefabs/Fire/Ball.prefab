@@ -111,9 +111,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  DesactivateTime: 0
+  DesactivateTime: 4
   curreDesactiveTime: 0
-  type: 0
+  type: 1
   velocity: 70
   force: 240
 --- !u!1001 &4468477454127064251

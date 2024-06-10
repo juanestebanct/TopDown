@@ -19,6 +19,7 @@ public class Canyon : ProyectileWeapon
     }
     public override void Shoot()
     {
+        print("Dispara");
         if (!canFire) return;
         StartCoroutine(startShoot());
     }
@@ -26,10 +27,12 @@ public class Canyon : ProyectileWeapon
     private void Shootpool()
     {
         GameObject bullet = bullets.Find(b => !b.activeSelf);
+
         if (bullet == null)
         {
             bullet = Instantiate(Projectile, ProjectirePoint.position,transform.rotation);
             bullets.Add(bullet);
+            print("Impresion Weapon");
         }
         bullet.transform.rotation = transform.rotation;
 
@@ -42,6 +45,7 @@ public class Canyon : ProyectileWeapon
         bullet.GetComponent<Bullet>().MoreSpeed(rb.velocity.magnitude);
 
         AudioManager.instance.PlayClip(AudioManager.instance.Shoot);
+        print("Weapon 1 "+ bullet);
     }
     private void pooling()
     {
@@ -60,7 +64,7 @@ public class Canyon : ProyectileWeapon
     private IEnumerator startShoot()
     {
         canFire = false;
-        int intShoot=0;
+        int intShoot = 0;
         StartCoroutine(Delay());
         while (CicleShoot > intShoot)
         {

@@ -5,9 +5,9 @@ using UnityEngine;
 public class TackleEnemy : Enemy
 {
     [SerializeField] protected EnemyMovement movent;
-    void Start()
+    private void Awake()
     {
-        
+        movent = GetComponent<EnemyMovement>();
     }
 
     public override void ResetMovent(Vector3 position)

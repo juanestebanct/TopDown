@@ -16,4 +16,4 @@ MonoBehaviour:
   Type: 0
   Title: Mas Vida
   Description: "Se a\xF1ade 2 puntos mas a la vida maxima "
-  MoreLive: 2
+  MoreLive: 10

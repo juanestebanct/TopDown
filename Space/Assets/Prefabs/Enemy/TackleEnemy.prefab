@@ -98,7 +98,6 @@ GameObject:
   - component: {fileID: 3333083096424093538}
   - component: {fileID: 4780327228880729252}
   - component: {fileID: 8100079700282598891}
-  - component: {fileID: 2679581385425509652}
   m_Layer: 6
   m_Name: TackleEnemy
   m_TagString: Enemy
@@ -120,7 +119,7 @@ Transform:
   m_Children:
   - {fileID: 5423992314511434645}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &2285578384647343756
 Rigidbody2D:
@@ -196,8 +195,8 @@ MonoBehaviour:
   MaxLive: 2
   Live: 3
   Damage: 4
-  Point: 10
-  DeadVfx: {fileID: 0}
+  Point: 4
+  deathParticlePrefab: {fileID: 6790947676075578654, guid: 3cf5e28d5b8bbab488da18f423d7c75b, type: 3}
   forceReturn: 50
   movent: {fileID: 0}
 --- !u!58 &8100079700282598891
@@ -235,29 +234,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 4
---- !u!114 &2679581385425509652
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1686335612164153940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d50493cc0f95964a97709a959144d09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Level: 1
-  MaxLive: 5
-  Live: 2
-  Damage: 2
-  Point: 6
-  DeadVfx: {fileID: 0}
-  forceReturn: 50
-  movent: {fileID: 0}
-  weapon: {fileID: 0}
-  spawnSource: {fileID: 0}
-  spawnClip: {fileID: 0}
 --- !u!1 &4168385928248566369
 GameObject:
   m_ObjectHideFlags: 0

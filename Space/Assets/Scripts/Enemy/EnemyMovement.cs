@@ -48,6 +48,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float delayJump;
     [SerializeField] private bool attackPlacaje;
     private bool attacking = false;
+    private Coroutine runningCoroutine;
 
     [Header("Rotate")]
     [SerializeField] private float rotationSpeed;
@@ -170,7 +171,7 @@ public class EnemyMovement : MonoBehaviour
         {
             attacking = true;
             attackPlacaje = true;
-            StartCoroutine(LaunchAfterTime());
+            runningCoroutine = StartCoroutine(LaunchAfterTime());
         }
 
         if (attackPlacaje == false)
@@ -218,6 +219,17 @@ public class EnemyMovement : MonoBehaviour
                 enemy.Move = MovenSHoot;
                 break;
         }
+    }
+    private void OnDisable()
+    {
+        if (runningCoroutine != null) StopCoroutine(runningCoroutine);
+        attacking = false;
+        attackPlacaje = false;
+
+    }
+    private void OnEnable()
+    {
+        
     }
     public void ChangePatron(MoventPatron pattern)
     {

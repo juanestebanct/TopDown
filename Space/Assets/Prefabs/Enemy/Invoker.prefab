@@ -4948,7 +4948,7 @@ Transform:
   - {fileID: 2834558524826769540}
   - {fileID: 1696266637040330486}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &7118545575147600183
 Rigidbody2D:
@@ -5038,6 +5038,11 @@ MonoBehaviour:
   speedToPlayer: 60
   rangeToInvoke: 60
   StopToInvoke: 0
+  speedshot: 0
+  rangeToPlacaje: 0
+  delayJump: 0
+  attackPlacaje: 0
+  rotationSpeed: 0
 --- !u!114 &6168568610928652740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5054,8 +5059,8 @@ MonoBehaviour:
   MaxLive: 5
   Live: 0
   Damage: 1
-  Point: 0
-  DeadVfx: {fileID: 0}
+  Point: 5
+  deathParticlePrefab: {fileID: 6790947676075578654, guid: 3cf5e28d5b8bbab488da18f423d7c75b, type: 3}
   forceReturn: 50
   movent: {fileID: 0}
   maxInvoke: 4

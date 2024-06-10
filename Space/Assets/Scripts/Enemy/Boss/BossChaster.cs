@@ -14,6 +14,7 @@ public class BossChaster : Enemy
     [SerializeField] private AudioSource spawnSource;
     [SerializeField] private AudioClip spawnClip;
 
+    private GenerationEnemiesNormal generationEnemies;
     private PlayerController reference;
     private bool fire;
     ///Desde aqui Se va a ir cambiando las cosas,charter y shooter
@@ -44,8 +45,10 @@ public class BossChaster : Enemy
         Live -= Damage;
         print("live" + Live);
         if (Live > 0) return;
+        print("Va a morir");
         Score.Instance.GetPoins(Point);
-        AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
+        generationEnemies.ActiveEvent();
+        //AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
         Desactive();
     }
     public void OnEnable()
@@ -70,6 +73,10 @@ public class BossChaster : Enemy
         yield return new WaitForSeconds(delayShoot);
         shotgun.Shoot();
 
+    }
+    public void Ref(GenerationEnemiesNormal generation)
+    {
+        generationEnemies = generation;
     }
     private void OnDisable()
     {

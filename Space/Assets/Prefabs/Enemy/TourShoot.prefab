@@ -203,7 +203,7 @@ Transform:
   - {fileID: 8586282691988337986}
   - {fileID: 8316225833077618396}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8437258571119996394
 Rigidbody2D:
@@ -314,13 +314,11 @@ MonoBehaviour:
   MaxLive: 2
   Live: 3
   Damage: 4
-  Point: 10
-  DeadVfx: {fileID: 0}
+  Point: 4
+  deathParticlePrefab: {fileID: 6790947676075578654, guid: 3cf5e28d5b8bbab488da18f423d7c75b, type: 3}
   forceReturn: 50
   movent: {fileID: 0}
   weapon: {fileID: 5137010617408306954}
-  spawnSource: {fileID: 0}
-  spawnClip: {fileID: 0}
 --- !u!1 &6316853632712793259
 GameObject:
   m_ObjectHideFlags: 0
