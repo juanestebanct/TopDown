@@ -26,7 +26,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timer;
 
     [SerializeField] private int indexEnemy = 0;
-    private float currentSpawnTime, spawnTimer;
+    private float currentSpawnTime, spawnTimer, addTimeToNowdifficulty;
     private bool bossEvent;
     private List<List<GameObject>> AllEnemy = new List<List<GameObject>>();
 
@@ -39,6 +39,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
         level = 1;
         maxTipyEnemy = 1;
         eventIndex = 0;
+        addTimeToNowdifficulty = timeToNowdifficulty;
 
         generationGaster = GetComponent<GenerationGaster>();
         generationAsteroid = GetComponent<GenerationAsteroid>();
@@ -47,7 +48,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
         PoolEnemies();
         PoolEnemies();
         PoolEnemies();
-
+        PoolEnemies();
 
         playerController = PlayerController.instance;
     }
@@ -181,7 +182,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
     {
         if (elapsedTime >= timeToNowdifficulty)
         {
-            timeToNowdifficulty += timeToNowdifficulty;
+            timeToNowdifficulty += addTimeToNowdifficulty;
             eventIndex++;
             print("Cambio nivel"+ eventIndex );
             /*
@@ -218,13 +219,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
         }
         if (elapsedTime >= listTimer[indexBoss])
         {
-            Transform temp = transform;
-            temp.position = Configuration(positionToSpawn.position);
-            GameObject bossTemp = Instantiate(boss[indexBoss], Configuration(positionToSpawn.position), Quaternion.identity);
-            bossTemp.GetComponent<BossChaster>().Ref(this);
-            bossEvent = true;
-            generationGaster.DesactiveBlaster();
-            indexBoss++;
+            StartCoroutine(SpawnBossSpawn());
         }
     }
     private void nextLevel()
@@ -263,5 +258,19 @@ public class GenerationEnemiesNormal : MonoBehaviour
         
         SpawnEnemy(choose(), tempVector);
         //SpawnEnemys(choose(), tempVector);
+    }
+    IEnumerator SpawnBossSpawn()
+    {
+        
+        generationGaster.DesactiveBlaster();
+        indexBoss++;
+        var spawnParticle = Instantiate(ParticuleSpawn, Vector3.zero, transform.rotation);
+        spawnParticle.GetComponent<ParticleSystem>().Play();
+        Destroy(spawnParticle, 2f);
+        yield return new WaitForSeconds(timeBeforeSpawn);
+
+        GameObject bossTemp = Instantiate(boss[indexBoss], Vector3.zero, Quaternion.identity);
+        bossTemp.GetComponent<BossChaster>().Ref(this);
+        bossEvent = true;
     }
 }
