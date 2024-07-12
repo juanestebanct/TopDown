@@ -18,12 +18,7 @@ public class PlayerStats : MonoBehaviour, IDamage
     [Header("Ui live")]
     [SerializeField] private Image barLive;
     [SerializeField] private TextMeshProUGUI liveText;
-    private void Awake()
-    {
-        live = maxLive;
-        damageable = true;
-        liveText.text = $"{live}/{maxLive}";
-    }
+
     public void ResiveDamage(float Damage)
     {
         if (!damageable) return; 
@@ -52,6 +47,14 @@ public class PlayerStats : MonoBehaviour, IDamage
         maxLive += moreLive;
         live = maxLive;
         UpdateBarlive();
+    }
+    public void GetIuElement(Image refImage, TextMeshProUGUI textLive)
+    {
+        barLive = refImage;
+        liveText = textLive;
+        live = maxLive;
+        damageable = true;
+        liveText.text = $"{live}/{maxLive}";
     }
 
     private void UpdateBarlive()

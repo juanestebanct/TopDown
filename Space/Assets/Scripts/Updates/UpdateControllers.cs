@@ -13,9 +13,12 @@ public class UpdateControllers : MonoBehaviour
     void Start()
     {
         isPaused = false;
-        TriggerPause();
-        SelectWeapons();
+        //TriggerPause();
+        //SelectWeapons();
     }
+    /// <summary>
+    /// Aqui Se pasa la lista de armas para activar 
+    /// </summary>
     public void SelectWeapons()
     {
         for (int i = 0; i < cards.Length; i++)

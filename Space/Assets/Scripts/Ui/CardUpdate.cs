@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,7 +32,7 @@ public class CardUpdate : MonoBehaviour
     }
     public void EventTemp()
     {
-        update.ActivateImprovement(PlayerController.instance.Weapons[(update as UpdateWeapon).weaponIndex]);
+       // update.ActivateImprovement(PlayerController.instance.Weapons[(update as UpdateWeapon).weaponIndex]);
     }
     private void SelectUpdate()
     {

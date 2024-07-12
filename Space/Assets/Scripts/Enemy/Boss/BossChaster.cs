@@ -45,26 +45,32 @@ public class BossChaster : Enemy
         Live -= Damage;
         print("live" + Live);
         if (Live > 0) return;
+
         print("Va a morir");
         Score.Instance.GetPoins(Point);
         generationEnemies.ActiveEvent();
-        //AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
         Desactive();
     }
     public void OnEnable()
     {
         spawnSource.PlayOneShot(spawnClip);
     }
+    public void Ref(GenerationEnemiesNormal generation)
+    {
+        generationEnemies = generation;
+    }
 
     IEnumerator ActivateForce()
     {
         print("hola");
         yield return new WaitForSeconds(delayChange);
+
         int range = Random.Range(0, patrons.Length);
         if (patrons[range] == MoventPatron.MovenSHoot) fire = true;
         else fire = false;
+
         movent.ChangePatron(patrons[range]);
-        print(range);
+
         StartCoroutine(ActivateForce());
         if(patrons[range] == MoventPatron.Tackle) StartCoroutine(ShotShogun());
     }
@@ -73,10 +79,6 @@ public class BossChaster : Enemy
         yield return new WaitForSeconds(delayShoot);
         shotgun.Shoot();
 
-    }
-    public void Ref(GenerationEnemiesNormal generation)
-    {
-        generationEnemies = generation;
     }
     private void OnDisable()
     {

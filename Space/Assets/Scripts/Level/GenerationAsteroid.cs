@@ -76,8 +76,6 @@ public class GenerationAsteroid : MonoBehaviour
 
                 break;
         }
-
-
         return new Vector2(x, y);
     }
     private void SpawnMeteorite()

@@ -68,10 +68,6 @@ public class EnemyMovement : MonoBehaviour
     {
         ChangePatron();
     }
-    private void Start()
-    {
-       
-    }
 
     private void MovementCircule()
     {
@@ -225,7 +221,6 @@ public class EnemyMovement : MonoBehaviour
         if (runningCoroutine != null) StopCoroutine(runningCoroutine);
         attacking = false;
         attackPlacaje = false;
-
     }
     private void OnEnable()
     {
