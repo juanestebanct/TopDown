@@ -19,8 +19,8 @@ public class GenerationEnemiesNormal : MonoBehaviour
     [SerializeField] float spawnDistanceBeyondRadius = 2.0f;
 
     [Header("To next level")]
-    [SerializeField] private int level,PointsToLevel,eventIndex, indexBoss;
-    [SerializeField] private int maxTipyEnemy,maxEnemyBySpawn,moreEnemyForLevel;
+    [SerializeField] private int level, PointsToLevel, eventIndex, indexBoss;
+    [SerializeField] private int maxTipyEnemy, maxEnemyBySpawn, moreEnemyForLevel;
     [SerializeField] float elapsedTime, timeToNowdifficulty, timeBeforeSpawn;
     [SerializeField] float[] listTimer;
     [SerializeField] private TextMeshProUGUI timer;
@@ -28,34 +28,28 @@ public class GenerationEnemiesNormal : MonoBehaviour
     [SerializeField] private int indexEnemy = 0;
     private float currentSpawnTime, spawnTimer, addTimeToNowdifficulty;
     private bool bossEvent;
+
     private List<List<GameObject>> AllEnemy = new List<List<GameObject>>();
 
     private PlayerController playerController;
     private GenerationGaster generationGaster;
     private GenerationAsteroid generationAsteroid;
 
-    private void Awake()
+    private void Start()
     {
         level = 1;
         maxTipyEnemy = 1;
         eventIndex = 0;
         addTimeToNowdifficulty = timeToNowdifficulty;
 
+        Score.Instance.NextLevelPoinst = PointsToLevel;
+        playerController = PlayerController.instance;
+
         generationGaster = GetComponent<GenerationGaster>();
         generationAsteroid = GetComponent<GenerationAsteroid>();
 
-        PoolEnemies();
-        PoolEnemies();
-        PoolEnemies();
-        PoolEnemies();
-        PoolEnemies();
+        for (int i = 0; i < enemys.Length; i++) PoolEnemies();
 
-        playerController = PlayerController.instance;
-    }
-    private void Start()
-    {
-        Score.Instance.NextLevelPoinst = PointsToLevel;
-       
     }
     /// <summary>
     /// genera el pool de cada tipo
@@ -98,7 +92,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
         int minutes = Mathf.FloorToInt((elapsedTime % 3600) / 60);
         int seconds = Mathf.FloorToInt(elapsedTime % 60);
         timer.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        nextLevel();
+        NextLevel();
     }
     /// <summary>
     /// se escoje la lista que va a lansar 
@@ -106,7 +100,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
     /// <returns></returns>
     private List<GameObject> choose()
     {
-        int opcion = Random.Range(0,maxTipyEnemy);
+        int opcion = Random.Range(0, maxTipyEnemy);
         print(AllEnemy[opcion]);
 
         switch (opcion)
@@ -132,16 +126,11 @@ public class GenerationEnemiesNormal : MonoBehaviour
                 print("Shoot");
                 return AllEnemy[opcion];
 
-            default: 
+            default:
                 return AllEnemy[0];
         }
     }
-    /// <summary>
-    /// configura la nueva posicion de spawn
-    /// </summary>
-    /// <param name="position"></param>
-    /// <returns></returns>
-    private Vector3 Configuration(Vector3 position)
+    private Vector3 NewPosition()
     {
         Vector2 playerPosition = new Vector2(playerController.transform.position.x, playerController.transform.position.y);
         // Radio en el que aparecerá el enemigo
@@ -152,13 +141,13 @@ public class GenerationEnemiesNormal : MonoBehaviour
         // Mover la posición más allá del radio
         Vector2 spawnPositionBeyondRadius = spawnPositionOnCircle + randomSpawnDirection * spawnDistanceBeyondRadius;
 
-        Vector3 TempPosition = new Vector3(spawnPositionBeyondRadius.x, spawnPositionBeyondRadius.y,0);
-        return TempPosition;
+        Vector3 newPosition = new Vector3(spawnPositionBeyondRadius.x, spawnPositionBeyondRadius.y, 0);
+        return newPosition;
     }
     private Vector3 ConfigurationPocition(Vector3 position)
     {
-        Vector3 TempPosition = new Vector3(Random.Range(MaxPosition.x, MaxPosition.y), position.y, position.z);
-        return TempPosition;
+        Vector3 newPosition = new Vector3(position.x + Random.Range(MaxPosition.x, MaxPosition.y), position.y, position.z);
+        return newPosition;
     }
     private void SpawnEnemy(List<GameObject> pool, Vector3 Position)
     {
@@ -184,7 +173,6 @@ public class GenerationEnemiesNormal : MonoBehaviour
         {
             timeToNowdifficulty += addTimeToNowdifficulty;
             eventIndex++;
-            print("Cambio nivel"+ eventIndex );
             /*
             2.primero se reduce el tiempo, 3.luego se activa los otros enemigos, 4.luego se activa los blaster y 5.luego mas enemigos por spawn y 
             mas enemigos
@@ -209,8 +197,6 @@ public class GenerationEnemiesNormal : MonoBehaviour
                 case 6:
                     maxTipyEnemy++;
                     break;
-
-
                 default:
                     ReduseTime();
                     MoreEnemy();
@@ -222,7 +208,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
             StartCoroutine(SpawnBossSpawn());
         }
     }
-    private void nextLevel()
+    private void NextLevel()
     {
         if (Score.Instance.CurrentScore >= PointsToLevel)
         {
@@ -234,15 +220,11 @@ public class GenerationEnemiesNormal : MonoBehaviour
     }
     private void ReduseTime()
     {
-        spawnTimeRange = new Vector2 (spawnTimeRange.x - 0.5f, spawnTimeRange.y - 0.5f);
+        spawnTimeRange = new Vector2(spawnTimeRange.x - 0.5f, spawnTimeRange.y - 0.5f);
         generationGaster.ReduceTimeBlaster();
         generationAsteroid.ReduceTimeMeteorite();
     }
-    private void MoreEnemy()
-    {
-        maxEnemyBySpawn += moreEnemyForLevel;
-    }
-
+    private void MoreEnemy() => maxEnemyBySpawn += moreEnemyForLevel; 
     public void ActiveEvent()
     {
         bossEvent = false;
@@ -250,7 +232,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
     }
     IEnumerator SpawnCorrutineBucle()
     {
-        Vector3 tempVector = Configuration(positionToSpawn.position);
+        Vector3 tempVector = NewPosition();
         var spawnParticle = Instantiate(ParticuleSpawn, tempVector, transform.rotation);
         spawnParticle.GetComponent<ParticleSystem>().Play();
         Destroy(spawnParticle, 2f);

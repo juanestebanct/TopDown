@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     public Shield Shield;
     public RayGun RayGun;
 
-    public ProyectileWeapon[] Weapons; 
     #endregion
 
     #region private
@@ -66,8 +65,6 @@ public class PlayerController : MonoBehaviour
         // Check if there is any forward movement input
         if (movement.y != 0 || movement.x != 0)
         {
-            //Fire();
-            // Calculate the target rotation based on the input
             float targetRotation = Mathf.Atan2(-movement.x, movement.y) * Mathf.Rad2Deg;
 
             // Smoothly rotate towards the target rotation
@@ -108,8 +105,13 @@ public class PlayerController : MonoBehaviour
     private void AplicateSpeed(int moreSpeed)
     {
         speed += ((float)moreSpeed/100) * speed;
-     
     }
+    public void GetUiRef(GameObject gameOver, FloatingJoystick[] joysticks)
+    {
+        active = gameOver;
+        floatingJoystick = joysticks[0];
+        floatingJoystickShoot = joysticks[1];
+    } 
     public void OpenDeadMenu()
     {
         active.SetActive(true);
@@ -149,8 +151,6 @@ public class PlayerController : MonoBehaviour
                 break;
             case TypeUpdate.Cooldown:
                 break;
-
-
         }
     }
 

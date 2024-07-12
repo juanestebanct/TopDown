@@ -10,7 +10,7 @@ public class UpdateWeapon : Updates
     /// activa el arma
     /// </summary>
     /// <param name="Weapon"></param>
-    public  override void ActivateImprovement(ProyectileWeapon Weapon)
+    public override void ActivateImprovement(ProyectileWeapon Weapon)
     {
         Weapon.gameObject.SetActive(true);
         PlayerController.instance.ChangeWeapon(Weapon);
