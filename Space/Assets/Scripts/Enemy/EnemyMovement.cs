@@ -256,7 +256,6 @@ public class EnemyMovement : MonoBehaviour
     {
         reference = tempReference;
         if (reference == null) { reference = PlayerController.instance; }
-        
     }
     public PlayerController GetRefenecePlayer()
     {

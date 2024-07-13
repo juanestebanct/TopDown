@@ -1,33 +1,12 @@
+using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using DG.Tweening;
 
-public class MainMenuManager : MonoBehaviour
+public class MenuReturn : MonoBehaviour
 {
-    [SerializeField] private GameObject mainButtons, selectPlayer;
     [SerializeField] private CanvasGroup blackScreen;
-
-    private void Start()
-    {
-        blackScreen.alpha = 0;
-        OpenMainbuttons();
-    }
-    public void CloseMenus()
-    {
-        mainButtons.SetActive(false);
-        selectPlayer.SetActive(false);
-    }
-    public void OpenSelect()
-    {
-        CloseMenus();
-        selectPlayer.SetActive(true);
-    }
-    public void OpenMainbuttons()
-    {
-        CloseMenus();
-        mainButtons.SetActive(true);
-    }
     public void ChangeLevelAsync(string sceneName)
     {
         StartCoroutine(Cinematic(sceneName));
@@ -35,13 +14,14 @@ public class MainMenuManager : MonoBehaviour
     }
     public void FadeToBlack(float duration)
     {
-        blackScreen.DOFade(1, duration).SetEase(Ease.InOutQuad).SetUpdate(true); 
+        blackScreen.DOFade(1, duration).SetEase(Ease.InOutQuad).SetUpdate(true);
         print(duration);
     }
 
     private IEnumerator Cinematic(string sceneName)
     {
-        yield return new WaitForSeconds(0.5f);
+        Time.timeScale = 1;
+        yield return new WaitForSecondsRealtime(0.5f);
         StartCoroutine(LoadSceneAsync(sceneName));
     }
     private IEnumerator LoadSceneAsync(string sceneName)

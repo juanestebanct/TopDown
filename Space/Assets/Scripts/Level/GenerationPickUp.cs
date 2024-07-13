@@ -10,18 +10,24 @@ public class GenerationPickUp : MonoBehaviour
     [SerializeField] private GameObject[] pickUps;
     [SerializeField] private Vector2[] areaGeneration = new Vector2[2];
     [SerializeField] private Vector2 spawnTimeRange;
+    [SerializeField] private float spawnRadius;
+    private PlayerController playerController;
 
-    private List<GameObject> listpickUps = new List<GameObject>();
+    [SerializeField] private List<List<GameObject>> listpickUps = new List<List<GameObject>>();
     private float currentSpawnTime, spawnTimer;
+    private int currentIndex;
     void Start()
     {
         PoolPickUp();
+        playerController = PlayerController.instance;
+        for (int i = 0; i < pickUps.Length-1; i++) PoolPickUp();
     }
     private void Update()
     {
         if (spawnTimer >= currentSpawnTime)
         {
-            SpawnEnemy(GetRandomSpawnPoint());
+            int newItemIndex =Random.Range(0, pickUps.Length-1);
+            SpawnPickUp(listpickUps[newItemIndex]);
             currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
             spawnTimer = 0;
         }
@@ -29,29 +35,42 @@ public class GenerationPickUp : MonoBehaviour
     }
     private void PoolPickUp()
     {
+        List<GameObject> TempListSpawn = new List<GameObject>();
         for (int i = 0; i < pickUps.Length; i++)
         {
-            GameObject TempPickUp = Instantiate(pickUps[i]);
+            GameObject TempPickUp = Instantiate(pickUps[currentIndex]);
             TempPickUp.SetActive(false);
-            listpickUps.Add(TempPickUp);
+            TempListSpawn.Add(TempPickUp);
+            TempPickUp.transform.SetParent(transform);
         }
+        listpickUps.Add(TempListSpawn);
+        currentIndex++;
         currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
     }
     private Vector2 GetRandomSpawnPoint()
     {
-        float x = Random.Range(areaGeneration[0].x, areaGeneration[0].y);
-        float y = Random.Range(areaGeneration[1].x, areaGeneration[1].y);
+        if(playerController ==null) playerController = PlayerController.instance;
+        Vector2 playerPosition = new Vector2(playerController.transform.position.x, playerController.transform.position.y);
+        // Radio en el que aparecerá el enemigo
+        // Generar una posición aleatoria en la circunferencia del círculo
+        Vector2 randomSpawnDirection = Random.insideUnitCircle.normalized;
+        Vector2 spawnPositionOnCircle = playerPosition + randomSpawnDirection * spawnRadius;
 
-        return new Vector2(x, y);
+        // Mover la posición más allá del radio
+        Vector2 spawnPositionBeyondRadius = spawnPositionOnCircle + randomSpawnDirection * spawnRadius;
+
+        Vector3 newPosition = new Vector3(spawnPositionBeyondRadius.x, spawnPositionBeyondRadius.y, 0);
+        return newPosition;
     }
-    private void SpawnEnemy(Vector2 Position)
+    private void SpawnPickUp(List<GameObject> pool)
     {
-        GameObject tempPickUp = listpickUps.Find(b => !b.activeSelf);
+        GameObject tempPickUp = pool.Find(b => !b.activeSelf);
 
         if (tempPickUp == null)
         {
             tempPickUp = Instantiate(pickUps[Random.Range(0, pickUps.Length)]);
-            listpickUps.Add(tempPickUp);
+            pool.Add(tempPickUp);
+            tempPickUp.transform.SetParent(transform);
         }
 
         tempPickUp.transform.position = GetRandomSpawnPoint();

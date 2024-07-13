@@ -90,7 +90,6 @@ public class InvokeEnemy : Enemy
     public override void ResiveDamage(float Damage)
     {
         Live -= Damage;
-        print("live" + Live);
         if (Live > 0) return;
         Score.Instance.GetPoins(Point);
         AudioManager.instance.PlayClip(AudioManager.instance.Explocion);

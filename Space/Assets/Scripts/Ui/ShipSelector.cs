@@ -18,7 +18,6 @@ public class ShipSelector : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("indexPlayer")) indexPlayer = PlayerPrefs.GetInt("indexPlayer");
         else indexPlayer = 0;
-        indexPlayer = 0;
         updateInfo();
     }
     private void updateInfo()

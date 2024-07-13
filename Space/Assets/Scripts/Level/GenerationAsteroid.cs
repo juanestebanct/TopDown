@@ -41,11 +41,13 @@ public class GenerationAsteroid : MonoBehaviour
             meteorite.GetComponent<Meteorite>().GenerationAsteroid = this;
             meteorite.SetActive(false);
             bigMeteorite.Add(meteorite);
+            meteorite.transform.SetParent(transform);
 
             GameObject miniMeteorite = Instantiate(miniMetoritePrefb);
             miniMeteorite.GetComponent<Meteorite>().GenerationAsteroid = this;
             miniMeteorite.SetActive(false);
             minMeteorite.Add(miniMeteorite);
+            miniMeteorite.transform.SetParent(transform);
         }
         currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
     }

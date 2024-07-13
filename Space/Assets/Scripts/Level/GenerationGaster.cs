@@ -8,8 +8,8 @@ public class GenerationGaster : MonoBehaviour
 {
     [Header("Stats to Blaster")]
     [SerializeField] private GameObject blasterGaster;
-    [SerializeField] private Vector2[] areaGeneration = new Vector2[2];
     [SerializeField] private Vector2 spawnTimeRange;
+    [SerializeField] private float spawnRadius;
 
     private List<GameObject> blaster = new List<GameObject>();
     private float currentSpawnTime, spawnTimer;
@@ -33,36 +33,45 @@ public class GenerationGaster : MonoBehaviour
     }
     private void PoolEnemies()
     {
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 3; i++)
         {
-            GameObject Tempblaster = Instantiate(blasterGaster);
-            Tempblaster.GetComponent<EnemyMovement>().GetReference(playerController);
-            Tempblaster.SetActive(false);
-            blaster.Add(Tempblaster);
+            GameObject newBlaster = Instantiate(blasterGaster);
+            newBlaster.GetComponent<EnemyMovement>().GetReference(playerController);
+            newBlaster.SetActive(false);
+            blaster.Add(newBlaster);
+            newBlaster.transform.SetParent(transform); 
         }
         currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
 
     }
     private Vector2 GetRandomSpawnPoint()
     {
+        if (playerController == null) playerController = PlayerController.instance;
+        Vector2 playerPosition = new Vector2(playerController.transform.position.x, playerController.transform.position.y);
+        // Radio en el que aparecerá el enemigo
+        // Generar una posición aleatoria en la circunferencia del círculo
+        Vector2 randomSpawnDirection = Random.insideUnitCircle.normalized;
+        Vector2 spawnPositionOnCircle = playerPosition + randomSpawnDirection * spawnRadius;
 
-        float x = Random.Range(areaGeneration[0].x, areaGeneration[0].y);
-        float y = Random.Range(areaGeneration[1].x, areaGeneration[1].y);
+        // Mover la posición más allá del radio
+        Vector2 spawnPositionBeyondRadius = spawnPositionOnCircle + randomSpawnDirection * spawnRadius;
 
-        return new Vector2(x, y);
+        Vector3 newPosition = new Vector3(spawnPositionBeyondRadius.x, spawnPositionBeyondRadius.y, 0);
+        return newPosition;
     }
     private void SpawnEnemy(Vector2 Position)
     {
-        GameObject Tempblaster = blaster.Find(b => !b.activeSelf);
-        if (Tempblaster == null)
+        GameObject newBlaster = blaster.Find(b => !b.activeSelf);
+        if (newBlaster == null)
         {
-            Tempblaster = Instantiate(blasterGaster);
-            Tempblaster.GetComponent<EnemyMovement>().GetReference(playerController);
-            blaster.Add(Tempblaster);
+            newBlaster = Instantiate(blasterGaster);
+            newBlaster.GetComponent<EnemyMovement>().GetReference(playerController);
+            blaster.Add(newBlaster);
         }
-        Tempblaster.transform.position = GetRandomSpawnPoint();
-        Tempblaster.SetActive(true);
-        Tempblaster.GetComponent<Enemy>().ResetMovent(Position);
+        newBlaster.transform.position = GetRandomSpawnPoint();
+        newBlaster.SetActive(true);
+        print("Algo de camperos");
+        newBlaster.GetComponent<Enemy>().ResetMovent(Position);
 
     }
     public void ReduceTimeBlaster()

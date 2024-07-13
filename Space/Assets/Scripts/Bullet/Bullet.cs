@@ -41,12 +41,10 @@ public class Bullet : Projectile
 
                 if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Meteorite"))
                 {
-                    print(collision);
                     collision.gameObject.GetComponent<IDamage>().ResiveDamage(damage);
                     LostDrilling();
                     return;
                 }
-                print(collision);
                 gameObject.SetActive(false);
                 break;
         }

@@ -54,6 +54,7 @@ public class Canyon : ProyectileWeapon
             GameObject bullet = Instantiate(Projectile, ProjectirePoint.position, transform.rotation);
             bullet.SetActive(false);
             bullets.Add(bullet); 
+            
         }
     }
     private IEnumerator Delay()

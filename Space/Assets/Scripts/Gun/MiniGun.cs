@@ -64,6 +64,7 @@ public class MiniGun : ProyectileWeapon
             GameObject bullet = Instantiate(Projectile, ProjectirePoint.position, transform.rotation);
             bullet.SetActive(false);
             bullets.Add(bullet);
+            bullet.transform.SetParent(this.transform);
         }
     }
     private Vector3 DistorcionShoot()

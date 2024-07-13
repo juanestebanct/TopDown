@@ -45,7 +45,6 @@ public abstract class Enemy : MonoBehaviour, IDamage
 
         Destroy(particule, 2f);
         Live = MaxLive;
-        print("particula");
         gameObject.SetActive(false);
     }
     public virtual void FixedUpdate()
@@ -65,7 +64,6 @@ public abstract class Enemy : MonoBehaviour, IDamage
         if (Level != currentLevel) 
         {
             int tempLevel = currentLevel - Level;
-            print("next nevel" + currentLevel + "" + Level);
             Level = currentLevel;
             MaxLive += tempLevel * 2;
             Damage += tempLevel * 2;
@@ -78,8 +76,7 @@ public abstract class Enemy : MonoBehaviour, IDamage
         {
             collision.gameObject.GetComponent<IDamage>().ResiveDamage(Damage);
             AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
-            if(this is BossChaster)
-            collision.gameObject.GetComponent<PlayerController>().ForcePlacaje(100,transform.up);
+            if (this.GetComponent<Enemy>() is BossChaster) collision.gameObject.GetComponent<PlayerController>().ForcePlacaje(100,transform.up);
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {

@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class CoinsManager : MonoBehaviour
 {
-    [SerializeField] private GameObject coin;
+    [SerializeField] private GameObject coinPrefab;
     [SerializeField] private Vector2[] areaGeneration = new Vector2[2];
     [SerializeField] private Vector2 spawnTimeRange;
     private List<GameObject> coins = new List<GameObject>();
@@ -29,8 +29,9 @@ public class CoinsManager : MonoBehaviour
     {
         for (int i = 0; i < 6; i++)
         {
-            GameObject _coin = Instantiate(coin);
-            _coin.SetActive(false);
+            GameObject coin = Instantiate(coinPrefab);
+            coin.SetActive(false);
+            coin.transform.SetParent(this.transform);
         }
         currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
 
@@ -45,13 +46,13 @@ public class CoinsManager : MonoBehaviour
     }
     private void SpawnCoins()
     {
-        GameObject _coin = coins.Find(b => !b.activeSelf);
-        if (_coin == null)
+        GameObject coin = coins.Find(b => !b.activeSelf);
+        if (coin == null)
         {
-            _coin = Instantiate(this.coin);
-            coins.Add(_coin);
+            coin = Instantiate(this.coinPrefab);
+            coins.Add(coin);
         }
-        _coin.transform.position = GetRandomSpawnPoint();
-        _coin.SetActive(true);
+        coin.transform.position = GetRandomSpawnPoint();
+        coin.SetActive(true);
     }
 }

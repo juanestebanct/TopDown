@@ -19,14 +19,14 @@ public class GenerationEnemiesNormal : MonoBehaviour
     [SerializeField] float spawnDistanceBeyondRadius = 2.0f;
 
     [Header("To next level")]
-    [SerializeField] private int level, PointsToLevel, eventIndex, indexBoss;
-    [SerializeField] private int maxTipyEnemy, maxEnemyBySpawn, moreEnemyForLevel;
-    [SerializeField] float elapsedTime, timeToNowdifficulty, timeBeforeSpawn;
+    [SerializeField] private int pointsToLevel;
+    [SerializeField] private int maxEnemyBySpawn, moreEnemyForLevel;
+    [SerializeField] float timeToNowdifficulty, timeBeforeSpawn;
     [SerializeField] float[] listTimer;
     [SerializeField] private TextMeshProUGUI timer;
 
-    [SerializeField] private int indexEnemy = 0;
-    private float currentSpawnTime, spawnTimer, addTimeToNowdifficulty;
+    private int indexEnemy, eventIndex, indexBoss, maxTipyEnemy, level;
+    private float currentSpawnTime, spawnTimer, addTimeToNowdifficulty, elapsedTime;
     private bool bossEvent;
 
     private List<List<GameObject>> AllEnemy = new List<List<GameObject>>();
@@ -42,7 +42,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
         eventIndex = 0;
         addTimeToNowdifficulty = timeToNowdifficulty;
 
-        Score.Instance.NextLevelPoinst = PointsToLevel;
+        Score.Instance.NextLevelPoinst = pointsToLevel;
         playerController = PlayerController.instance;
 
         generationGaster = GetComponent<GenerationGaster>();
@@ -56,20 +56,15 @@ public class GenerationEnemiesNormal : MonoBehaviour
     /// </summary>
     private void PoolEnemies()
     {
-        List<GameObject> list = new List<GameObject>();
+        List<GameObject> TempListSpawn = new List<GameObject>();
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 8; i++)
         {
-            GameObject enemy = Instantiate(enemys[indexEnemy]);
-            enemy.SetActive(false);
-            enemy.transform.position = positionToSpawn.position;
-            enemy.transform.parent = transform.parent;
-            enemy.GetComponent<EnemyMovement>().GetReference(playerController);
-            list.Add(enemy);
+            TempListSpawn.Add(SpawnEnemy(indexEnemy));
         }
         indexEnemy++;
         currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
-        AllEnemy.Add(list);
+        AllEnemy.Add(TempListSpawn);
 
     }
     private void Update()
@@ -101,29 +96,22 @@ public class GenerationEnemiesNormal : MonoBehaviour
     private List<GameObject> choose()
     {
         int opcion = Random.Range(0, maxTipyEnemy);
-        print(AllEnemy[opcion]);
-
         switch (opcion)
         {
             case 0:
                 indexEnemy = 0;
-                print("Comun");
                 return AllEnemy[opcion];
             case 1:
                 indexEnemy = 1;
-                print("Camper");
                 return AllEnemy[opcion];
             case 2:
                 indexEnemy = 2;
-                print("invoke");
                 return AllEnemy[opcion];
             case 3:
                 indexEnemy = 3;
-                print("Tacle");
                 return AllEnemy[opcion];
             case 4:
                 indexEnemy = 4;
-                print("Shoot");
                 return AllEnemy[opcion];
 
             default:
@@ -156,11 +144,11 @@ public class GenerationEnemiesNormal : MonoBehaviour
         if (enemy == null)
         {
             int range = Random.Range(0, enemys.Length);
-            enemy = Instantiate(enemys[indexEnemy]);
-            enemy.GetComponent<EnemyMovement>().GetReference(playerController);
+            enemy = SpawnEnemy(range);
             pool.Add(enemy);
+            enemy.transform.SetParent(transform);
         }
-        if (enemy.GetComponent<Enemy>() is CamperEnemy) Position = ConfigurationPocition(positionToSpawn.position);
+        if (enemy.GetComponent<Enemy>() is CamperEnemy) Position = ConfigurationPocition(Position);
 
         enemy.transform.position = Position;
         enemy.SetActive(true);
@@ -202,6 +190,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
                     MoreEnemy();
                     break;
             }
+            print("Pasa la dificultad");
         }
         if (elapsedTime >= listTimer[indexBoss])
         {
@@ -210,10 +199,10 @@ public class GenerationEnemiesNormal : MonoBehaviour
     }
     private void NextLevel()
     {
-        if (Score.Instance.CurrentScore >= PointsToLevel)
+        if (Score.Instance.CurrentScore >= pointsToLevel)
         {
-            PointsToLevel = (PointsToLevel * 2) + PointsToLevel / 2;
-            Score.Instance.NextLevelPoinst = PointsToLevel;
+            pointsToLevel = (pointsToLevel * 2) + pointsToLevel / 3;
+            Score.Instance.NextLevelPoinst = pointsToLevel;
             Score.Instance.PastLevel();
             level++;
         }
@@ -224,12 +213,23 @@ public class GenerationEnemiesNormal : MonoBehaviour
         generationGaster.ReduceTimeBlaster();
         generationAsteroid.ReduceTimeMeteorite();
     }
+    private GameObject SpawnEnemy(int indexList)
+    {
+        GameObject enemy = Instantiate(enemys[indexList]);
+        enemy.SetActive(false);
+        enemy.transform.position = positionToSpawn.position;
+        enemy.transform.parent = transform.parent;
+        enemy.GetComponent<EnemyMovement>().GetReference(playerController);
+        enemy.transform.SetParent(this.transform);
+        return enemy;
+    }
     private void MoreEnemy() => maxEnemyBySpawn += moreEnemyForLevel; 
     public void ActiveEvent()
     {
         bossEvent = false;
         generationGaster.ActiveBlaster();
     }
+
     IEnumerator SpawnCorrutineBucle()
     {
         Vector3 tempVector = NewPosition();
