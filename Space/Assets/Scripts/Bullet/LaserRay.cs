@@ -51,21 +51,21 @@ public class LaserRay : Projectile
 
     }
 
-    public void Damage(GameObject Objetive)
+    public void Damage(GameObject objetive)
     {
         if (!canDamage) return; 
         switch (type)
         {
             case BulletType.Enemy:
-                if (Objetive.CompareTag("Player")) 
+                if (objetive.CompareTag("Player")) 
                 {
-                    Objetive.GetComponent<IDamage>().ResiveDamage(damage); 
+                    objetive.GetComponent<IDamage>().TakeDamage(damage); 
                 }
                 break;
             case BulletType.Player:
-                if (Objetive.CompareTag("Enemy") || Objetive.gameObject.CompareTag("Meteorite"))
+                if (objetive.CompareTag("Enemy") || objetive.gameObject.CompareTag("Meteorite"))
                 {
-                    Objetive.GetComponent<IDamage>().ResiveDamage(damage);
+                    objetive.GetComponent<IDamage>().TakeDamage(damage);
                 }
                 break;
                 
@@ -102,10 +102,10 @@ public class LaserRay : Projectile
 
         while (elapsedTime < DesactivateTime)
         {
-            // Calcula el valor de interpolaci髇 entre 0 y 1
+            // Calcula el valor de interpolaci贸n entre 0 y 1
             float t = elapsedTime / DesactivateTime;
 
-            // Eval鷄 la curva de animaci髇 para obtener el ancho deseado en este punto
+            // Eval煤a la curva de animaci贸n para obtener el ancho deseado en este punto
             float lerpedWidth = Mathf.Lerp(targetWidth,initialWidth, blendedCurve.Evaluate(t));
 
             // Actualiza los anchos del LineRenderer
@@ -115,10 +115,10 @@ public class LaserRay : Projectile
             // Incrementa el tiempo transcurrido
             elapsedTime += Time.deltaTime;
 
-            yield return null; // Espera un frame antes de la pr髕ima iteraci髇
+            yield return null; // Espera un frame antes de la pr贸xima iteraci贸n
         }
 
-        // Aseg鷕ate de que el ancho final sea exacto
+        // Aseg煤rate de que el ancho final sea exacto
         lineRenderer.startWidth = targetWidth;
         lineRenderer.endWidth = targetWidth;
     }
@@ -131,10 +131,10 @@ public class LaserRay : Projectile
 
         while (elapsedTime < 0.5f)
         {
-            // Calcula el valor de interpolaci髇 entre 0 y 1
+            // Calcula el valor de interpolaci贸n entre 0 y 1
             float t = elapsedTime / 0.5f;
 
-            // Eval鷄 la curva de animaci髇 para obtener el ancho deseado en este punto
+            // Eval煤a la curva de animaci贸n para obtener el ancho deseado en este punto
             float lerpedWidth = Mathf.Lerp(targetWidth, initialWidth, blendedCurve.Evaluate(t));
 
             // Actualiza los anchos del LineRenderer
@@ -144,10 +144,10 @@ public class LaserRay : Projectile
             // Incrementa el tiempo transcurrido
             elapsedTime += Time.deltaTime;
 
-            yield return null; // Espera un frame antes de la pr髕ima iteraci髇
+            yield return null; // Espera un frame antes de la pr贸xima iteraci贸n
         }
         lineAnticipation.gameObject.SetActive(false);
-        // Aseg鷕ate de que el ancho final sea exacto
+        // Aseg煤rate de que el ancho final sea exacto
 
     }
     private void OnDisable()

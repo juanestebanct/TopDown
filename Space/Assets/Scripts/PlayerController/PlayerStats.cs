@@ -19,10 +19,10 @@ public class PlayerStats : MonoBehaviour, IDamage
     [SerializeField] private Image barLive;
     [SerializeField] private TextMeshProUGUI liveText;
 
-    public void ResiveDamage(float Damage)
+    public void TakeDamage(float damage)
     {
         if (!damageable) return; 
-        live -= Damage;
+        live -= damage;
         StartCoroutine(RelockTime());
 
         UpdateBarlive();
@@ -35,10 +35,10 @@ public class PlayerStats : MonoBehaviour, IDamage
     }
     public void MoreLive(int heal)
     {
-        float TempLive = heal + live;
+        float tempLive = heal + live;
 
-        if (TempLive >= maxLive) live = maxLive;
-        else live = TempLive;
+        if(tempLive >= maxLive) live = maxLive;
+        else live = tempLive;
 
         UpdateBarlive();
     }
@@ -64,7 +64,6 @@ public class PlayerStats : MonoBehaviour, IDamage
     }
     public IEnumerator RelockTime()
     {
-        print("se activa temporalmente inmortal");
         damageable = false;
         yield return new WaitForSeconds(timeActiveDamage);
         damageable = true;

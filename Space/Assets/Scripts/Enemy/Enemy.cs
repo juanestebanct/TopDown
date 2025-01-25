@@ -55,7 +55,7 @@ public abstract class Enemy : MonoBehaviour, IDamage
         }
     }
 
-    public virtual void ResiveDamage(float Damage)
+    public virtual void TakeDamage(float damage)
     {
       
     }
@@ -74,9 +74,9 @@ public abstract class Enemy : MonoBehaviour, IDamage
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<IDamage>().ResiveDamage(Damage);
+            collision.gameObject.GetComponent<IDamage>().TakeDamage(Damage);
             AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
-            if (this.GetComponent<Enemy>() is BossChaster) collision.gameObject.GetComponent<PlayerController>().ForcePlacaje(100,transform.up);
+            if (this.GetComponent<Enemy>() is BossChaster) collision.gameObject.GetComponent<PlayerController>().ForceTackling(100,transform.up);
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {

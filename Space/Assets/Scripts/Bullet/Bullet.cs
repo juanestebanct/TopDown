@@ -28,8 +28,7 @@ public class Bullet : Projectile
             case BulletType.Enemy:
                 if (collision.gameObject.CompareTag("Player"))
                 {
-                    print("Recive damage");
-                    collision.gameObject.GetComponent<IDamage>().ResiveDamage(damage);
+                    collision.gameObject.GetComponent<IDamage>().TakeDamage(damage);
                     LostDrilling();
                     return;
                 }
@@ -41,7 +40,7 @@ public class Bullet : Projectile
 
                 if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Meteorite"))
                 {
-                    collision.gameObject.GetComponent<IDamage>().ResiveDamage(damage);
+                    collision.gameObject.GetComponent<IDamage>().TakeDamage(damage);
                     LostDrilling();
                     return;
                 }

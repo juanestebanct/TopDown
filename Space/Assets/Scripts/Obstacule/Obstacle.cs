@@ -22,7 +22,7 @@ public class Obstacle : MonoBehaviour, IDamage
         //Destroy(deathFX, 1f);
         gameObject.SetActive(false);
     }
-    public virtual void ResiveDamage(float Damage)
+    public virtual void TakeDamage(float damage)
     {
 
     }
@@ -30,7 +30,7 @@ public class Obstacle : MonoBehaviour, IDamage
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<IDamage>().ResiveDamage(Damage);
+            collision.gameObject.GetComponent<IDamage>().TakeDamage(Damage);
             gameObject.SetActive(false);
             AudioManager.instance.PlayClip(AudioManager.instance.Explocion);
         }

@@ -41,13 +41,13 @@ public class InvokeEnemy : Enemy
     private Vector3 Configuration()
     {
         Vector2 playerPosition = new Vector2(transform.position.x, transform.position.y);
-        // Radio en el que aparecerá el enemigo
+        // Radio en el que aparecerÃ¡ el enemigo
 
-        // Generar una posición aleatoria en la circunferencia del círculo
+        // Generar una posiciÃ³n aleatoria en la circunferencia del cÃ­rculo
         Vector2 randomSpawnDirection = Random.insideUnitCircle.normalized;
         Vector2 spawnPositionOnCircle = playerPosition + randomSpawnDirection * spawnRadius;
 
-        // Mover la posición más allá del radio
+        // Mover la posiciÃ³n mÃ¡s allÃ¡ del radio
         Vector2 spawnPositionBeyondRadius = spawnPositionOnCircle + randomSpawnDirection * spawnDistanceBeyondRadius;
 
         Vector3 TempPosition = new Vector3(spawnPositionBeyondRadius.x, spawnPositionBeyondRadius.y, 0);
@@ -87,9 +87,9 @@ public class InvokeEnemy : Enemy
         MoventPatron patron = MoventPatron.Invoker;
         if(movent != null) movent.ResetValues(position, patron);
     }
-    public override void ResiveDamage(float Damage)
+    public override void TakeDamage(float damage)
     {
-        Live -= Damage;
+        Live -= damage;
         if (Live > 0) return;
         Score.Instance.GetPoins(Point);
         AudioManager.instance.PlayClip(AudioManager.instance.Explocion);

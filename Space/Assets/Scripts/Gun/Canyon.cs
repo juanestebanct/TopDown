@@ -19,7 +19,6 @@ public class Canyon : ProyectileWeapon
     }
     public override void Shoot()
     {
-        print("Dispara");
         if (!canFire) return;
         StartCoroutine(startShoot());
     }
@@ -45,7 +44,6 @@ public class Canyon : ProyectileWeapon
         bullet.GetComponent<Bullet>().MoreSpeed(rb.velocity.magnitude);
 
         AudioManager.instance.PlayClip(AudioManager.instance.Shoot);
-        print("Weapon 1 "+ bullet);
     }
     private void pooling()
     {

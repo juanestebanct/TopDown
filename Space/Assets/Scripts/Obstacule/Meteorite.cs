@@ -36,7 +36,7 @@ public class Meteorite : Obstacle
             gameObject.SetActive(false);
         }
     }
-    public override void ResiveDamage(float Damage)
+    public override void TakeDamage(float damage)
     {
         print("colliciono con el arma ");
         Score.Instance.GetPoins(Point);

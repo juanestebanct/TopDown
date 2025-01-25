@@ -21,9 +21,9 @@ public class CommunEnemy : Enemy
         MoventPatron patron = patrons;
         movent.ResetValues(position, patron);
     }
-    public override void ResiveDamage(float Damage)
+    public override void TakeDamage(float damage)
     {
-        Live -= Damage;
+        Live -= damage;
         if (Live > 0) return;
         Score.Instance.GetPoins(Point);
         AudioManager.instance.PlayClip(AudioManager.instance.Explocion);

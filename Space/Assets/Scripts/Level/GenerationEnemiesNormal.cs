@@ -29,7 +29,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
     private float currentSpawnTime, spawnTimer, addTimeToNowdifficulty, elapsedTime;
     private bool bossEvent;
 
-    private List<List<GameObject>> AllEnemy = new List<List<GameObject>>();
+    private List<List<GameObject>> allEnemy = new List<List<GameObject>>();
 
     private PlayerController playerController;
     private GenerationGaster generationGaster;
@@ -56,19 +56,20 @@ public class GenerationEnemiesNormal : MonoBehaviour
     /// </summary>
     private void PoolEnemies()
     {
-        List<GameObject> TempListSpawn = new List<GameObject>();
+        List<GameObject> tempListSpawnEnemy = new List<GameObject>();
 
         for (int i = 0; i < 8; i++)
         {
-            TempListSpawn.Add(SpawnEnemy(indexEnemy));
+            tempListSpawnEnemy.Add(SpawnEnemy(indexEnemy));
         }
         indexEnemy++;
         currentSpawnTime = Random.Range(spawnTimeRange.x, spawnTimeRange.y);
-        AllEnemy.Add(TempListSpawn);
+        allEnemy.Add(tempListSpawnEnemy);
 
     }
     private void Update()
     {
+        NextLevel();
         if (bossEvent) return;
         if (spawnTimer >= currentSpawnTime)
         {
@@ -87,46 +88,27 @@ public class GenerationEnemiesNormal : MonoBehaviour
         int minutes = Mathf.FloorToInt((elapsedTime % 3600) / 60);
         int seconds = Mathf.FloorToInt(elapsedTime % 60);
         timer.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        NextLevel();
     }
     /// <summary>
     /// se escoje la lista que va a lansar 
     /// </summary>
     /// <returns></returns>
-    private List<GameObject> choose()
+    private List<GameObject> Choice()
     {
-        int opcion = Random.Range(0, maxTipyEnemy);
-        switch (opcion)
-        {
-            case 0:
-                indexEnemy = 0;
-                return AllEnemy[opcion];
-            case 1:
-                indexEnemy = 1;
-                return AllEnemy[opcion];
-            case 2:
-                indexEnemy = 2;
-                return AllEnemy[opcion];
-            case 3:
-                indexEnemy = 3;
-                return AllEnemy[opcion];
-            case 4:
-                indexEnemy = 4;
-                return AllEnemy[opcion];
-
-            default:
-                return AllEnemy[0];
-        }
+        int indexList = Random.Range(0, maxTipyEnemy);
+        print("optionIndex "+ indexList);
+        indexEnemy = indexList;
+        return allEnemy[indexList];
     }
     private Vector3 NewPosition()
     {
         Vector2 playerPosition = new Vector2(playerController.transform.position.x, playerController.transform.position.y);
-        // Radio en el que aparecerá el enemigo
-        // Generar una posición aleatoria en la circunferencia del círculo
+        // Radio en el que aparecerï¿½ el enemigo
+        // Generar una posiciï¿½n aleatoria en la circunferencia del cï¿½rculo
         Vector2 randomSpawnDirection = Random.insideUnitCircle.normalized;
         Vector2 spawnPositionOnCircle = playerPosition + randomSpawnDirection * spawnRadius;
 
-        // Mover la posición más allá del radio
+        // Mover la posiciï¿½n mï¿½s allï¿½ del radio
         Vector2 spawnPositionBeyondRadius = spawnPositionOnCircle + randomSpawnDirection * spawnDistanceBeyondRadius;
 
         Vector3 newPosition = new Vector3(spawnPositionBeyondRadius.x, spawnPositionBeyondRadius.y, 0);
@@ -137,23 +119,22 @@ public class GenerationEnemiesNormal : MonoBehaviour
         Vector3 newPosition = new Vector3(position.x + Random.Range(MaxPosition.x, MaxPosition.y), position.y, position.z);
         return newPosition;
     }
-    private void SpawnEnemy(List<GameObject> pool, Vector3 Position)
+    private void SpawnEnemy(List<GameObject> pool, Vector3 position)
     {
         GameObject enemy = pool.Find(b => !b.activeSelf);
 
-        if (enemy == null)
+        if (!enemy )
         {
-            int range = Random.Range(0, enemys.Length);
-            enemy = SpawnEnemy(range);
+            enemy = SpawnEnemy(allEnemy.IndexOf(pool));
             pool.Add(enemy);
             enemy.transform.SetParent(transform);
         }
-        if (enemy.GetComponent<Enemy>() is CamperEnemy) Position = ConfigurationPocition(Position);
+        if (enemy.GetComponent<Enemy>() is CamperEnemy) position = ConfigurationPocition(position);
 
-        enemy.transform.position = Position;
+        enemy.transform.position = position;
         enemy.SetActive(true);
         enemy.GetComponent<Enemy>().UpdateLevel(level);
-        enemy.GetComponent<Enemy>().ResetMovent(Position);
+        enemy.GetComponent<Enemy>().ResetMovent(position);
     }
     private void ChangeDifficulty()
     {
@@ -161,6 +142,7 @@ public class GenerationEnemiesNormal : MonoBehaviour
         {
             timeToNowdifficulty += addTimeToNowdifficulty;
             eventIndex++;
+            print("Paso La Dificultad"+eventIndex);
             /*
             2.primero se reduce el tiempo, 3.luego se activa los otros enemigos, 4.luego se activa los blaster y 5.luego mas enemigos por spawn y 
             mas enemigos
@@ -190,7 +172,6 @@ public class GenerationEnemiesNormal : MonoBehaviour
                     MoreEnemy();
                     break;
             }
-            print("Pasa la dificultad");
         }
         if (elapsedTime >= listTimer[indexBoss])
         {
@@ -238,20 +219,19 @@ public class GenerationEnemiesNormal : MonoBehaviour
         Destroy(spawnParticle, 2f);
         yield return new WaitForSeconds(timeBeforeSpawn);
         
-        SpawnEnemy(choose(), tempVector);
-        //SpawnEnemys(choose(), tempVector);
+        SpawnEnemy(Choice(), tempVector);
     }
     IEnumerator SpawnBossSpawn()
     {
-        
         generationGaster.DesactiveBlaster();
         indexBoss++;
-        var spawnParticle = Instantiate(ParticuleSpawn, Vector3.zero, transform.rotation);
+        Vector3 newVectorBoss = NewPosition();
+        var spawnParticle = Instantiate(ParticuleSpawn, newVectorBoss, transform.rotation);
         spawnParticle.GetComponent<ParticleSystem>().Play();
         Destroy(spawnParticle, 2f);
         yield return new WaitForSeconds(timeBeforeSpawn);
 
-        GameObject bossTemp = Instantiate(boss[indexBoss], Vector3.zero, Quaternion.identity);
+        GameObject bossTemp = Instantiate(boss[indexBoss], newVectorBoss, Quaternion.identity);
         bossTemp.GetComponent<BossChaster>().Ref(this);
         bossEvent = true;
     }

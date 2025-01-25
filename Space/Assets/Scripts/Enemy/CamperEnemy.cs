@@ -17,9 +17,9 @@ public class CamperEnemy : Enemy
         movent.ResetValues(position, patron);
     }
 
-    public override void ResiveDamage(float Damage)
+    public override void TakeDamage(float damage)
     {
-        Live -= Damage;
+        Live -= damage;
         print("live" + Live);
         if (Live > 0) return;
         Score.Instance.GetPoins(Point);

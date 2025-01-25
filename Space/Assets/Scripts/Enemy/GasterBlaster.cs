@@ -37,7 +37,7 @@ public class GasterBlaster : Enemy
         movent.ResetValues(position, patron);
     }
 
-    public override void ResiveDamage(float Damage)
+    public override void TakeDamage(float damage)
     {
         Score.Instance.GetPoins(Point);
         AudioManager.instance.PlayClip(AudioManager.instance.Explocion);

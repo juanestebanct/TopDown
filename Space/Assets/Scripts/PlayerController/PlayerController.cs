@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float brakeSpeed;
     [SerializeField] private ProyectileWeapon weapon;
     [SerializeField] private GameObject active;
+    
+    [SerializeField] private PlayerAnimator _animatorController;
 
     private void Awake()
     {
@@ -99,6 +101,7 @@ public class PlayerController : MonoBehaviour
         if (direction.y <= -0.2f || direction.y >= 0.2f || direction.x <= -0.2f || direction.x >= 0.2f)
         {
             poinToShoot.transform.forward = direction;
+            if (_animatorController != null) _animatorController.ViewForward(direction);
             Fire();
         }
     }
@@ -127,34 +130,35 @@ public class PlayerController : MonoBehaviour
         RayGun.gameObject.SetActive(true);
         RayGun.DesactivarObjeto();
     }
-    public void ChangeWeapon(ProyectileWeapon NewWeapon)
+    public void ChangeWeapon(ProyectileWeapon newWeapon)
     {
-        weapon = NewWeapon;
+        weapon = newWeapon;
     }
-    public void AplicationUpdate(TypeUpdate typeUpdate,int Update)
+    public void AplicationUpdate(TypeUpdate typeUpdate,int update)
     {
         StartCoroutine(playerStats.RelockTime());
 
         switch (typeUpdate)
         {
             case TypeUpdate.Live:
-                playerStats.UpdateMoreLive(Update);
+                playerStats.UpdateMoreLive(update);
                 break;
             case TypeUpdate.Speed:
-                AplicateSpeed(Update);
+                AplicateSpeed(update);
                 break;
-            case TypeUpdate.Moreshoot:
-                weapon.AddShoot(Update);
+            case TypeUpdate.Moreshoot: 
+                if(_animatorController) _animatorController.ChangeStateWeapon();
+                weapon.AddShoot(update);
                 break;
             case TypeUpdate.Drilling:
-                weapon.AddDilling(Update);
+                weapon.AddDilling(update);
                 break;
             case TypeUpdate.Cooldown:
                 break;
         }
     }
 
-    public void ForcePlacaje(float force, Vector2 direction)
+    public void ForceTackling(float force, Vector2 direction)
     {
         rb.AddForce(-direction * (force * 10),ForceMode2D.Impulse);
     }

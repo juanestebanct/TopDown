@@ -36,7 +36,7 @@ public class BulletShootGun : Projectile
                 if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Meteorite"))
                 {
                     print(collision);
-                    collision.gameObject.GetComponent<IDamage>().ResiveDamage(damage);
+                    collision.gameObject.GetComponent<IDamage>().TakeDamage(damage);
                     LostDrilling();
                     return;
                 }
